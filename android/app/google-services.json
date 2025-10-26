@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "174313365003",
+    "project_id": "evently-2d1c7",
+    "storage_bucket": "evently-2d1c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174313365003:android:ce962da0574670e3ddf10e",
+        "android_client_info": {
+          "package_name": "com.example.evently"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174313365003-sjv7qftf183dvekm492mbcq8pfcrc1iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF4hWz0l60GmLA7dGVElAOFTKS9r3RQe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174313365003-enllu8k1gsr6iebnm2niikg7k157mjvv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "174313365003-iqd5r42j10joi0errouk9h188qru7sua.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todoEvently"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174313365003:android:7a3446d5979a643cddf10e",
+        "android_client_info": {
+          "package_name": "com.example.todo_evently"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174313365003-sjv7qftf183dvekm492mbcq8pfcrc1iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF4hWz0l60GmLA7dGVElAOFTKS9r3RQe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174313365003-enllu8k1gsr6iebnm2niikg7k157mjvv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "174313365003-iqd5r42j10joi0errouk9h188qru7sua.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.todoEvently"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
