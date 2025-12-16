@@ -4,19 +4,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:evently/Core/appTheaming.dart';
-import 'package:evently/Provider/themeProvider.dart';
-import 'package:evently/Screens/Authentication%20Screens/Forget%20Password%20Screen/forget_password_screen.dart';
-import 'package:evently/Screens/Introduction%20Screen/introduction_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:evently/Screens/Onboarding%20Screen/onboarding_screen.dart';
-import 'package:evently/Screens/Splash%20Screen/splash_screen.dart';
-
+import 'Core/Provider/language_provider.dart';
+import 'Core/Provider/themeProvider.dart';
 import 'Core/routes/routes.dart';
-import 'Screens/Edit event Screen/edit_event.dart';
-import 'Screens/Home Screen/home_Screen.dart';
-import 'Screens/Create Event Screen/create_event.dart';
-import 'Screens/Authentication Screens/Login Screen/Screen/login_screen.dart';
-import 'Screens/Authentication Screens/Register Screen/register_screen.dart';
+import 'Features/Authentication Screens/Presentation/Screens/Forget Password Screen/forget_password_screen.dart';
+import 'Features/Authentication Screens/Presentation/Screens/Login Screen/Login View Model/login_screen.dart';
+import 'Features/Authentication Screens/Presentation/Screens/Register Screen/register_screen.dart';
+import 'Features/Create Event Screen/create_event.dart';
+import 'Features/Edit event Screen/edit_event.dart';
+import 'Features/Home Screen/persentation/home_Screen.dart';
+import 'Features/Introduction Screen/introduction_screen.dart';
+import 'Features/Onboarding Screen/onboarding_screen.dart';
+import 'Features/Splash Screen/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -31,8 +31,16 @@ void main() async{
           supportedLocales: [Locale('en'), Locale('ar')],
           path: 'assets/translations', // <-- change the path of the translation files
           fallbackLocale: Locale('en'),
-          child: ChangeNotifierProvider(
-            create: (context)=>ThemeProvider(),
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (_) => LanguageProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (_) => ThemeProvider(),
+              ),
+            ],
+
             child: MyApp()
           )
       )
@@ -64,15 +72,16 @@ class MyApp extends StatelessWidget {
           routes: {
             Routes.splashScreenRouteName : (context) => SplashScreen(),
             Routes.introductionScreenRouteName: (context) => IntroScreen(),
-            Routes.loginScreenRouteName: (context) => LoginScreen(),
-            Routes.registerScreenRouteName: (context) => RegisterScreen(),
-            Routes.homeScreenRouteName: (context) => HomeScreen(),
-            Routes.onboardingScreenRouteName: (context) => OnboardingScreen(),
-            Routes.createEventScreenRouteName: (context) => CreateEventScreen(),
-            Routes.editEventScreenRouteName: (context) => EditEventScreen(),
-            Routes.forgetPasswordScreenRouteName : (context) => ForgetPasswordScreen()
+            Routes.loginScreenRouteName : (context) => LoginScreen(),
+            Routes.registerScreenRouteName : (context) => RegisterScreen(),
+            Routes.homeScreenRouteName : (context) => HomeScreen(),
+            Routes.onboardingScreenRouteName : (context) => OnboardingScreen(),
+            Routes.createEventScreenRouteName : (context) => CreateEventScreen(),
+            Routes.editEventScreenRouteName : (context) => EditEventScreen(),
+            Routes.forgetPasswordScreenRouteName : (context) => ForgetPasswordScreen(),
+
           },
-          initialRoute: Routes.loginScreenRouteName,
+          initialRoute:  Routes.homeScreenRouteName,
         );
       },
     );

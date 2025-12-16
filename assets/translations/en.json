@@ -29,8 +29,13 @@
   "screenshots_text": "ScreenShots",
   "cast_text": "Cast",
   "genres_text": "Geners",
-  "discription_text": "Description",
+  "description_text": "Description",
   "similar_text" : "Similar",
-  "search_for_event_text" : "Search for Event"
+  "search_for_event_text" : "Search for Event",
+  "welcome_back_text": "Welcome Back ✨",
+  "username_text" : "User name",
+  "location_text": "Location",
+  "language_en": "EN",
+  "language_ar": "AR"
 
 }

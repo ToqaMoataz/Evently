@@ -28,6 +28,11 @@
   "screenshots_text": "لقطات الشاشة",
   "cast_text": "الممثلون",
   "genres_text": "الأنواع",
-  "discription_text": "الوصف",
-  "similar_text": "مشابه"
+  "description_text": "الوصف",
+  "similar_text": "مشابه",
+  "welcome_back_text": "مرحبا بعودتك ✨",
+  "username_text" : "اسم المستخدم",
+  "location_text": "الموقع",
+  "language_en": "EN",
+  "language_ar": "ع"
 }

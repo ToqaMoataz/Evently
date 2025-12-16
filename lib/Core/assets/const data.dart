@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+enum RequestState { init, loading, success, error }
+
 class AppData{
-  static const List<String> event = [
+  static const List<String> events = [
     "All",
     "Book Club",
     "Sport",
@@ -14,6 +16,7 @@ class AppData{
     "Gaming",
     "Exhibition"
   ];
+
 
   static const List<IconData> eventIcon = [
     Icons.assistant_navigation,
