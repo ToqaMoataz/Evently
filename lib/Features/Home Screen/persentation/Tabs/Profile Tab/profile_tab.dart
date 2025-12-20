@@ -4,24 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class ProfileTab extends StatefulWidget {
-  ProfileTab( {super.key});
-  // late ThemeProvider themeProvider;
+class ProfileTab extends StatelessWidget {
+  const ProfileTab({super.key});
 
-  @override
-  State<ProfileTab> createState() => _ProfileTabState();
-}
-
-class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 175.h,
-        shape:RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(64.r)
-          )
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(64.r)),
         ),
         backgroundColor: MainColors.getMainColor(),
         title: Padding(
@@ -34,24 +26,24 @@ class _ProfileTabState extends State<ProfileTab> {
                 width: 124.w,
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
-                    topLeft:Radius.circular(24.r) ,
+                    topLeft: Radius.circular(24.r),
                     topRight: Radius.circular(1000.r),
                     bottomLeft: Radius.circular(1000.r),
                     bottomRight: Radius.circular(1000.r),
                   ),
-                  child: Image(image: AssetImage("assets/images/user.png")),
+                  child: Image.network(
+                    "https://res.cloudinary.com/dnamo71gs/image/upload/v1765987083/main-sample.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              SizedBox(width: 16.w,),
+              SizedBox(width: 16.w),
               // User name and mail
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "John Safwat",
-                      style: AppTextStyles.largeTitleStyle()
-                    ),
+                    Text("John Safwat", style: AppTextStyles.largeTitleStyle()),
                     SizedBox(height: 10.h),
                     Text(
                       "johnsafwat.route@gmail.com",
@@ -61,17 +53,12 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                   ],
                 ),
-              )
-
+              ),
             ],
           ),
         ),
       ),
-      body: Column(
-        children: [
-
-        ],
-      ),
+      body: Column(children: []),
     );
   }
 }
