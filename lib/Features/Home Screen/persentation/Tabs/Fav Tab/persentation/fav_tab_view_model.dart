@@ -28,7 +28,6 @@ class FavViewModel extends Cubit<FavTabState> {
     emit(state.copyWith(
       getFavEventsRequestState: RequestState.loading,
     ));
-
     _favEventsSub?.cancel();
     _favEventsSub = favEventsUseCase.call().listen(
           (events) {

@@ -99,4 +99,24 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle cardsTextStyle({Color? color}){
+    return GoogleFonts.inter(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w700,
+        height: 1.4,
+        letterSpacing: -0.3,
+        color: MainColors.getMainColor()
+    );
+  }
+
+  static TextStyle simpleHeadLineTextStyle(Color color){
+    return GoogleFonts.inter(
+      color: color,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500
+    );
+  }
+
+
+
 }

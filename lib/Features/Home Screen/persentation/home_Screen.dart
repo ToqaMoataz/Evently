@@ -1,7 +1,4 @@
 
-import 'package:evently/Features/Home%20Screen/data/Repository%20Implementation/repo_impl.dart';
-import 'package:evently/Features/Home%20Screen/data/datasource/home_screen_ds.dart';
-import 'package:evently/Features/Home%20Screen/domain/Usecase/update_fave.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../Core/routes/routes.dart';
 import 'Tabs/Fav Tab/persentation/fav_tab.dart';
 import 'Tabs/Home Tab/persentation/home_tab.dart';
-import 'Tabs/Map Tab/map_tab.dart';
-import 'Tabs/Profile Tab/profile_tab.dart';
+import 'Tabs/Map Tab/persentation/map_tab.dart';
+import 'Tabs/Profile Tab/persentation/profile_tab.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

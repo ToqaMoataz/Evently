@@ -24,4 +24,12 @@ abstract class MainColors {
   static Color getLightColor() {
     return const Color(0XFFF2FEFF);
   }
+
+  static Color getRedColor() {
+    return const Color(0XFFFF5659);
+  }
+
+  static Color getGrayColor() {
+    return const Color(0XFF7B7B7B);
+  }
 }

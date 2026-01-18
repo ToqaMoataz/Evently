@@ -1,3 +1,5 @@
+import 'package:evently/Core/Cloudinary/cloudinary_constants.dart';
+
 class UserModel {
   String id;
   final String name;
@@ -11,8 +13,8 @@ class UserModel {
     required this.name,
     required this.email,
     required this.phone,
-    this.location = "Your Location",
-    this.imageUrl = "",
+    this.location = "My Location",
+    this.imageUrl = CloudConstants.defaultUserImage,
   });
 
   Map<String, dynamic> toJson() {
@@ -32,8 +34,9 @@ class UserModel {
       name: json["name"] ?? "",
       email: json["email"] ?? "",
       phone: json["phone"] ?? "",
-      location: json["location"] ?? "Your Location",
-      imageUrl: json["imageUrl"] ?? "",
+      location: json["location"] ?? "My Location",
+      imageUrl:
+      json["imageUrl"] ?? CloudConstants.defaultUserImage,
     );
   }
 }

@@ -2,20 +2,22 @@ import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/Core/Firebase/firebase_manager.dart';
+import 'package:evently/Core/Shared%20Prefrences/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../Core/Models/user_model.dart';
 
 abstract class AuthDs{
-  Future<void> addUser(UserModel user);
+  Future<void> _addUser(UserModel user);
   Future<void> signup({required UserModel user, required String password});
   Future<void> signIn({required String email,required String password});
   Future<void> resetPass({required String email});
 }
 
 class AuthDsImp extends AuthDs{
+  PreferencesHelper helper=PreferencesHelper();
   @override
-  Future<void> addUser(UserModel user) async {
+  Future<void> _addUser(UserModel user) async {
     await FirebaseManager.usersCollection()
         .doc(user.id)
         .set(user);
@@ -30,7 +32,7 @@ class AuthDsImp extends AuthDs{
       );
       await credential.user!.sendEmailVerification();
       user.id=credential.user!.uid;
-      await addUser(user);
+      await _addUser(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -38,7 +40,6 @@ class AuthDsImp extends AuthDs{
         print('The account already exists for that email.');
       }
       rethrow;
-      // onFail(e.code);
     } catch (e) {
       print(e);
       rethrow;
@@ -52,6 +53,7 @@ class AuthDsImp extends AuthDs{
           email: email,
           password: password
       );
+      PreferencesHelper.setActiveUser(credential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -59,11 +61,10 @@ class AuthDsImp extends AuthDs{
         print('Wrong password provided for that user.');
       }
       rethrow;
-      // onFail(e.code);
     }
   }
 
-  Future<bool> checkEmail(String email) async {
+  Future<bool> _checkEmail(String email) async {
     final snapshot = await FirebaseManager.usersCollection()
         .where('email', isEqualTo: email).limit(1).get();
     if (snapshot.docs.isNotEmpty) {
@@ -75,7 +76,7 @@ class AuthDsImp extends AuthDs{
   @override
   Future<void> resetPass({required String email}) async {
     try {
-      bool exists = await checkEmail(email);
+      bool exists = await _checkEmail(email);
       if (!exists) {
         throw FirebaseAuthException(
           code: 'user-not-found',

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/Provider/language_setter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,18 +11,12 @@ import "dart:ui" as ui;
 
 
 
-class IntroScreen extends StatefulWidget {
-  static const String routeName="/introduction";
+class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
 
   @override
-  State<IntroScreen> createState() => _IntroScreenState();
-}
-
-class _IntroScreenState extends State<IntroScreen> {
-  @override
   Widget build(BuildContext context) {
-    var provider=Provider.of<ThemeProvider>(context);
+    var themeProvider=Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Image(image: AssetImage(AppImages.eventlyHeaderOnboarding)),
@@ -33,7 +28,7 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image(image: AssetImage("assets/images/onboarding.png")),
+              Image(image: AssetImage(AppImages.onboarding)),
               SizedBox(height: 28,),
               Text(
                   "onboarding_introduction_title".tr(),
@@ -43,7 +38,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 28.0),
                 child: Text(
                     "onboarding_introduction_subtitle".tr(),
-                    style:AppTextStyles.introBodyStyle(provider)
+                    style:AppTextStyles.introBodyStyle(themeProvider)
                 ),
               ),
               //Language Row
@@ -78,8 +73,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         children: [
                           InkWell(
                             onTap: () {
-                              context.setLocale(Locale('en'));
-                              setState(() {});
+                              LanguageChanger.changeLan(context,lang: "language_en");
                             },
                             borderRadius: BorderRadius.circular(100),
                             child: Container(
@@ -95,7 +89,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               ),
                               child: ClipOval(
                                 child: Image.asset(
-                                  "assets/images/LR.png",
+                                  AppImages.lr,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -103,10 +97,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              context.setLocale(Locale('ar'));
-                              setState(() {
-
-                              });
+                              LanguageChanger.changeLan(context,lang: "language_ar");
                             },
                             borderRadius: BorderRadius.circular(100),
                             child: Container(
@@ -120,7 +111,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               ),
                               child: ClipOval(
                                 child: Image.asset(
-                                  "assets/images/EG.png",
+                                  AppImages.eg,
                                   fit: BoxFit.cover,
                                   width: 22,
                                   height: 22,
@@ -167,48 +158,48 @@ class _IntroScreenState extends State<IntroScreen> {
                         children: [
                           InkWell(
                             onTap: () {
-                              provider.changeTheme(ThemeMode.light);
+                              themeProvider.changeTheme(ThemeMode.light);
                             },
                             borderRadius: BorderRadius.circular(100),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: (provider.themeMode==ThemeMode.light) ?  Color(0XFF5669FF) :Colors.transparent,
+                                color: (themeProvider.themeMode==ThemeMode.light) ?  Color(0XFF5669FF) :Colors.transparent,
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: Color(0XFF5669FF),
-                                  style: (provider.themeMode==ThemeMode.light) ? BorderStyle.solid : BorderStyle.none,
+                                  style: (themeProvider.themeMode==ThemeMode.light) ? BorderStyle.solid : BorderStyle.none,
                                   width: 3,
                                 ),
                               ),
                               child: ClipOval(
                                 child: Image.asset(
-                                  "assets/images/Sun.png",
+                                 AppImages.sun,
                                   fit: BoxFit.cover,
-                                  color: (provider.themeMode==ThemeMode.light) ? Color(0XFFF2FEFF) : Color(0XFF5669FF),
+                                  color: (themeProvider.themeMode==ThemeMode.light) ? Color(0XFFF2FEFF) : Color(0XFF5669FF),
                                 ),
                               ),
                             ),
                           ),
                           InkWell(
                             onTap: () {
-                              provider.changeTheme(ThemeMode.dark);
+                              themeProvider.changeTheme(ThemeMode.dark);
                             },
                             borderRadius: BorderRadius.circular(100),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: (provider.themeMode==ThemeMode.dark) ?  Color(0XFF5669FF) : Colors.transparent,
+                                color: (themeProvider.themeMode==ThemeMode.dark) ?  Color(0XFF5669FF) : Colors.transparent,
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: Color(0XFF5669FF),
-                                  style: (provider.themeMode==ThemeMode.dark) ? BorderStyle.solid : BorderStyle.none,
+                                  style: (themeProvider.themeMode==ThemeMode.dark) ? BorderStyle.solid : BorderStyle.none,
                                   width: 3,
                                 ),
                               ),
                               child: ClipOval(
                                 child: Image.asset(
-                                  "assets/images/Moon.png",
+                                  AppImages.moon,
                                   fit: BoxFit.cover,
-                                  color: (provider.themeMode==ThemeMode.dark) ? Color(0XFFF2FEFF) : Color(0XFF5669FF),
+                                  color: (themeProvider.themeMode==ThemeMode.dark) ? Color(0XFFF2FEFF) : Color(0XFF5669FF),
                                 ),
                               ),
                             ),
@@ -239,5 +230,4 @@ class _IntroScreenState extends State<IntroScreen> {
       ),
     );
   }
-
 }

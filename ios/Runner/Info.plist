@@ -45,5 +45,16 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Location permission when app is in use -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We use your location to accurately select the event location and improve your experience.</string>
+
+    <!-- Deprecated (for older iOS versions only) -->
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>We use your location to help determine the event location and provide a better experience.</string>
+
+    <!-- Location permission always + when in use -->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We use your location to accurately determine the event location and improve the overall user experience.</string>
 </dict>
 </plist>

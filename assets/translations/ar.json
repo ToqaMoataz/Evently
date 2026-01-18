@@ -1,5 +1,6 @@
 {
   "language_text": "اللغة",
+  "theme_text": "المظهر",
   "name_text": "الاسم",
   "email_text": "البريد الإلكتروني",
   "mobile_number_text": "رقم الهاتف",
@@ -33,6 +34,13 @@
   "welcome_back_text": "مرحبا بعودتك ✨",
   "username_text" : "اسم المستخدم",
   "location_text": "الموقع",
-  "language_en": "EN",
-  "language_ar": "ع"
+  "language_ar": "العربية",
+  "language_en": "الإنجليزية",
+
+  "language_ar_abbr": "ع",
+  "language_en_abbr": "EN",
+
+  "theme_light": "فاتح",
+  "theme_dark": "داكن"
 }
+

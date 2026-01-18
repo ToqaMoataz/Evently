@@ -31,7 +31,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
 
       _eventSub = eventsUseCase.call(category).listen(
             (events) {
-          if (isClosed) return; // ✅ مهم
+          if (isClosed) return;
           emit(state.copyWith(
             getEventsRequestState: RequestState.success,
             events: events,

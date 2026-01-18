@@ -1,3 +1,5 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class EventModel {
   String id;
   String eventCategory;
@@ -8,23 +10,22 @@ class EventModel {
   String location;
   bool isFav;
   String userId;
+  LatLng eventPosition;
 
   EventModel({
-    this.id = '', // optional, will be set when saving to Firestore
+    this.id = '',
     required this.eventCategory,
     required this.title,
     required this.description,
     required this.date,
     required this.time,
     required this.location,
-    this.isFav = false, // default value
-    required this.userId, // must be passed in
+    this.isFav = false,
+    required this.userId,
+    required this.eventPosition,
   });
 
-  factory EventModel.fromJson(
-      Map<String, dynamic> json,
-      String docId,
-      ) {
+  factory EventModel.fromJson(Map<String, dynamic> json, String docId) {
     return EventModel(
       id: docId,
       eventCategory: json['eventCategory'],
@@ -35,6 +36,10 @@ class EventModel {
       location: json['location'],
       isFav: json['isFav'] ?? false,
       userId: json['userId'],
+      eventPosition: LatLng(
+        (json['eventPosition']['latitude'] as num).toDouble(),
+        (json['eventPosition']['longitude'] as num).toDouble(),
+      ),
     );
   }
 
@@ -49,6 +54,10 @@ class EventModel {
       'location': location,
       'isFav': isFav,
       'userId': userId,
+      'eventPosition': {
+        'latitude': eventPosition.latitude,
+        'longitude': eventPosition.longitude,
+      },
     };
   }
 }

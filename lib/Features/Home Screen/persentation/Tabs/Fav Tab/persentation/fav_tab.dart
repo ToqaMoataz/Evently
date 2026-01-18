@@ -36,7 +36,7 @@ class _FavTabState extends State<FavTab> {
       favEventsUseCase: GetFavEventsUC(FavRepoImp(FaveTabDSImp())),
       updateUseCase: UpdateFavUC(HomeScreenRepoImp(HomeScreenDSImp())),
     );
-
+    viewModel.getFavEvents();
     _searchController.addListener(() {
       final text = _searchController.text.trim();
       if (text.isEmpty) {
@@ -73,7 +73,7 @@ class _FavTabState extends State<FavTab> {
                       color: MainColors.getMainColor(),
                     ),
                     (state.events.isEmpty)
-                        ? Align(alignment:Alignment.center,child: Text("No events"))
+                        ? Align(alignment:Alignment.center,child: Text("no_events_text".tr()))
                         : Expanded(
                           child: ListView.separated(
                             separatorBuilder: (context, index) {

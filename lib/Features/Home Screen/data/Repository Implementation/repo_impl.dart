@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evently/Core/Models/event_model.dart';
 import 'package:evently/Core/Models/user_model.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/data/Data%20source/home_tab_ds.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/domain/Repository/home_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geocoding_platform_interface/src/models/placemark.dart';
+import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 
 import '../../domain/Repository/home_screen_repo.dart';
 import '../datasource/home_screen_ds.dart';
@@ -28,10 +26,12 @@ class HomeScreenRepoImp extends HomeScreenRepo{
     try {
       await ds.toggleFavorite(eventId, currentValue);
     } on FirebaseException catch (e) {
-      rethrow;
+      rethrow ;
     } catch (e) {
       rethrow;
     }
   }
+
+
 
 }

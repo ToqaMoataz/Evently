@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/Core/Provider/language_provider.dart';
+import 'package:evently/Core/Provider/language_setter.dart';
 import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 import 'package:evently/Features/Home%20Screen/domain/Usecase/get_curr_user_usecas.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Components/event_card.dart';
@@ -37,7 +37,6 @@ class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
-    var lanProvider = Provider.of<LanguageProvider>(context);
     return BlocProvider(
       create:
           (context) =>
@@ -97,7 +96,7 @@ class _HomeTabState extends State<HomeTab> {
                           SizedBox(width: 3.w),
                           GestureDetector(
                             onTap: () {
-                              lanProvider.changeLan(context);
+                              LanguageChanger.changeLan(context);
                             },
                             child: Container(
                               padding: EdgeInsets.all(8),
@@ -109,8 +108,8 @@ class _HomeTabState extends State<HomeTab> {
                               ),
                               child: Text(
                                 (context.locale.toString() == 'en')
-                                    ? "language_en".tr()
-                                    : "language_ar".tr(),
+                                    ? "language_en_abbr".tr()
+                                    : "language_ar_abbr".tr(),
                                 style: GoogleFonts.inter(
                                   color:
                                       (isLightTheme)
