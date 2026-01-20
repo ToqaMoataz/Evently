@@ -1,11 +1,12 @@
 
+import 'package:evently/Core/App%20Colors/main_colors.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../Core/routes/routes.dart';
+import '../../../Core/App Routing/routes.dart';
 import 'Tabs/Fav Tab/persentation/fav_tab.dart';
 import 'Tabs/Home Tab/persentation/home_tab.dart';
 import 'Tabs/Map Tab/persentation/map_tab.dart';
@@ -24,16 +25,16 @@ class HomeScreen extends StatelessWidget {
                 floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
                 floatingActionButton: FloatingActionButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, Routes.createEventScreenRouteName);
+                    Navigator.pushNamed(context, Routes.formEventScreenRouteName);
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(75.r),
                       side: BorderSide(
-                        color:Color(0XFFF2FEFF),
+                        color:MainColors.getLightColor(),
                         width: 5,
                       )
                   ),
-                  child: Icon(Icons.add,color:Color(0XFFF2FEFF),size: 30,),
+                  child: Icon(Icons.add,color:MainColors.getLightColor(),size: 30,),
                 ),
                 bottomNavigationBar: BottomNavigationBar(
                     currentIndex: state.currentTabIndex,
@@ -43,23 +44,23 @@ class HomeScreen extends StatelessWidget {
                           .setCurrTab(value);
                     },
                     selectedLabelStyle: GoogleFonts.inter(
-                      color: Color(0XFFF2FEFF),
+                      color: MainColors.getLightColor(),
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w700,
                       height: 1,
                       letterSpacing: 0,
                     ),
                     type: BottomNavigationBarType.fixed,
-                    unselectedItemColor:Color(0XFF5669FF) ,
-                    selectedItemColor:Color(0XFFF2FEFF),
+                    unselectedItemColor:MainColors.getMainColor(),
+                    selectedItemColor:MainColors.getLightColor(),
                     iconSize: 24,
                     showSelectedLabels: true,
                     showUnselectedLabels: false,
                     items: [
-                      BottomNavigationBarItem(icon: Icon(Icons.home_filled,color: Color(0XFFF2FEFF)),label: "Home"),
-                      BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined,color: Color(0XFFF2FEFF)),label: "Map"),
-                      BottomNavigationBarItem(icon: Icon(Icons.favorite_border,color: Color(0XFFF2FEFF)),label: "Love"),
-                      BottomNavigationBarItem(icon: Icon(Icons.person,color: Color(0XFFF2FEFF)),label: "Profile"),
+                      BottomNavigationBarItem(icon: Icon(Icons.home_filled,color: MainColors.getLightColor()),label: "Home"),
+                      BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined,color: MainColors.getLightColor()),label: "Map"),
+                      BottomNavigationBarItem(icon: Icon(Icons.favorite_border,color: MainColors.getLightColor()),label: "Love"),
+                      BottomNavigationBarItem(icon: Icon(Icons.person,color: MainColors.getLightColor()),label: "Profile"),
                     ]),
                 body: returnTab(state.currentTabIndex)
             );

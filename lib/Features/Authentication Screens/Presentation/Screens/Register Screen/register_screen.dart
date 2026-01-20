@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/App%20Widgets/app_widgets.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 import 'package:evently/Features/Authentication%20Screens/Domain/Usecases/sign%20up%20usecase/signup_usecse.dart';
 import 'package:evently/Features/Authentication%20Screens/Presentation/Screens/Register%20Screen/register_view_model.dart';
 import 'package:evently/Features/Authentication%20Screens/Presentation/Screens/Register%20Screen/states.dart';
@@ -11,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:evently/Core/assets/images.dart';
-import 'package:evently/Core/routes/routes.dart';
-
+import '../../../../../Core/App Routing/routes.dart';
+import '../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../Core/Firebase/firebase_manager.dart';
 import '../../../../../Core/Models/user_model.dart';
 import '../../../../../Core/assets/const data.dart';

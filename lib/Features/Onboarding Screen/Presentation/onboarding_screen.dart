@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:evently/Core/Color/main_colors.dart';
-import '../../Core/Provider/themeProvider.dart';
-import '../../Core/assets/images.dart';
-import '../../Core/routes/routes.dart';
-import 'onboarding_pages.dart';
+
+import '../../../Core/App Colors/main_colors.dart';
+import '../../../Core/App Routing/routes.dart';
+import '../../../Core/Provider/themeProvider.dart';
+import '../../../Core/assets/images.dart';
+import '../data/onboarding_pages.dart';
 
 
 class OnboardingScreen extends StatelessWidget {

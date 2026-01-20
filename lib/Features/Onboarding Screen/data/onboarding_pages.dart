@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 
-import '../../Core/Provider/themeProvider.dart';
-import '../../Core/assets/images.dart';
+import '../../../Core/App Text Styles/app_textstyles.dart';
+import '../../../Core/Provider/themeProvider.dart';
+import '../../../Core/assets/images.dart';
 
 class OnboardingPages {
   static List<PageViewModel> getPages(ThemeProvider themeProvider) {

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
-import 'package:evently/Core/routes/routes.dart';
+import 'package:evently/Core/App%20Colors/main_colors.dart';
 import 'package:evently/Features/Authentication%20Screens/Data/Repository%20Implementation/repo_impl.dart';
 import 'package:evently/Features/Authentication%20Screens/Data/data%20source/auth_ds.dart';
 import 'package:evently/Features/Authentication%20Screens/Domain/Usecases/forget%20password%20usecase/forget_password_usecse.dart';
@@ -11,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:evently/Core/assets/images.dart';
+import '../../../../../Core/App Routing/routes.dart';
+import '../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../Core/App Widgets/app_widgets.dart';
 import '../../../../../Core/assets/const data.dart';
 
@@ -53,7 +54,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         children: [
                           Image(image: AssetImage(AppImages.forgetPassPic)),
                           TextFieldCard(
-                            hintText: "Email", icon: Icons.email, textController: _emailController,color:Color(0XFF7B7B7B),
+                            hintText: "Email", icon: Icons.email, textController: _emailController,color:MainColors.getGrayColor(),
                           ),
                           SizedBox(height: 24.h,),
                           GestureDetector(
@@ -65,7 +66,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 16),
                                 decoration: BoxDecoration(
-                                    color: Color(0XFF5669FF),
+                                    color: MainColors.getMainColor(),
                                     borderRadius: BorderRadius.circular(16.r)
                                 ),
                                 child: Text(

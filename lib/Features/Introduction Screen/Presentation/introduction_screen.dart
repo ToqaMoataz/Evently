@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/App%20Colors/main_colors.dart';
 import 'package:evently/Core/Provider/language_setter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 import 'package:evently/Core/assets/images.dart';
-import '../../Core/Provider/themeProvider.dart';
-import '../../Core/routes/routes.dart';
+import '../../../Core/App Routing/routes.dart';
+import '../../../Core/App Text Styles/app_textstyles.dart';
+import '../../../Core/Provider/themeProvider.dart';
 import "dart:ui" as ui;
 
 
@@ -48,7 +50,7 @@ class IntroScreen extends StatelessWidget {
                   Text(
                     "language_text".tr(),
                     style: GoogleFonts.inter(
-                      color: Color(0XFF5669FF),
+                      color: MainColors.getMainColor(),
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       fontStyle: FontStyle.normal,
@@ -64,9 +66,9 @@ class IntroScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 2,
-                          color: Color(0XFF5669FF),
+                          color: MainColors.getMainColor(),
                         ),
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +84,7 @@ class IntroScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   width: 3,
                                   style: (context.locale.toString()=='en') ? BorderStyle.solid : BorderStyle.none,
                                 ),
@@ -99,12 +101,12 @@ class IntroScreen extends StatelessWidget {
                             onTap: () {
                               LanguageChanger.changeLan(context,lang: "language_ar");
                             },
-                            borderRadius: BorderRadius.circular(100),
+                            borderRadius: BorderRadius.circular(100.r),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   width: 3,
                                   style: (context.locale.toString()=='ar') ? BorderStyle.solid : BorderStyle.none,
                                 ),
@@ -133,7 +135,7 @@ class IntroScreen extends StatelessWidget {
                   Text(
                     "theme_text".tr(),
                     style: GoogleFonts.inter(
-                      color: Color(0XFF5669FF),
+                      color: MainColors.getMainColor(),
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       fontStyle: FontStyle.normal,
@@ -149,7 +151,7 @@ class IntroScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 2,
-                          color: Color(0XFF5669FF),
+                          color: MainColors.getMainColor(),
                         ),
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -163,10 +165,10 @@ class IntroScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(100),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: (themeProvider.themeMode==ThemeMode.light) ?  Color(0XFF5669FF) :Colors.transparent,
+                                color: (themeProvider.themeMode==ThemeMode.light) ?  MainColors.getMainColor() :Colors.transparent,
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   style: (themeProvider.themeMode==ThemeMode.light) ? BorderStyle.solid : BorderStyle.none,
                                   width: 3,
                                 ),
@@ -175,7 +177,7 @@ class IntroScreen extends StatelessWidget {
                                 child: Image.asset(
                                  AppImages.sun,
                                   fit: BoxFit.cover,
-                                  color: (themeProvider.themeMode==ThemeMode.light) ? Color(0XFFF2FEFF) : Color(0XFF5669FF),
+                                  color: (themeProvider.themeMode==ThemeMode.light) ? Color(0XFFF2FEFF) : MainColors.getMainColor(),
                                 ),
                               ),
                             ),
@@ -187,10 +189,10 @@ class IntroScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(100),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: (themeProvider.themeMode==ThemeMode.dark) ?  Color(0XFF5669FF) : Colors.transparent,
+                                color: (themeProvider.themeMode==ThemeMode.dark) ?  MainColors.getMainColor() : Colors.transparent,
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   style: (themeProvider.themeMode==ThemeMode.dark) ? BorderStyle.solid : BorderStyle.none,
                                   width: 3,
                                 ),
@@ -199,7 +201,7 @@ class IntroScreen extends StatelessWidget {
                                 child: Image.asset(
                                   AppImages.moon,
                                   fit: BoxFit.cover,
-                                  color: (themeProvider.themeMode==ThemeMode.dark) ? Color(0XFFF2FEFF) : Color(0XFF5669FF),
+                                  color: (themeProvider.themeMode==ThemeMode.dark) ? Color(0XFFF2FEFF) : MainColors.getMainColor(),
                                 ),
                               ),
                             ),
@@ -216,7 +218,7 @@ class IntroScreen extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, Routes.loginScreenRouteName);
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0XFF5669FF)
+                      backgroundColor:MainColors.getMainColor()
                   ),
                   child:Text(
                     "onboarding_button".tr(),

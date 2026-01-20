@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 
+import '../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../Core/Provider/themeProvider.dart';
 
 class TextFieldCard extends StatelessWidget {

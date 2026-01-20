@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../Core/assets/const data.dart';
 
-abstract class EventCreationStates {}
+abstract class EventFormStates {}
 
-class EventCreationState extends EventCreationStates {
+class EventFormState extends EventFormStates {
   final RequestState createEventRequestState;
   final RequestState setPositionRequestState;
   final LatLng? currentPosition;
@@ -16,7 +16,7 @@ class EventCreationState extends EventCreationStates {
   final DateTime? eventDate;
   final TimeOfDay? eventTime;
 
-  EventCreationState({
+  EventFormState({
     this.createEventRequestState = RequestState.init,
     this.setPositionRequestState = RequestState.init,
     this.currentPosition,
@@ -28,7 +28,7 @@ class EventCreationState extends EventCreationStates {
     this.eventTime,
   });
 
-  EventCreationState copyWith({
+  EventFormState copyWith({
     RequestState? createEventRequestState,
     RequestState? setPositionRequestState,
     LatLng? currentPosition,
@@ -39,7 +39,7 @@ class EventCreationState extends EventCreationStates {
     DateTime? eventDate,
     TimeOfDay? eventTime,
   }) {
-    return EventCreationState(
+    return EventFormState(
       createEventRequestState:
       createEventRequestState ?? this.createEventRequestState,
       setPositionRequestState:
@@ -55,8 +55,8 @@ class EventCreationState extends EventCreationStates {
   }
 }
 
-class EventCreationInitState extends EventCreationState {
-  EventCreationInitState()
+class EventFormInitState extends EventFormState {
+  EventFormInitState()
       : super(
     createEventRequestState: RequestState.init,
     setPositionRequestState: RequestState.init,

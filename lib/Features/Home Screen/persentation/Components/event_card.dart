@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../Core/Color/main_colors.dart';
-import '../../../../Core/routes/routes.dart';
+import '../../../../Core/App Colors/main_colors.dart';
+import '../../../../Core/App Routing/routes.dart';
+
 
 
 class EventCard extends StatelessWidget {

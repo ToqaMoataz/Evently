@@ -10,7 +10,7 @@ import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/perse
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:evently/Core/Color/main_colors.dart';
+import '../../../../../../Core/App Colors/main_colors.dart';
 import '../../../../data/Repository Implementation/repo_impl.dart';
 import '../../../../data/datasource/home_screen_ds.dart';
 import '../../../Components/event_card.dart';

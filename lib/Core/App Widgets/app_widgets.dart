@@ -1,9 +1,9 @@
 
-import 'package:evently/Core/Color/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../App Colors/main_colors.dart';
 import '../Provider/themeProvider.dart';
 
 class AppWidgets {

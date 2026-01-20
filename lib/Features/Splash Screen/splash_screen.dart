@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:evently/Core/assets/images.dart';
 
-import '../../Core/routes/routes.dart';
+import '../../Core/App Routing/routes.dart';
+
 
 class SplashScreen extends StatefulWidget {
 

@@ -1,8 +1,10 @@
 import 'package:evently/Core/Models/event_model.dart';
-import 'package:evently/Core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../Core/Color/main_colors.dart';
+
+import '../../../../../Core/App Colors/main_colors.dart';
+import '../../../../../Core/App Routing/routes.dart';
+
 
 class EventDetailsScreen extends StatelessWidget {
   const EventDetailsScreen({super.key});
@@ -15,7 +17,7 @@ class EventDetailsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, Routes.editEventScreenRouteName,arguments: event);
+              Navigator.pushNamed(context, Routes.formEventScreenRouteName,arguments: event);
             },
             icon: Icon(
                 Icons.edit_outlined,

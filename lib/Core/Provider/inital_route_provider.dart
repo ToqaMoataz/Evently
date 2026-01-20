@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
+import '../App Routing/routes.dart';
 import '../Shared Prefrences/shared_pref.dart';
-import '../routes/routes.dart';
 
 class InitialRouteProvider extends ChangeNotifier {
   late String initialRoute;
-
+  bool isLoading=true;
   InitialRouteProvider(){
     getInitialRoute();
   }
@@ -22,5 +22,7 @@ class InitialRouteProvider extends ChangeNotifier {
     } else {
       initialRoute = Routes.loginScreenRouteName;
     }
+    isLoading=false;
+    notifyListeners();
   }
 }

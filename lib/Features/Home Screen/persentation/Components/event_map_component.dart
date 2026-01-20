@@ -1,11 +1,12 @@
-import 'package:evently/Core/Color/main_colors.dart';
+
 import 'package:evently/Core/Models/event_model.dart';
-import 'package:evently/Core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../Core/App Colors/main_colors.dart';
+import '../../../../Core/App Routing/routes.dart';
 import '../../../../Core/Provider/themeProvider.dart';
 
 class EventMapCard extends StatelessWidget {
@@ -19,7 +20,7 @@ class EventMapCard extends StatelessWidget {
     bool isLightMode = (themeProvider.themeMode == ThemeMode.light);
     return GestureDetector(
       onTap: (){resetPosition();},
-      onDoubleTap: (){Navigator.pushNamed(context, Routes.loginScreenRouteName);},// should go to Event Details Screen
+      onDoubleTap: (){Navigator.pushNamed(context, Routes.loginScreenRouteName);},
       child: Container(
         height: 94.h,
         padding: EdgeInsets.all(8),

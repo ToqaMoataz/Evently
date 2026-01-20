@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/Core/Color/main_colors.dart';
 import 'package:evently/Features/Authentication%20Screens/Data/Repository%20Implementation/repo_impl.dart';
 import 'package:evently/Features/Authentication%20Screens/Data/data%20source/auth_ds.dart';
 import 'package:evently/Features/Authentication%20Screens/Domain/Usecases/signin%20usecase/signin_usecse.dart';
@@ -14,10 +13,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:evently/Core/assets/images.dart';
 
+import '../../../../../../Core/App Colors/main_colors.dart';
+import '../../../../../../Core/App Routing/routes.dart';
+import '../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../Core/App Widgets/app_widgets.dart';
-import '../../../../../../Core/Text Styles/app_textstyles.dart';
+
 import '../../../../../../Core/assets/const data.dart';
-import '../../../../../../Core/routes/routes.dart';
+
 import '../../../Components/text_field_card.dart';
 
 
@@ -73,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextFieldCard(
                                   hintText:"email_text".tr(),
                                   icon: Icons.mail_rounded,
-                                  color:Color(0XFF7B7B7B),
+                                  color:MainColors.getGrayColor(),
                                   textController: _emailController,
                                   validate:(value){
                                     if(value==null||value.isEmpty){
@@ -89,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextFieldCard(
                                   hintText:"password_text".tr(),
                                   icon: Icons.lock,
-                                  color:Color(0XFF7B7B7B),
+                                  color:MainColors.getGrayColor(),
                                   textController: _passwordController,
                                   isPass: true,
                                   passVisible: state.passwordVisible,
@@ -107,12 +109,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: Text(
                                           "forget_password_text".tr(),
                                           style: GoogleFonts.inter(
-                                            color: Color(0XFF5669FF),
+                                            color: MainColors.getMainColor(),
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700,
                                             fontStyle: FontStyle.italic,
                                             decoration: TextDecoration.underline,
-                                            decorationColor: Color(0XFF5669FF),
+                                            decorationColor: MainColors.getMainColor(),
                                             decorationStyle: TextDecorationStyle.solid,
                                           ),
                                         )
@@ -130,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 16),
                               decoration: BoxDecoration(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   borderRadius: BorderRadius.circular(16.r)
                               ),
                               child: Text(
@@ -147,23 +149,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextSpan(
                                     text: "no_account_text".tr(),
                                     style: GoogleFonts.inter(
-                                      color: Colors.black,
+                                      color: MainColors.getTextSecondaryColor(),
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
-                                      //fontStyle: FontStyle.italic,
                                     )
                                 ),
                                 TextSpan(
                                   text: "create_account_text".tr(),
                                   style: GoogleFonts.inter(
-                                    color: Color(0XFF5669FF),
+                                    color: MainColors.getMainColor(),
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,
                                     fontStyle: FontStyle.italic,
                                     height: 1.h,
                                     letterSpacing: 0,
                                     decoration: TextDecoration.underline,
-                                    decorationColor: Color(0XFF5669FF),
+                                    decorationColor: MainColors.getMainColor(),
                                     decorationStyle: TextDecorationStyle.solid,
                                   ),
                                   recognizer: TapGestureRecognizer()
@@ -178,9 +179,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           // --- Or separator Row ---
                           Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: Divider(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   thickness: 1,
                                   indent: 20,
                                   endIndent: 10,
@@ -189,13 +190,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               Text(
                                 "or_text".tr(),
                                 style: TextStyle(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   fontSize: 16.sp,
                                 ),
                               ),
-                              const Expanded(
+                              Expanded(
                                 child: Divider(
-                                  color: Color(0XFF5669FF),
+                                  color: MainColors.getMainColor(),
                                   thickness: 1,
                                   indent: 10,
                                   endIndent: 20,
@@ -207,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Color(0XFF5669FF), width: 1),
+                              border: Border.all(color: MainColors.getMainColor(), width: 1),
                               borderRadius: BorderRadius.circular(16.r),
                             ),
                             child: Row(
@@ -237,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       width: 2,
-                                      color: Color(0XFF5669FF),
+                                      color: MainColors.getMainColor(),
                                     ),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
@@ -258,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             border: Border.all(
-                                              color: Color(0XFF5669FF),
+                                              color: MainColors.getMainColor(),
                                               width: 3,
                                               style: (context.locale.toString()=='en') ? BorderStyle.solid : BorderStyle.none,
                                             ),
@@ -283,7 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             border: Border.all(
-                                              color: Color(0XFF5669FF),
+                                              color:MainColors.getMainColor(),
                                               width: 3,
                                               style: (context.locale.toString()=='ar') ? BorderStyle.solid : BorderStyle.none,
                                             ),
@@ -327,7 +328,6 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           listener: (context,state){
             if(state.loginRequestState==RequestState.success){
-              // print("Success");
               Navigator.pushReplacementNamed(context, Routes.homeScreenRouteName);
             }
           }

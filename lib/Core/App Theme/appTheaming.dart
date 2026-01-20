@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:evently/Core/Color/dark_colors.dart';
-import 'package:evently/Core/Color/light_colors.dart';
-import 'package:evently/Core/Color/main_colors.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../App Colors/dark_colors.dart';
+import '../App Colors/light_colors.dart';
+import '../App Colors/main_colors.dart';
+import '../App Text Styles/app_textstyles.dart';
 
 MainColors light=LightColors();
 MainColors dark=DarkColors();

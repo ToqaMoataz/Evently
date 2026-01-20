@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Provider/language_setter.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 import 'package:evently/Features/Home%20Screen/domain/Usecase/get_curr_user_usecas.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Components/event_card.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/data/Data%20source/home_tab_ds.dart';
@@ -11,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:evently/Core/Color/main_colors.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../Core/App Colors/main_colors.dart';
+import '../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../Core/Provider/themeProvider.dart';
 import '../../../../../../Core/assets/const data.dart';
 import '../../../../data/Repository Implementation/repo_impl.dart';

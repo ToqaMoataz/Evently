@@ -1,8 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/Core/Color/main_colors.dart';
-import 'package:evently/Core/Text%20Styles/app_textstyles.dart';
 import 'package:evently/Core/assets/const%20data.dart';
-import 'package:evently/Core/routes/routes.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Const%20Data/const_data.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Data%20source/local_ds.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Data%20source/remote_ds.dart';
@@ -17,6 +14,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../Core/App Colors/main_colors.dart';
+import '../../../../../../Core/App Routing/routes.dart';
+import '../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../Core/Provider/language_setter.dart';
 import '../../../../../../Core/Provider/themeProvider.dart';
 import '../../../../data/Repository Implementation/repo_impl.dart';
