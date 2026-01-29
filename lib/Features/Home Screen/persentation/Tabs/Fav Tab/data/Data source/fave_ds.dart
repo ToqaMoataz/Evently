@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/Core/Models/event_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../../../Core/Firebase/firebase_manager.dart';
 
@@ -8,7 +9,7 @@ abstract class FaveTabDS{
 
   Stream<QuerySnapshot<EventModel>> getFavEvents();
 }
-
+@Injectable(as: FaveTabDS)
 class FaveTabDSImp extends FaveTabDS {
 
   @override

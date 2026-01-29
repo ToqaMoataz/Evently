@@ -1,7 +1,8 @@
 import 'package:evently/Core/Models/user_model.dart';
 import 'package:evently/Features/Authentication%20Screens/Data/data%20source/auth_ds.dart';
 import 'package:evently/Features/Authentication%20Screens/Domain/Repository/repo.dart';
-
+import 'package:injectable/injectable.dart';
+@Injectable(as: AuthRepo)
 class AuthRepoImpl extends AuthRepo{
   AuthDs ds;
   AuthRepoImpl({required this.ds});

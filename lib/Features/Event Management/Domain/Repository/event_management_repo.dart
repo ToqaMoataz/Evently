@@ -9,6 +9,4 @@ abstract class EventManagementRepo{
   Future<void> addEvent(EventModel event);
   Future<void> updateEvent(EventModel event);
   Future<void> deleteEvent(String eventId);
-  Future<LatLng?> getCurrentPosition();
-  Future<Placemark?> getUserLocation(LatLng position);
 }

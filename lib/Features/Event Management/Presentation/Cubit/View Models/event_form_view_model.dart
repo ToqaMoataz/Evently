@@ -5,12 +5,12 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../Core/Common/Domain/Usecases/get_address_usecase.dart';
+import '../../../../../Core/Common/Domain/Usecases/get_curr_langlat_usecase.dart';
 import '../../../../../Core/Models/event_model.dart';
 import '../../../../../Core/assets/const data.dart';
 
 import '../../../Domain/Use cases/create_event_usecase.dart';
-import '../../../Domain/Use cases/get_address_usecase.dart';
-import '../../../Domain/Use cases/get_curr_langlat_usecase.dart';
 import '../States/event_form_states.dart';
 @injectable
 class EventFormViewModel extends Cubit<EventFormState> {

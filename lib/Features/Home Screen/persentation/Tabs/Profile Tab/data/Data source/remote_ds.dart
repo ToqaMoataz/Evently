@@ -6,13 +6,14 @@ import 'package:evently/Core/Cloudinary/cloudinary_constants.dart';
 import 'package:evently/Core/Firebase/firebase_manager.dart';
 import 'package:evently/Core/Shared%20Prefrences/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class ProfileRemoteDs{
   Future<String> uploadUserImage(File imageFile);
   Future<void> updateUserImage(String imageUrl);
   Future<void> logout();
 }
-
+@Injectable(as: ProfileRemoteDs)
 class ProfileRemoteDsImp implements ProfileRemoteDs{
   late Dio dio;
   ProfileRemoteDsImp() {

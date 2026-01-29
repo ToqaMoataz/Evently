@@ -17,25 +17,6 @@ class EventManagementRepoImp extends EventManagementRepo{
       await ds.addEvent(event);
     }catch(e){rethrow;}
   }
-  @override
-  Future<LatLng?> getCurrentPosition() async {
-    try{
-      LatLng? position=await ds.getCurrentPosition();
-      return position;
-    }catch(e){
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Placemark?> getUserLocation(LatLng position) async {
-    try{
-      Placemark? list=await ds.getUserLocation(position);
-      return list;
-    }catch(e){
-      rethrow;
-    }
-  }
 
   @override
   Future<void> deleteEvent(String eventId) async {

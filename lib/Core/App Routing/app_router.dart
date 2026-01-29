@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Features/Authentication Screens/Presentation/Screens/Login Screen/Screen/login_screen.dart';
 import 'routes.dart';
 import '../Dependency Injection/di.dart';
 
-// Screens
 import '../../Features/Splash Screen/splash_screen.dart';
-import '../../Features/Introduction Screen/Presentation/introduction_screen.dart';
-import '../../Features/Onboarding Screen/Presentation/onboarding_screen.dart';
-import '../../Features/Authentication Screens/Presentation/Screens/Login Screen/Login View Model/login_screen.dart';
-import '../../Features/Authentication Screens/Presentation/Screens/Register Screen/register_screen.dart';
-import '../../Features/Authentication Screens/Presentation/Screens/Forget Password Screen/forget_password_screen.dart';
-import '../../Features/Home Screen/persentation/home_Screen.dart';
+import '../../Features/Introduction Screen/Presentation/Screen/introduction_screen.dart';
+import '../../Features/Onboarding Screen/Presentation/Screen/onboarding_screen.dart';
+import '../../Features/Authentication Screens/Presentation/Screens/Register Screen/Screen/register_screen.dart';
+import '../../Features/Authentication Screens/Presentation/Screens/Forget Password Screen/Screen/forget_password_screen.dart';
+import '../../Features/Home Screen/persentation/Home Screen/home_Screen.dart';
 import '../../Features/Event Management/Presentation/Screens/Create or Update Event/event_form_event.dart';
 import '../../Features/Event Management/Presentation/Screens/Map Screen/map_screen.dart';
 import '../../Features/Event Management/Presentation/Screens/Event Details Screen/event_details_screen.dart';

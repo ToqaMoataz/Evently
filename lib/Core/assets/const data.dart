@@ -1,9 +1,11 @@
+import 'package:evently/Core/assets/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum RequestState { init, loading, success, error }
 
 class AppData{
+
   static const List<String> events = [
     "All",
     "Book Club",

@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class ProfileLocalDs{
   Future<File?> pickUserImage();
 }
-
+@Injectable(as: ProfileLocalDs)
 class ProfileLocalDsImp implements ProfileLocalDs{
   late ImagePicker _picker;
 

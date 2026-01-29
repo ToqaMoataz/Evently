@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/Core/Firebase/firebase_manager.dart';
 import 'package:evently/Core/Shared%20Prefrences/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../Core/Models/user_model.dart';
 
@@ -13,7 +14,7 @@ abstract class AuthDs{
   Future<void> signIn({required String email,required String password});
   Future<void> resetPass({required String email});
 }
-
+@Injectable(as:AuthDs )
 class AuthDsImp extends AuthDs{
   PreferencesHelper helper=PreferencesHelper();
   @override

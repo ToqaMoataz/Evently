@@ -1,5 +1,6 @@
 
 import 'package:evently/Core/Models/event_model.dart';
+import 'package:evently/Core/assets/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,9 +21,9 @@ class EventMapCard extends StatelessWidget {
     bool isLightMode = (themeProvider.themeMode == ThemeMode.light);
     return GestureDetector(
       onTap: (){resetPosition();},
-      onDoubleTap: (){Navigator.pushNamed(context, Routes.loginScreenRouteName);},
+      onDoubleTap: (){Navigator.pushNamed(context, Routes.eventDetailsScreenRouteName,arguments: event);},
       child: Container(
-        height: 94.h,
+
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -31,45 +32,49 @@ class EventMapCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image(image: AssetImage(event.eventCategory)),
+            Image(image: AssetImage(AppImages.returnEventImage(event.eventCategory))),
             SizedBox(width: 10.w),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  event.title,
-                  style: GoogleFonts.inter(
-                    color: MainColors.getMainColor(),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w700,
-                    height: 140,
-                    letterSpacing: -0.3,
+                SizedBox(
+                  width: 140,
+                  child: Text(
+                    event.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-                SizedBox(height: 8.h),
+                SizedBox(height: 4),
                 Row(
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      color:
-                          (isLightMode)
-                              ? MainColors.getTDarkColor()
-                              : MainColors.getLightColor(),
+                      size: 16,
+                      color: isLightMode
+                          ? MainColors.getTDarkColor()
+                          : MainColors.getLightColor(),
                     ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      event.location,
-                      style: GoogleFonts.inter(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: (isLightMode)
-                            ? MainColors.getTDarkColor()
-                            : MainColors.getLightColor(),
+                    SizedBox(width: 4),
+                    SizedBox(
+                      width: 120,
+                      child: Text(
+                        event.location,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.inter(fontSize: 12.sp),
                       ),
                     ),
                   ],
                 ),
               ],
             ),
+
           ],
         ),
       ),

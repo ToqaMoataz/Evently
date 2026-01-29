@@ -1,7 +1,8 @@
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/domain/Repository/fav_repo.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../../../Core/Models/event_model.dart';
-
+@injectable
 class GetFavEventsUC{
   GetFavEventsUC(this.repo);
 

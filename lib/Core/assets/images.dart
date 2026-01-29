@@ -1,3 +1,5 @@
+import 'package:evently/Core/assets/const%20data.dart';
+
 class AppImages {
   static const List<String> onboardingImages = [
     "assets/images/being-creative1.png",
@@ -31,5 +33,33 @@ class AppImages {
   static const String moon = "assets/images/Moon.png";
 
   static const String forgetPassPic = "assets/images/forget password.png";
+
+  static String returnEventImage(String event){
+    if(event==AppData.events[1]){
+      return bookClub;
+    }
+    else if(event==AppData.events[2]){
+      return sport;
+    }
+    else if(event==AppData.events[3]){
+      return birthday;
+    }
+    else if(event==AppData.events[4]){
+      return eating;
+    }
+    else if(event==AppData.events[5]){
+      return meeting;
+    }
+    else if(event==AppData.events[6]){
+      return workshop;
+    }
+    else if(event==AppData.events[7]){
+      return holiday;
+    }
+    else if(event==AppData.events[8]){
+      return gaming;
+    }
+    return exhibition;
+  }
 
 }

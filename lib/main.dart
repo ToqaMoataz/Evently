@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Provider/inital_route_provider.dart';
 import 'package:evently/Core/App Routing/app_router.dart';
+import 'package:evently/Features/Splash%20Screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import 'Core/App Colors/main_colors.dart';
 import 'Core/App Routing/routes.dart';
 import 'Core/Dependency Injection/di.dart';
 import 'Core/Provider/themeProvider.dart';
+import 'Core/Shared Prefrences/shared_pref.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,8 +22,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await EasyLocalization.ensureInitialized();
-
+  await PreferencesHelper.init();
   configureDependencies();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -56,15 +59,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         final themeProvider = context.watch<ThemeProvider>();
-        // final initialRouteProvider = context.watch<InitialRouteProvider>();
-        //
-        // if (initialRouteProvider.isLoading) {
-        //   return MaterialApp(
-        //     home: Scaffold(
-        //       body: Center(child: CircularProgressIndicator(color: MainColors.getMainColor(),)),
-        //     ),
-        //   );
-        // }
+        final initialRouteProvider = context.watch<InitialRouteProvider>();
+
         return MaterialApp(
           theme: AppTheming.lightTheme,
           darkTheme: AppTheming.darkTheme,
@@ -74,20 +70,8 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: AppRouter.generateRoute,
-          // App Routing: {
-          //   Routes.splashScreenRouteName : (context) => SplashScreen(),
-          //   Routes.introductionScreenRouteName: (context) => IntroScreen(),
-          //   Routes.loginScreenRouteName : (context) => LoginScreen(),
-          //   Routes.registerScreenRouteName : (context) => RegisterScreen(),
-          //   Routes.forgetPasswordScreenRouteName : (context) => ForgetPasswordScreen(),
-          //   Routes.homeScreenRouteName : (context) => HomeScreen(),
-          //   Routes.onboardingScreenRouteName : (context) => OnboardingScreen(),
-          //   Routes.createEventScreenRouteName : (context) => EventFormScreen(),
-          //   Routes.eventDetailsScreenRouteName : (context) => EventDetailsScreen(),
-          //   Routes.mapScreenRouteName: (context) => MapScreen(),
-          // },
-          //initialRoute: initialRouteProvider.initialRoute,
-          initialRoute:  Routes.homeScreenRouteName,
+          initialRoute: (initialRouteProvider.isLoading || initialRouteProvider.initialRoute == null) ? Routes.splashScreenRouteName : initialRouteProvider.initialRoute,
+          // initialRoute:  Routes.homeScreenRouteName,
         );
       },
     );

@@ -1,9 +1,11 @@
 import 'dart:io';
 
 
+import 'package:injectable/injectable.dart';
+
 import '../Repository/local_repo.dart';
 import '../Repository/remote_repo.dart';
-
+@injectable
 class UploadUserImageUC {
   final ProfileRemoteRepo remoteRepo;
   final ProfileLocalRepo localRepo;

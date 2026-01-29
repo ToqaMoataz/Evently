@@ -1,11 +1,9 @@
 import 'dart:io';
-
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Data%20source/local_ds.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/domain/Repository/local_repo.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/Repository/remote_repo.dart';
 import '../Data source/remote_ds.dart';
-
+@Injectable(as: ProfileRemoteRepo)
 class ProfileRemoteRepoImp extends ProfileRemoteRepo{
   ProfileRemoteRepoImp(this.ds);
   ProfileRemoteDs ds;

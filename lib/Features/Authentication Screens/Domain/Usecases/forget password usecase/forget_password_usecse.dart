@@ -1,5 +1,6 @@
 import 'package:evently/Features/Authentication%20Screens/Domain/Repository/repo.dart';
-
+import 'package:injectable/injectable.dart';
+@injectable
 class ForgetPassUC{
   AuthRepo repo;
   ForgetPassUC(this.repo);
