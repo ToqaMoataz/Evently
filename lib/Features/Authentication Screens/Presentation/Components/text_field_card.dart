@@ -49,7 +49,7 @@ class TextFieldCard extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hintText,
                 border: InputBorder.none,
-                hintStyle: AppTextStyles.textFieldStyle(themeProvider,color: color),
+                hintStyle: AppTextStyles.hintTextStyle(themeMode: themeProvider.themeMode),
               ),
             ),
           ),

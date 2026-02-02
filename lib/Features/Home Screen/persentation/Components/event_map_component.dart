@@ -1,9 +1,9 @@
 
+import 'package:evently/Core/App%20Text%20Styles/app_textstyles.dart';
 import 'package:evently/Core/Models/event_model.dart';
 import 'package:evently/Core/assets/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../Core/App Colors/main_colors.dart';
@@ -12,8 +12,8 @@ import '../../../../Core/Provider/themeProvider.dart';
 
 class EventMapCard extends StatelessWidget {
   final EventModel event;
-  Function resetPosition;
-  EventMapCard({super.key, required this.event,required this.resetPosition});
+  final Function resetPosition;
+  const EventMapCard({super.key, required this.event,required this.resetPosition});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,7 @@ class EventMapCard extends StatelessWidget {
                     event.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: AppTextStyles.labelLarge(color: MainColors.getMainColor())
                   ),
                 ),
                 SizedBox(height: 4),
@@ -67,7 +65,7 @@ class EventMapCard extends StatelessWidget {
                         event.location,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.inter(fontSize: 12.sp),
+                        style: AppTextStyles.bodyMedium(color: (isLightMode) ? MainColors.getTDarkColor() : MainColors.getLightColor())
                       ),
                     ),
                   ],

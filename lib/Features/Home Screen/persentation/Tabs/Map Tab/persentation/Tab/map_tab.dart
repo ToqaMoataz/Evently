@@ -68,9 +68,7 @@ class _MapScreenState extends State<MapTab> {
                                     event: state.events[index],
                                     resetPosition: () {
                                       final position = state.events[index].eventPosition;
-
                                       viewModel.setMarker(position);
-
                                       mapController?.animateCamera(
                                         CameraUpdate.newCameraPosition(
                                           CameraPosition(

@@ -6,7 +6,7 @@ import 'package:evently/Features/Splash%20Screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:evently/Core/App%20Theme/appTheaming.dart';
+import 'package:evently/Core/App%20Theme/app_theaming.dart';
 import 'package:flutter/material.dart';
 import 'Core/App Colors/main_colors.dart';
 import 'Core/App Routing/routes.dart';

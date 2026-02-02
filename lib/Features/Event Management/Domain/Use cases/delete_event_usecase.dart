@@ -1,5 +1,7 @@
-import '../Repository/event_management_repo.dart';
+import 'package:injectable/injectable.dart';
 
+import '../Repository/event_management_repo.dart';
+@injectable
 class DeleteEventUC {
   final EventManagementRepo repo;
 

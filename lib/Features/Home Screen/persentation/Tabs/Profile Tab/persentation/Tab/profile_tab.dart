@@ -2,12 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
 import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Const%20Data/const_data.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Data%20source/local_ds.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Data%20source/remote_ds.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Repository%20IMP/local_repo_imp.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Repository%20IMP/remote_repo_imp.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/domain/Usecase/logout_usecase.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/domain/Usecase/upload_image_usecase.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/persentation/Cubit/profile_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/persentation/Cubit/profile_view_model.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +14,7 @@ import '../../../../../../../Core/App Routing/routes.dart';
 import '../../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../../Core/Provider/language_setter.dart';
 import '../../../../../../../Core/Provider/themeProvider.dart';
-import '../../../../../data/Repository Implementation/repo_impl.dart';
-import '../../../../../data/datasource/home_screen_ds.dart';
-import '../../../../../domain/Usecase/get_curr_user_usecas.dart';
+
 
 class ProfileTab extends StatelessWidget {
   ProfileTab({super.key});
@@ -82,7 +74,7 @@ class ProfileTab extends StatelessWidget {
                                 return child;
                               }
                               return CircularProgressIndicator(
-                                color: Colors.white,
+                                color: MainColors.getLightColor(),
                               );
                             },
                           ),
@@ -97,12 +89,12 @@ class ProfileTab extends StatelessWidget {
                         children: [
                           Text(
                             state.currUser!.name,
-                            style: AppTextStyles.largeTitleStyle(),
+                            style: AppTextStyles.userNameTextStyle(),
                           ),
                           SizedBox(height: 10.h),
                           Text(
                             state.currUser!.email,
-                            style: AppTextStyles.mediumTitleStyle(),
+                            style: AppTextStyles.titleMedium(),
                             softWrap: true,
                             overflow: TextOverflow.clip,
                           ),
@@ -124,8 +116,8 @@ class ProfileTab extends StatelessWidget {
                     style: GoogleFonts.inter(
                       color:
                           (themeProvider.themeMode == ThemeMode.light)
-                              ? MainColors.getTextSecondaryColor()
-                              : MainColors.getTextPrimaryColor(),
+                              ? MainColors.getTDarkColor()
+                              : MainColors.getLightColor(),
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w700,
                     ),
@@ -163,7 +155,7 @@ class ProfileTab extends StatelessWidget {
                       fillColor: Colors.transparent,
                       contentPadding: EdgeInsets.all(16),
                     ),
-                    value:
+                    initialValue:
                         (context.locale.toString() == 'en')
                             ? ProfileConstData.languages[1]
                             : ProfileConstData.languages[0],
@@ -188,8 +180,8 @@ class ProfileTab extends StatelessWidget {
                     style: GoogleFonts.inter(
                       color:
                           (themeProvider.themeMode == ThemeMode.light)
-                              ? MainColors.getTextSecondaryColor()
-                              : MainColors.getTextPrimaryColor(),
+                              ? MainColors.getTDarkColor()
+                              : MainColors.getLightColor(),
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w700,
                     ),
@@ -227,7 +219,7 @@ class ProfileTab extends StatelessWidget {
                       fillColor: Colors.transparent,
                       contentPadding: EdgeInsets.all(16),
                     ),
-                    value: ProfileConstData.getCurrentTheme(context),
+                    initialValue: ProfileConstData.getCurrentTheme(context),
                     items:
                         ProfileConstData.themes.map((theme) {
                           return DropdownMenuItem(
@@ -255,8 +247,8 @@ class ProfileTab extends StatelessWidget {
                         context: context,
                         builder:
                             (_) => AlertDialog(
-                              title: Text('Confirm Logout',style: AppTextStyles.cardsTextStyle(),),
-                              content: Text('Do you want to logout?',style: AppTextStyles.cardsTextStyle()),
+                              title: Text('Confirm Logout',style: AppTextStyles.labelLarge(color: MainColors.getMainColor()),),
+                              content: Text('Do you want to logout?',style: AppTextStyles.bodySmall(color: MainColors.getMainColor())),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),

@@ -34,13 +34,13 @@ class IntroScreen extends StatelessWidget {
               SizedBox(height: 28,),
               Text(
                   "onboarding_introduction_title".tr(),
-                  style:AppTextStyles.introTitleStyle()
+                  style:AppTextStyles.titleLarge()
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 28.0),
+                padding: const EdgeInsets.symmetric(vertical: 28),
                 child: Text(
                     "onboarding_introduction_subtitle".tr(),
-                    style:AppTextStyles.introBodyStyle(themeProvider)
+                    style:AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode)
                 ),
               ),
               //Language Row
@@ -201,7 +201,7 @@ class IntroScreen extends StatelessWidget {
                                 child: Image.asset(
                                   AppImages.moon,
                                   fit: BoxFit.cover,
-                                  color: (themeProvider.themeMode==ThemeMode.dark) ? Color(0XFFF2FEFF) : MainColors.getMainColor(),
+                                  color: (themeProvider.themeMode==ThemeMode.dark) ? MainColors.getLightColor() : MainColors.getMainColor(),
                                 ),
                               ),
                             ),
@@ -212,7 +212,7 @@ class IntroScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10.h,),
               ElevatedButton(
                   onPressed: (){
                     Navigator.pushReplacementNamed(context, Routes.onboardingScreenRouteName);

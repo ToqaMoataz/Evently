@@ -15,7 +15,7 @@ import '../../../../../../../Core/assets/const data.dart';
 class MapTabViewModel extends Cubit<MapTabState>{
   MapTabViewModel(this.eventsUseCase,this.locationUseCase,this.positionUseCase) : super( MapTabInitState());
   final GetCurrentPositionUseCase positionUseCase;
-  final SetEventLocationUC locationUseCase;
+  final GetLocationUC locationUseCase;
   final GetAllEventsUC eventsUseCase;
   StreamSubscription<List<EventModel>>? _eventSub;
 
@@ -50,7 +50,6 @@ class MapTabViewModel extends Cubit<MapTabState>{
       }
     } catch (e) {
       emit(state.copyWith(setPositionRequestState: RequestState.error,errorMessage: e.toString()));
-      print(e.toString());
     }
   }
 

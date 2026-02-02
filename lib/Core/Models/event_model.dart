@@ -9,6 +9,7 @@ class EventModel {
   String time;
   String location;
   bool isFav;
+  bool toBeNotified;
   String userId;
   LatLng eventPosition;
 
@@ -21,6 +22,7 @@ class EventModel {
     required this.time,
     required this.location,
     this.isFav = false,
+    this.toBeNotified=true,
     required this.userId,
     required this.eventPosition,
   });
@@ -35,6 +37,7 @@ class EventModel {
       time: json['time'],
       location: json['location'],
       isFav: json['isFav'] ?? false,
+      toBeNotified: json['toBeNotified'] ?? true,
       userId: json['userId'],
       eventPosition: LatLng(
         (json['eventPosition']['latitude'] as num).toDouble(),
@@ -53,6 +56,7 @@ class EventModel {
       'time': time,
       'location': location,
       'isFav': isFav,
+      'toBeNotified':toBeNotified,
       'userId': userId,
       'eventPosition': {
         'latitude': eventPosition.latitude,

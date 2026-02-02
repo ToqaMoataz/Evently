@@ -1,121 +1,126 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../App Colors/main_colors.dart';
-import '../Provider/themeProvider.dart';
 
 class AppTextStyles {
-
-  static TextStyle introTitleStyle() {
+  // Label Small
+  static TextStyle labelSmall({Color? color}) {
     return GoogleFonts.inter(
-      color: MainColors.getMainColor(),
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
+      color: color,
+    );
+  }
+
+  // Done
+  static TextStyle labelLarge({Color? color}) {
+    return GoogleFonts.inter(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+      color: color,
+    );
+  }
+
+  // Done
+  static TextStyle bodySmall({Color? color}) {
+    return GoogleFonts.inter(
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      color: color,
+    );
+  }
+
+  // Body Medium
+  static TextStyle bodyMedium({Color? color}) {
+    return GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: color,
+    );
+  }
+
+  // Body Large
+  static TextStyle bodyLarge({required ThemeMode themeMode}) {
+    return GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: themeMode == ThemeMode.light
+          ? MainColors.getTDarkColor()
+          : MainColors.getLightColor()
+    );
+  }
+
+  // Done
+  static TextStyle titleSmall({required FontWeight weight}) {
+    return GoogleFonts.inter(
+      fontSize: 14,
+      fontWeight: weight,
+      color: MainColors.getLightColor(),
+    );
+  }
+
+  // Done
+  static TextStyle titleMedium({Color? color}) {
+    return GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: color ?? MainColors.getLightColor(),
+    );
+  }
+
+  // Done
+  static TextStyle titleLarge() {
+    return GoogleFonts.inter(
       fontSize: 20.sp,
       fontWeight: FontWeight.w700,
-      letterSpacing: 0,
-      height: 1,
+      color: MainColors.getLightColor(),
     );
   }
-
-  static TextStyle introBodyStyle(ThemeProvider themeProvider) {
+   //Done
+  static TextStyle appbarTitle() {
     return GoogleFonts.inter(
-      color: (themeProvider.themeMode == ThemeMode.light)
-          ? MainColors.getTextSecondaryColor()
-          : Colors.white,
-      fontSize: 16.sp,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0,
-      height: 1,
-    );
-  }
-
-  static TextStyle simpleTitleStyle() {
-    return GoogleFonts.inter(
-      color: MainColors.getMainColor(),
-      fontSize: 20.sp,
+      fontSize: 22,
       fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-      height: 1,
+      color: MainColors.getMainColor(),
     );
   }
 
-  static TextStyle largeTitleStyle() {
+  static TextStyle buttonTextStyle({Color? color}) {
     return GoogleFonts.inter(
-      color: MainColors.getTextPrimaryColor(),
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+      color: (color!=null) ? color : MainColors.getLightColor(),
+    );
+  }
+
+  static TextStyle hintTextStyle({Color? color, required ThemeMode themeMode}) {
+    return GoogleFonts.inter(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: color ?? (themeMode == ThemeMode.light
+          ? MainColors.getGrayColor()
+          : MainColors.getLightColor()),
+    );
+  }
+
+
+  static TextStyle userNameTextStyle() {
+    return GoogleFonts.inter(
       fontSize: 24.sp,
       fontWeight: FontWeight.w700,
-      height: 1,
-      letterSpacing: 0,
+      color: MainColors.getLightColor(),
     );
   }
-  static TextStyle mediumTitleStyle() {
+
+  static TextStyle categoryCardTextStyle({required Color color}) {
     return GoogleFonts.inter(
       fontSize: 16.sp,
       fontWeight: FontWeight.w500,
-      color: MainColors.getTextPrimaryColor(),
-      height: 1,
-      letterSpacing: 0,
-    );
-  }
-  static TextStyle small500TitleStyle() {
-    return GoogleFonts.inter(
-      color: MainColors.getTextPrimaryColor(),
-      fontSize: 14.sp,
-      fontWeight: FontWeight.w500,
-      height: 1,
-      letterSpacing: 0,
-    );
-  }
-
-  static TextStyle small400TitleStyle() {
-    return GoogleFonts.inter(
-      color: MainColors.getTextPrimaryColor(),
-      fontSize: 14.sp,
-      fontWeight: FontWeight.w400,
-      height: 1,
-      letterSpacing: 0,
-    );
-  }
-
-  static TextStyle textFieldStyle(ThemeProvider themeProvider,{Color? color}) {
-    return GoogleFonts.inter(
-      fontWeight: FontWeight.w500,
-      fontSize: 16.sp,
-      color: (color != null) ? color
-          : (themeProvider.themeMode == ThemeMode.light)
-          ? Color(0XFF7B7B7B)
-          : Colors.white,
-
-    );
-  }
-
-  static TextStyle buttonTextStyle({Color? color}){
-    return GoogleFonts.inter(
-      color: (color==null) ? Color(0XFFF2FEFF) : color,
-      fontSize: 20.sp,
-      fontWeight: FontWeight.w500,
-      height: 1,
-      letterSpacing: 0
-    );
-  }
-
-  static TextStyle cardsTextStyle({Color? color}){
-    return GoogleFonts.inter(
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w700,
-        height: 1.4,
-        letterSpacing: -0.3,
-        color: MainColors.getMainColor()
-    );
-  }
-
-  static TextStyle simpleHeadLineTextStyle(Color color){
-    return GoogleFonts.inter(
       color: color,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w500
     );
   }
-
 
 
 }

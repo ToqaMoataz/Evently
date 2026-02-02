@@ -1,5 +1,7 @@
 
 import 'package:evently/Core/App%20Colors/main_colors.dart';
+import 'package:evently/Core/Dependency%20Injection/di.dart';
+import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -7,20 +9,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../Core/App Routing/routes.dart';
+import '../../../../Core/Models/user_model.dart';
 import '../Tabs/Fav Tab/persentation/Tab/fav_tab.dart';
 import '../Tabs/Home Tab/persentation/Tab/home_tab.dart';
 import '../Tabs/Map Tab/persentation/Tab/map_tab.dart';
 import '../Tabs/Profile Tab/persentation/Tab/profile_tab.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+  HomeScreen({super.key});
+  HomeScreenViewModel viewModel=getIt<HomeScreenViewModel>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>HomeScreenViewModel() ,
+      create: (context) =>viewModel..getCurrUser() ,
       child: BlocBuilder<HomeScreenViewModel,HomeScreenState>(
           builder: (context, state) {
+
             return Scaffold(
                 floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
                 floatingActionButton: FloatingActionButton(
@@ -62,17 +66,18 @@ class HomeScreen extends StatelessWidget {
                       BottomNavigationBarItem(icon: Icon(Icons.favorite_border,color: MainColors.getLightColor()),label: "Love"),
                       BottomNavigationBarItem(icon: Icon(Icons.person,color: MainColors.getLightColor()),label: "Profile"),
                     ]),
-                body: returnTab(state.currentTabIndex)
+                body: (state.getUserInfoRequestState==RequestState.loading) ? Center( child: CircularProgressIndicator(color: MainColors.getMainColor(),)) : returnTab(state.currentTabIndex,state.currUser!)
             );
           },
 
       ));
   }
-  Widget returnTab(int currTab){
+  Widget returnTab(int currTab,UserModel user){
     if(currTab==0){
-      return HomeTab();
+      return HomeTab(user: user,);
     }
     else if(currTab==1){
+
       return MapTab();
     }
     else if(currTab==2){

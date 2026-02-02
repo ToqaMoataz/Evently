@@ -10,13 +10,6 @@ abstract class MainColors {
     return const Color(0XFF5669FF);
   }
 
-  static Color getTextPrimaryColor() {
-    return const Color(0XFFF2FEFF);
-  }
-  static Color getTextSecondaryColor() {
-    return const Color(0XFF1C1C1C);
-  }
-
   static Color getTDarkColor() {
     return const Color(0XFF101127);
   }

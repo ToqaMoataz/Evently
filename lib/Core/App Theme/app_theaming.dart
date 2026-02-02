@@ -15,7 +15,7 @@ class AppTheming{
       appBarTheme: AppBarTheme(
           backgroundColor: light.getAppBarColor(),
           toolbarHeight: 64.h,
-          titleTextStyle:AppTextStyles.simpleTitleStyle(),
+          titleTextStyle:AppTextStyles.appbarTitle(),
           centerTitle: true,
           iconTheme: IconThemeData(
             color: MainColors.getMainColor()
@@ -34,7 +34,7 @@ class AppTheming{
       appBarTheme: AppBarTheme(
           backgroundColor: dark.getAppBarColor(),
           toolbarHeight: 64.h,
-          titleTextStyle:AppTextStyles.simpleTitleStyle(),
+          titleTextStyle:AppTextStyles.appbarTitle(),
           centerTitle: true,
           iconTheme: IconThemeData(
               color: MainColors.getMainColor(),

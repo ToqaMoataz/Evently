@@ -6,7 +6,10 @@ abstract class EventFormStates {}
 
 class EventFormState extends EventFormStates {
   final RequestState createEventRequestState;
+  final RequestState updateEventRequestState;
+  final RequestState deleteEventRequestState;
   final RequestState setPositionRequestState;
+
   final LatLng? currentPosition;
   final String? currentLocation;
   final String? errorMessage;
@@ -14,10 +17,12 @@ class EventFormState extends EventFormStates {
 
   final int selectedEvent;
   final DateTime? eventDate;
-  final TimeOfDay? eventTime;
+  final String? eventTime;
 
   EventFormState({
     this.createEventRequestState = RequestState.init,
+    this.updateEventRequestState = RequestState.init,
+    this.deleteEventRequestState = RequestState.init,
     this.setPositionRequestState = RequestState.init,
     this.currentPosition,
     this.currentLocation,
@@ -30,6 +35,8 @@ class EventFormState extends EventFormStates {
 
   EventFormState copyWith({
     RequestState? createEventRequestState,
+    RequestState? updateEventRequestState,
+    RequestState? deleteEventRequestState,
     RequestState? setPositionRequestState,
     LatLng? currentPosition,
     String? currentLocation,
@@ -37,11 +44,15 @@ class EventFormState extends EventFormStates {
     Marker? marker,
     int? selectedEvent,
     DateTime? eventDate,
-    TimeOfDay? eventTime,
+    String? eventTime,
   }) {
     return EventFormState(
       createEventRequestState:
       createEventRequestState ?? this.createEventRequestState,
+      updateEventRequestState:
+      updateEventRequestState ?? this.updateEventRequestState,
+      deleteEventRequestState:
+      deleteEventRequestState ?? this.deleteEventRequestState,
       setPositionRequestState:
       setPositionRequestState ?? this.setPositionRequestState,
       currentPosition: currentPosition ?? this.currentPosition,
@@ -59,6 +70,8 @@ class EventFormInitState extends EventFormState {
   EventFormInitState()
       : super(
     createEventRequestState: RequestState.init,
+    updateEventRequestState: RequestState.init,
+    deleteEventRequestState: RequestState.init,
     setPositionRequestState: RequestState.init,
     currentPosition: null,
     currentLocation: null,

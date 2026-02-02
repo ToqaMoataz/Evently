@@ -38,6 +38,10 @@ import '../../Features/Event%20Management/Domain/Repository/event_management_rep
     as _i341;
 import '../../Features/Event%20Management/Domain/Use%20cases/create_event_usecase.dart'
     as _i225;
+import '../../Features/Event%20Management/Domain/Use%20cases/delete_event_usecase.dart'
+    as _i388;
+import '../../Features/Event%20Management/Domain/Use%20cases/update_event_usecase.dart'
+    as _i805;
 import '../../Features/Event%20Management/Presentation/Cubit/View%20Models/event_form_view_model.dart'
     as _i821;
 import '../../Features/Home%20Screen/data/datasource/home_screen_ds.dart'
@@ -99,6 +103,8 @@ import '../../Features/Home%20Screen/persentation/Tabs/Profile%20Tab/domain/Usec
     as _i538;
 import '../../Features/Home%20Screen/persentation/Tabs/Profile%20Tab/persentation/Cubit/profile_view_model.dart'
     as _i911;
+import '../../Features/Home%20Screen/persentation/View%20model/home_screen_view_model.dart'
+    as _i474;
 import '../../Features/Onboarding%20Screen/data/Repository%20Implementation/onboarding_repo_implementation.dart'
     as _i902;
 import '../../Features/Onboarding%20Screen/Domain/Repository/onboarding_repo.dart'
@@ -178,6 +184,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i225.CreateEventUC>(
       () => _i225.CreateEventUC(gh<_i341.EventManagementRepo>()),
     );
+    gh.factory<_i388.DeleteEventUC>(
+      () => _i388.DeleteEventUC(gh<_i341.EventManagementRepo>()),
+    );
+    gh.factory<_i805.UpdateEventUC>(
+      () => _i805.UpdateEventUC(gh<_i341.EventManagementRepo>()),
+    );
     gh.factory<_i218.GetFavEventsUC>(
       () => _i218.GetFavEventsUC(gh<_i183.FavRepo>()),
     );
@@ -194,8 +206,8 @@ extension GetItInjectableX on _i174.GetIt {
         updateUseCase: gh<_i117.UpdateFavUC>(),
       ),
     );
-    gh.factory<_i670.SetEventLocationUC>(
-      () => _i670.SetEventLocationUC(gh<_i836.CommonRepo>()),
+    gh.factory<_i670.GetLocationUC>(
+      () => _i670.GetLocationUC(gh<_i836.CommonRepo>()),
     );
     gh.factory<_i102.GetCurrentPositionUseCase>(
       () => _i102.GetCurrentPositionUseCase(gh<_i836.CommonRepo>()),
@@ -210,15 +222,27 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i428.OnboardingViewModel>(
       () => _i428.OnboardingViewModel(useCase: gh<_i980.SetOnboardingSeenUC>()),
     );
-    gh.factory<_i60.MapTabViewModel>(
-      () => _i60.MapTabViewModel(
-        gh<_i1004.GetAllEventsUC>(),
-        gh<_i670.SetEventLocationUC>(),
+    gh.factory<_i821.EventFormViewModel>(
+      () => _i821.EventFormViewModel(
+        gh<_i225.CreateEventUC>(),
         gh<_i102.GetCurrentPositionUseCase>(),
+        gh<_i670.GetLocationUC>(),
+        gh<_i388.DeleteEventUC>(),
+        gh<_i805.UpdateEventUC>(),
       ),
+    );
+    gh.factory<_i474.HomeScreenViewModel>(
+      () => _i474.HomeScreenViewModel(userUseCase: gh<_i43.GetCurrUserUC>()),
     );
     gh.factory<_i868.GetEventsUC>(
       () => _i868.GetEventsUC(gh<_i153.HomeRepo>()),
+    );
+    gh.factory<_i60.MapTabViewModel>(
+      () => _i60.MapTabViewModel(
+        gh<_i1004.GetAllEventsUC>(),
+        gh<_i670.GetLocationUC>(),
+        gh<_i102.GetCurrentPositionUseCase>(),
+      ),
     );
     gh.factory<_i571.LoginViewModel>(
       () => _i571.LoginViewModel(gh<_i522.SignInUC>()),
@@ -229,18 +253,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i580.ForgetPasswordViewModel>(
       () => _i580.ForgetPasswordViewModel(gh<_i505.ForgetPassUC>()),
     );
-    gh.factory<_i821.EventFormViewModel>(
-      () => _i821.EventFormViewModel(
-        createUseCase: gh<_i225.CreateEventUC>(),
-        positionUseCase: gh<_i102.GetCurrentPositionUseCase>(),
-        locationUseCase: gh<_i670.SetEventLocationUC>(),
-      ),
-    );
     gh.factory<_i351.HomeTabViewModel>(
       () => _i351.HomeTabViewModel(
-        userUseCase: gh<_i43.GetCurrUserUC>(),
         eventsUseCase: gh<_i868.GetEventsUC>(),
         favUseCase: gh<_i117.UpdateFavUC>(),
+        getLocationUseCase: gh<_i670.GetLocationUC>(),
+        getPositionUseCase: gh<_i102.GetCurrentPositionUseCase>(),
       ),
     );
     return this;

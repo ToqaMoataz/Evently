@@ -29,7 +29,7 @@ class OnboardingScreen extends StatelessWidget {
             Expanded(
               child: IntroductionScreen(
                 dotsDecorator: DotsDecorator(
-                  color: (themeProvider.themeMode == ThemeMode.light) ? MainColors.getTextSecondaryColor() : MainColors.getTextPrimaryColor(),
+                  color: (themeProvider.themeMode == ThemeMode.light) ? MainColors.getTDarkColor() : MainColors.getLightColor(),
                   activeColor: MainColors.getMainColor(),
                   shape: CircleBorder(),
                   activeShape: RoundedRectangleBorder(

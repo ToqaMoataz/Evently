@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
+import 'package:evently/Core/Models/user_model.dart';
 import 'package:evently/Core/Provider/language_setter.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Components/event_card.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/persentation/Cubit/home_tab_states.dart';
@@ -15,7 +16,8 @@ import '../../../../../../../Core/assets/const data.dart';
 import '../Cubit/home_tab_view_model.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+  final UserModel user;
+  const HomeTab({super.key,required this.user});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -32,7 +34,7 @@ class _HomeTabState extends State<HomeTab> {
       create:
           (context) =>
               viewModel
-                ..getCurrUser()
+                ..getUserLocation()
                 ..getEvents(AppData.events[viewModel.state.categoryIndex]),
       child: BlocBuilder<HomeTabViewModel, HomeTabState>(
         builder: (context, state) {
@@ -64,11 +66,13 @@ class _HomeTabState extends State<HomeTab> {
                         children: [
                           Text(
                             "welcome_back_text".tr(),
-                            style: AppTextStyles.small400TitleStyle(),
+                            style: AppTextStyles.titleSmall(
+                              weight: FontWeight.w400,
+                            ),
                           ),
                           Text(
-                            state.currUser?.name ?? "username_text".tr(),
-                            style: AppTextStyles.largeTitleStyle(),
+                            widget.user.name,
+                            style: AppTextStyles.userNameTextStyle(),
                           ),
                         ],
                       ),
@@ -125,12 +129,14 @@ class _HomeTabState extends State<HomeTab> {
                     children: [
                       Icon(
                         Icons.location_on_outlined,
-                        color: Color(0XFFF2FEFF),
+                        color: MainColors.getLightColor(),
                       ),
                       SizedBox(width: 3.w),
                       Text(
-                        state.currUser?.location ?? "location_text".tr(),
-                        style: AppTextStyles.small500TitleStyle(),
+                        state.userLocation ?? "location",
+                        style: AppTextStyles.titleSmall(
+                          weight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
@@ -189,18 +195,16 @@ class _HomeTabState extends State<HomeTab> {
                                               : MainColors.getLightColor(),
                                       size: 24,
                                     ),
-                                    const SizedBox(width: 8),
+                                    SizedBox(width: 8.w),
                                     Text(
                                       AppData.events[i],
-                                      style: GoogleFonts.inter(
+                                      style: AppTextStyles.categoryCardTextStyle(
                                         color:
                                             (state.categoryIndex == i)
                                                 ? ((isLightTheme)
                                                     ? MainColors.getMainColor()
                                                     : MainColors.getLightColor())
                                                 : MainColors.getLightColor(),
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                   ],
@@ -216,7 +220,9 @@ class _HomeTabState extends State<HomeTab> {
               ),
             ),
             body:
-                (viewModel.state.events.isEmpty)
+            (state.getEventsRequestState==RequestState.loading) 
+                ? Center(child: CircularProgressIndicator(color: MainColors.getMainColor(),))
+                : (viewModel.state.events.isEmpty)
                     ? Center(child: Text("Currently no events"))
                     : Padding(
                       padding: const EdgeInsets.only(

@@ -1,14 +1,17 @@
 
 import 'package:evently/Core/assets/const%20data.dart';
+import 'package:evently/Core/assets/images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../../../../Core/App Colors/main_colors.dart';
 import '../../../../../Core/App Routing/routes.dart';
 import '../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../Core/Models/event_model.dart';
+import '../../../../../Core/Provider/themeProvider.dart';
 import '../../Cubit/States/event_form_states.dart';
 import '../../Cubit/View Models/event_form_view_model.dart';
 
@@ -26,21 +29,25 @@ class _EventFormScreenState extends State<EventFormScreen> {
   final TextEditingController descriptionController = TextEditingController();
   EventModel? event;
 
+
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     viewModel = context.read<EventFormViewModel>();
 
     event = ModalRoute.of(context)?.settings.arguments as EventModel?;
     if (event != null) {
-      viewModel.setIndexWithCategory(event!.eventCategory);
-      viewModel.setCurrentPosition(event!.eventPosition);
+      titleController.text=event!.title;
+      descriptionController.text=event!.description;
+      viewModel.loadEvent(event!);
     }
   }
 
+
   @override
   void dispose() {
+    viewModel.resetState();
     titleController.dispose();
     descriptionController.dispose();
     super.dispose();
@@ -48,7 +55,8 @@ class _EventFormScreenState extends State<EventFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor =
+    var themeProvider=Provider.of<ThemeProvider>(context);
+    Color color =
         (Theme.of(context).brightness == Brightness.dark)
             ? MainColors.getLightColor()
             : MainColors.getTDarkColor();
@@ -72,8 +80,8 @@ class _EventFormScreenState extends State<EventFormScreen> {
                     borderRadius: BorderRadius.circular(16.r),
                     child: Image.asset(
                       (event == null)
-                          ? "assets/images/${AppData.events[state.selectedEvent]}.png"
-                          : "assets/images/${event?.eventCategory}.png",
+                          ? AppImages.returnEventImage(AppData.events[state.selectedEvent])
+                          :AppImages.returnEventImage(event!.eventCategory),
                       height: 200.h,
                       fit: BoxFit.cover,
                     ),
@@ -146,22 +154,13 @@ class _EventFormScreenState extends State<EventFormScreen> {
                   // Event Title
                   Text(
                     "Title",
-                    style: GoogleFonts.inter(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: textColor,
-                    ),
+                    style: AppTextStyles.titleMedium(color: color)
                   ),
                   TextFormField(
                     controller: titleController,
                     decoration: InputDecoration(
                       hintText: (event != null) ? event!.title : "Title",
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color:
-                            (!isDark) ? MainColors.getGrayColor() : textColor,
-                      ),
+                      hintStyle: AppTextStyles.hintTextStyle(themeMode: themeProvider.themeMode),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
@@ -193,7 +192,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       prefixIcon: Icon(
                         Icons.edit_note_outlined,
                         color:
-                            (!isDark) ? MainColors.getGrayColor() : textColor,
+                            (!isDark) ? MainColors.getGrayColor() : color,
                       ),
                     ),
                   ),
@@ -202,11 +201,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                   // Description
                   Text(
                     "Description",
-                    style: GoogleFonts.inter(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: textColor,
-                    ),
+                    style: AppTextStyles.titleMedium(color: color)
                   ),
                   SizedBox(height: 8.h),
                   TextFormField(
@@ -217,12 +212,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                           (event != null)
                               ? event!.description
                               : "Event Description",
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color:
-                            (!isDark) ? MainColors.getGrayColor() : textColor,
-                      ),
+                      hintStyle: AppTextStyles.hintTextStyle(themeMode: themeProvider.themeMode),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
@@ -266,9 +256,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       SizedBox(width: 8.w),
                       Text(
                         "Event Date",
-                        style: AppTextStyles.simpleHeadLineTextStyle(
-                          textColor,
-                        ),
+                        style: AppTextStyles.titleMedium(color: color)
                       ),
                       Spacer(),
                       GestureDetector(
@@ -279,15 +267,11 @@ class _EventFormScreenState extends State<EventFormScreen> {
                           }
                         },
                         child: Text(
-                          (event!=null) ? "${event!.date}"
+                          (event!=null) ? event!.date.toString().substring(0, 10)
                               : (state.eventDate != null)
                               ? state.eventDate.toString().substring(0, 10)
                               : "Choose Date",
-                          style: GoogleFonts.inter(
-                            color: MainColors.getMainColor(),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
+                          style: AppTextStyles.titleMedium(color: MainColors.getMainColor())
                         ),
                       ),
                     ],
@@ -299,33 +283,28 @@ class _EventFormScreenState extends State<EventFormScreen> {
                     children: [
                       Icon(
                         Icons.access_time_outlined,
-                        color: const Color(0XFF5669FF),
+                        color: MainColors.getMainColor(),
                       ),
                       SizedBox(width: 8.w),
                       Text(
                         "Event Time",
-                        style: AppTextStyles.simpleHeadLineTextStyle(
-                          textColor,
-                        ),
+                        style: AppTextStyles.titleMedium(color: color)
                       ),
                       const Spacer(),
                       GestureDetector(
                         onTap: () async {
-                          TimeOfDay? time=await pickTime();
-                          if(time!=null){
+                          String? time = await pickTime();
+                          if (time != null && mounted) {
                             viewModel.setEventTime(time);
                           }
                         },
+
                         child: Text(
                           (event!=null) ? event!.time
                           : (state.eventTime==null)
                               ? "Choose Time"
-                              : state.eventTime!.format(context),
-                          style: GoogleFonts.inter(
-                            color: MainColors.getMainColor(),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
+                              : state.eventTime!,
+                          style: AppTextStyles.titleMedium(color: MainColors.getMainColor())
                         ),
                       ),
                     ],
@@ -335,7 +314,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                   // Location
                   Text(
                     "Location",
-                    style: AppTextStyles.simpleHeadLineTextStyle(textColor),
+                    style: AppTextStyles.titleMedium(color:color),
                   ),
                   SizedBox(height: 8.h),
                   GestureDetector(
@@ -358,7 +337,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             padding: EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: MainColors.getMainColor(),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: Icon(
                               Icons.my_location,
@@ -367,14 +346,14 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             ),
                           ),
                           SizedBox(width: 12.w),
-                          Text(
-                            (event == null)
-                                ? ((state.currentLocation == null)
-                                    ? "Choose Event Location"
-                                    : state.currentLocation!)
-                                : event!.location,
-                            style: AppTextStyles.simpleHeadLineTextStyle(
-                              textColor,
+                          Flexible(
+                            child: Text(
+                              (event == null)
+                                  ? ((state.currentLocation == null)
+                                      ? "Choose Event Location"
+                                      : state.currentLocation!)
+                                  : event!.location,
+                              style: AppTextStyles.titleMedium(color: color)
                             ),
                           ),
                           Spacer(),
@@ -388,13 +367,13 @@ class _EventFormScreenState extends State<EventFormScreen> {
                   ),
                   SizedBox(height: 24.h),
 
-                  // Add Event Button
+                  // Event Button
                   SizedBox(
                     width: double.infinity,
                     height: 50.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0XFF5669FF),
+                        backgroundColor: MainColors.getMainColor(),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.r),
                         ),
@@ -407,12 +386,13 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             title: titleController.text.trim(),
                             description: descriptionController.text.trim(),
                             date: state.eventDate!.millisecondsSinceEpoch,
-                            time: state.eventTime!.format(context),
+                            time: state.eventTime!,
                             location: state.currentLocation!,
                             userId: FirebaseAuth.instance.currentUser!.uid,
                             eventPosition: state.currentPosition!
                           );
-                          viewModel.createEvent(newEvent);
+                          if(event==null) {viewModel.createEvent(newEvent);}
+                          else {viewModel.updateEvent(newEvent);}
                         } else {
                           showDialog(
                             context: context,
@@ -435,7 +415,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       },
 
                       child: Text(
-                        "Add Event",
+                        (event==null) ? "Add Event" : "Update Event",
                         style: AppTextStyles.buttonTextStyle(),
                       ),
                     ),
@@ -461,9 +441,9 @@ class _EventFormScreenState extends State<EventFormScreen> {
         return Theme(
           data: ThemeData(
             colorScheme: ColorScheme.light(
-              primary: Color(0XFF5669FF),
+              primary: MainColors.getMainColor(),
               onPrimary: Colors.white,
-              onSurface: Color(0XFF5669FF),
+              onSurface: MainColors.getMainColor(),
             ),
           ),
           child: child!,
@@ -474,22 +454,19 @@ class _EventFormScreenState extends State<EventFormScreen> {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(Duration(days: 366)),
     );
+    return chosenDate;
 
-    if (chosenDate != null) {
-      return chosenDate;
-    }
-    return null;
   }
 
-  Future<TimeOfDay?> pickTime() async {
+  Future<String?> pickTime() async {
     final TimeOfDay? chosenTime = await showTimePicker(
       builder: (context, child) {
         return Theme(
           data: ThemeData(
             colorScheme: ColorScheme.light(
-              primary: Color(0XFF5669FF),
+              primary: MainColors.getMainColor(),
               onPrimary: Colors.white,
-              onSurface: Color(0XFF5669FF),
+              onSurface: MainColors.getMainColor(),
             ),
           ),
           child: child!,
@@ -498,19 +475,33 @@ class _EventFormScreenState extends State<EventFormScreen> {
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    if (chosenTime != null) {
-      return chosenTime;
-    }
-    return null;
+    return chosenTime?.format(context);
   }
 
   bool validateForm(EventFormState state) {
-    if (titleController.text.trim().isEmpty) return false;
-    if (descriptionController.text.trim().isEmpty) return false;
-    if (state.eventDate == null) return false;
-    if (state.eventTime == null) return false;
-    if (state.currentLocation == null) return false;
+    if (titleController.text.trim().isEmpty) {
+      print("Validation failed: title is empty");
+      return false;
+    }
+    if (descriptionController.text.trim().isEmpty) {
+      print("Validation failed: description is empty");
+      return false;
+    }
+    if (state.eventDate == null) {
+      print("Validation failed: eventDate is null");
+      return false;
+    }
+    if (state.eventTime == null) {
+      print("Validation failed: eventTime is null");
+      return false;
+    }
+    if (state.currentLocation == null) {
+      print("Validation failed: currentLocation is null");
+      return false;
+    }
+    print("Validation passed: all fields are filled");
     return true;
   }
+
 
 }

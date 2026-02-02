@@ -13,8 +13,8 @@ import '../../../../Core/App Routing/routes.dart';
 
 class EventCard extends StatelessWidget {
   final EventModel event;
-  Function updateFav;
-  EventCard({super.key,required this.event,required this.updateFav});
+  final Function updateFav;
+  const EventCard({super.key,required this.event,required this.updateFav});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class EventCard extends StatelessWidget {
                           Text(
                             event.title,
                             style: GoogleFonts.inter(
-                                color: (isLightTheme) ? MainColors.getTextSecondaryColor() : MainColors.getTextPrimaryColor(),
+                                color: (isLightTheme) ? MainColors.getTDarkColor() : MainColors.getLightColor(),
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w700,
                                 height: 1,

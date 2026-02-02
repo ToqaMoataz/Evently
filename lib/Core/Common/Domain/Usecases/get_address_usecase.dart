@@ -6,13 +6,15 @@ import 'package:injectable/injectable.dart';
 import '../Repository/common_repo.dart';
 
 @injectable
-class SetEventLocationUC {
+class GetLocationUC {
   final CommonRepo repo;
-  SetEventLocationUC(this.repo);
+  GetLocationUC(this.repo);
 
-  Future<Placemark?> call(LatLng position) async {
+  Future<String?> call(LatLng position) async {
     try {
-      return await repo.getUserLocation(position);
+      Placemark? placemark= await repo.getUserLocation(position);
+      String? location="${placemark?.locality}, ${placemark?.country}";
+      return location;
     } catch (e) {
       rethrow;
     }

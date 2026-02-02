@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextSpan(
                                     text: "no_account_text".tr(),
                                     style: GoogleFonts.inter(
-                                      color: MainColors.getTextSecondaryColor(),
+                                      color: MainColors.getLightColor(),
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
                                     )

@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/Core/Common/Domain/Usecases/get_address_usecase.dart';
+import 'package:evently/Core/Common/Domain/Usecases/get_curr_langlat_usecase.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../../Core/Models/event_model.dart';
@@ -14,14 +17,18 @@ import 'home_tab_states.dart';
 @injectable
 class HomeTabViewModel extends Cubit<HomeTabState> {
   HomeTabViewModel({
-    required this.userUseCase,
+
     required this.eventsUseCase,
     required this.favUseCase,
+    required this.getLocationUseCase,
+    required this.getPositionUseCase
   }) : super(HomeTabInitState());
 
-  final GetCurrUserUC userUseCase;
+
   final GetEventsUC eventsUseCase;
   final UpdateFavUC favUseCase;
+  final GetCurrentPositionUseCase getPositionUseCase;
+  final GetLocationUC getLocationUseCase;
 
   StreamSubscription<List<EventModel>>? _eventSub;
 
@@ -55,41 +62,22 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
     }
   }
 
-  Future<void> getCurrUser() async {
-    emit(state.copyWith(
-      getUserInfoRequestState: RequestState.loading,
-      errorMessage: null,
-    ));
-
-    try {
-      final user = await userUseCase.call();
-
-      if (isClosed) return;
-
-      if (user == null) {
-        emit(state.copyWith(
-          getUserInfoRequestState: RequestState.error,
-          errorMessage: 'User not found',
-        ));
-        return;
-      }
-
-      emit(state.copyWith(
-        getUserInfoRequestState: RequestState.success,
-        currUser: user,
-      ));
-    } catch (e) {
-      if (isClosed) return;
-      emit(state.copyWith(
-        getUserInfoRequestState: RequestState.error,
-        errorMessage: e.toString(),
-      ));
-    }
-  }
 
   void setCurrEvent(int index) {
     if (isClosed) return;
     emit(state.copyWith(categoryIndex: index));
+  }
+
+  Future<void> getUserLocation()async {
+    try{
+      LatLng? currPosition=await getPositionUseCase.call();
+      if(currPosition!=null){
+        String? currLocation=await getLocationUseCase.call(currPosition);
+        emit(state.copyWith(userLocation: currLocation));
+      }
+    }catch(e){
+      emit(state.copyWith(errorMessage: e.toString()));
+    }
   }
 
   Future<void> updateFave(String eventId, bool currentValue) async {

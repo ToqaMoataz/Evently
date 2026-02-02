@@ -75,7 +75,7 @@ class _MapScreenState extends State<MapScreen> {
                       style: GoogleFonts.inter(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
-                        color: MainColors.getTextPrimaryColor(),
+                        color: MainColors.getLightColor(),
                       ),
                     ),
                   ),

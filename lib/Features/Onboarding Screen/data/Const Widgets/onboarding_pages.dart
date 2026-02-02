@@ -22,8 +22,8 @@ class OnboardingPages {
         ),
         decoration: PageDecoration(
           pageColor: Colors.transparent,
-          titleTextStyle: AppTextStyles.introTitleStyle(),
-          bodyTextStyle: AppTextStyles.introBodyStyle(themeProvider),
+          titleTextStyle: AppTextStyles.titleLarge(),
+          bodyTextStyle: AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode),
         ),
       ),
       PageViewModel(
@@ -38,8 +38,8 @@ class OnboardingPages {
         ),
         decoration: PageDecoration(
           pageColor: Colors.transparent,
-          titleTextStyle: AppTextStyles.introTitleStyle(),
-          bodyTextStyle: AppTextStyles.introBodyStyle(themeProvider),
+            titleTextStyle: AppTextStyles.titleLarge(),
+            bodyTextStyle: AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode)
         ),
       ),
       PageViewModel(
@@ -53,8 +53,8 @@ class OnboardingPages {
         ),
         decoration: PageDecoration(
           pageColor: Colors.transparent,
-          titleTextStyle: AppTextStyles.introTitleStyle(),
-          bodyTextStyle: AppTextStyles.introBodyStyle(themeProvider),
+            titleTextStyle: AppTextStyles.titleLarge(),
+            bodyTextStyle: AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode)
         ),
       ),
     ];

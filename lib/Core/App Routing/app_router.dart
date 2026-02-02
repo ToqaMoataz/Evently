@@ -46,6 +46,7 @@ class AppRouter {
 
       case Routes.formEventScreenRouteName:
         return MaterialPageRoute(
+          settings: settings,
           builder: (_) => BlocProvider.value(
             value: _viewModel,
             child: EventFormScreen(),
@@ -61,7 +62,7 @@ class AppRouter {
         );
 
       case Routes.eventDetailsScreenRouteName:
-        return MaterialPageRoute(builder: (_) => EventDetailsScreen());
+        return MaterialPageRoute(settings: settings,builder: (_) => EventDetailsScreen());
 
       default:
         return MaterialPageRoute(
