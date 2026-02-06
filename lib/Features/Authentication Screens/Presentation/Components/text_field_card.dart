@@ -14,6 +14,7 @@ class TextFieldCard extends StatelessWidget {
   final bool passVisible;
   final VoidCallback? onVisibilityToggle;
   final Color color;
+  final Color? backgroundColor;
 
   const TextFieldCard({
     super.key,
@@ -21,6 +22,7 @@ class TextFieldCard extends StatelessWidget {
     required this.icon,
     required this.textController,
     required this.color,
+    this.backgroundColor,
     this.validate,
     this.isPass = false,
     this.passVisible = false,
@@ -34,6 +36,7 @@ class TextFieldCard extends StatelessWidget {
       height: 56.h,
       padding: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
+        color:backgroundColor ?? Colors.transparent,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color:color),
       ),

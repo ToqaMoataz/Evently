@@ -346,15 +346,13 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             ),
                           ),
                           SizedBox(width: 12.w),
-                          Flexible(
-                            child: Text(
-                              (event == null)
-                                  ? ((state.currentLocation == null)
-                                      ? "Choose Event Location"
-                                      : state.currentLocation!)
-                                  : event!.location,
-                              style: AppTextStyles.titleMedium(color: color)
-                            ),
+                          Text(
+                            (event == null)
+                                ? ((state.currentLocation == null)
+                                    ? "Choose Event Location"
+                                    : state.currentLocation!)
+                                : event!.location,
+                            style: AppTextStyles.titleMedium(color: color)
                           ),
                           Spacer(),
                           Icon(
@@ -392,7 +390,10 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             eventPosition: state.currentPosition!
                           );
                           if(event==null) {viewModel.createEvent(newEvent);}
-                          else {viewModel.updateEvent(newEvent);}
+                          else {
+                            newEvent.id=event!.id;
+                            viewModel.updateEvent(newEvent);
+                          }
                         } else {
                           showDialog(
                             context: context,
@@ -426,8 +427,8 @@ class _EventFormScreenState extends State<EventFormScreen> {
             );
           },
           listener: (context, state) {
-            if (state.createEventRequestState == RequestState.success) {
-              Navigator.pop(context);
+            if (state.createEventRequestState == RequestState.success || state.updateEventRequestState==RequestState.success) {
+              Navigator.pushReplacementNamed(context, Routes.homeScreenRouteName);
             }
           },
         ),

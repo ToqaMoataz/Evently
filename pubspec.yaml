@@ -49,6 +49,7 @@ dependencies:
   dio: ^5.9.0
   google_maps_flutter: ^2.14.0
   location: ^8.0.1
+  http: ^1.6.0
   geocoding: ^2.1.4
   # Cloudinary
   cloudinary_api: ^1.1.1

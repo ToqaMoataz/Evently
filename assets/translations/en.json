@@ -17,6 +17,7 @@
   "register_heading": "Register",
   "see_more_text" : "See More",
   "search_for_event_text" : "Search for Event",
+  "search_for_place_text" : "Search place",
   "no_events_text" : "Currently no events",
   "welcome_back_text": "Welcome Back ✨",
   "username_text" : "User name",
@@ -39,5 +40,8 @@
   "event_time_text": "Event Time",
   "location_label_text": "Location",
   "choose_event_location_text": "Choose Event Location",
-  "add_event_text": "Add Event"
+  "add_event_text": "Add Event",
+  "select_location_text" : "Tap on Location To Select"
+
+
 }

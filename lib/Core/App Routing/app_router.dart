@@ -11,7 +11,7 @@ import '../../Features/Onboarding Screen/Presentation/Screen/onboarding_screen.d
 import '../../Features/Authentication Screens/Presentation/Screens/Register Screen/Screen/register_screen.dart';
 import '../../Features/Authentication Screens/Presentation/Screens/Forget Password Screen/Screen/forget_password_screen.dart';
 import '../../Features/Home Screen/persentation/Home Screen/home_Screen.dart';
-import '../../Features/Event Management/Presentation/Screens/Create or Update Event/event_form_event.dart';
+import '../../Features/Event Management/Presentation/Screens/Create or Update Event/event_form_screen.dart';
 import '../../Features/Event Management/Presentation/Screens/Map Screen/map_screen.dart';
 import '../../Features/Event Management/Presentation/Screens/Event Details Screen/event_details_screen.dart';
 
@@ -25,9 +25,6 @@ class AppRouter {
       case '/':
       case Routes.homeScreenRouteName:
         return MaterialPageRoute(builder: (_) => HomeScreen());
-
-
-
       case Routes.introductionScreenRouteName:
         return MaterialPageRoute(builder: (_) => IntroScreen());
       case Routes.splashScreenRouteName:

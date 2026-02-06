@@ -10,18 +10,22 @@ import 'package:injectable/injectable.dart';
 import '../../../../../Core/Common/Domain/Usecases/get_address_usecase.dart';
 import '../../../../../Core/Common/Domain/Usecases/get_curr_langlat_usecase.dart';
 import '../../../../../Core/Models/event_model.dart';
+import '../../../../../Core/Models/place_model.dart';
 import '../../../../../Core/assets/const data.dart';
 
 import '../../../Domain/Use cases/create_event_usecase.dart';
+import '../../../Domain/Use cases/search_place_use_case.dart';
 import '../States/event_form_states.dart';
+
 @injectable
 class EventFormViewModel extends Cubit<EventFormState> {
   EventFormViewModel(
-      this._createUseCase,
-     this._positionUseCase,
-     this._locationUseCase,
-     this._deleteUseCase,
-     this._updateUseCase
+    this._createUseCase,
+    this._positionUseCase,
+    this._locationUseCase,
+    this._deleteUseCase,
+    this._updateUseCase,
+    this._getLocationUseCase,
   ) : super(EventFormInitState());
 
   final CreateEventUC _createUseCase;
@@ -29,51 +33,50 @@ class EventFormViewModel extends Cubit<EventFormState> {
   final GetLocationUC _locationUseCase;
   final DeleteEventUC _deleteUseCase;
   final UpdateEventUC _updateUseCase;
+  final SearchPlaceUC _getLocationUseCase;
 
   void resetState() {
     emit(EventFormInitState());
   }
 
-  void _setMarker(LatLng position){
+  void _setMarker(LatLng position) {
     final marker = Marker(
-      markerId:MarkerId('current'),
+      markerId: MarkerId('current'),
       position: position,
-      infoWindow: const InfoWindow(
-        title: 'Event Location',
-      ),
+      infoWindow: const InfoWindow(title: 'Event Location'),
     );
 
-    emit(
-      state.copyWith(
-        marker: marker,
-      ),
-    );
+    emit(state.copyWith(marker: marker));
   }
 
-  void setEventDate(DateTime selectedDate){
+  void setEventDate(DateTime selectedDate) {
     emit(state.copyWith(eventDate: selectedDate));
   }
 
-  void setEventTime(String selectedTime){
+  void setEventTime(String selectedTime) {
     emit(state.copyWith(eventTime: selectedTime));
   }
-  void selectEventCategory(int index){
+
+  void selectEventCategory(int index) {
     emit(state.copyWith(selectedEvent: index));
   }
 
   void loadEvent(EventModel event) {
     setCurrentPosition(event.eventPosition);
     setIndexWithCategory(event.eventCategory);
-    emit(state.copyWith(
-      eventDate: DateTime.fromMillisecondsSinceEpoch(event.date * 1000),
-      eventTime: event.time
-    ));
+    emit(
+      state.copyWith(
+        eventDate: DateTime.fromMillisecondsSinceEpoch(event.date * 1000),
+        eventTime: event.time,
+      ),
+    );
   }
 
-  void setIndexWithCategory(String eventCategory){
-    int index=AppData.events.indexOf(eventCategory);
+  void setIndexWithCategory(String eventCategory) {
+    int index = AppData.events.indexOf(eventCategory);
     selectEventCategory(index);
   }
+
   Future<void> setCurrentPosition(LatLng position) async {
     emit(state.copyWith(setPositionRequestState: RequestState.loading));
     try {
@@ -84,12 +87,16 @@ class EventFormViewModel extends Cubit<EventFormState> {
           setPositionRequestState: RequestState.success,
           currentPosition: position,
           currentLocation: location,
-          marker: Marker(markerId: MarkerId("current"),position:position )
+          marker: Marker(markerId: MarkerId("current"), position: position),
         ),
       );
-
-    }catch (e) {
-      emit(state.copyWith(setPositionRequestState: RequestState.error,errorMessage: e.toString()));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          setPositionRequestState: RequestState.error,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -105,42 +112,81 @@ class EventFormViewModel extends Cubit<EventFormState> {
             setPositionRequestState: RequestState.success,
             currentPosition: position,
             currentLocation: location,
-            marker: Marker(markerId: MarkerId("current"),position:position )
+            marker: Marker(markerId: MarkerId("current"), position: position),
           ),
         );
       }
     } catch (e) {
-      emit(state.copyWith(setPositionRequestState: RequestState.error,errorMessage: e.toString()));
+      emit(
+        state.copyWith(
+          setPositionRequestState: RequestState.error,
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+  void selectPlace(PlaceModel selectedLocation) {
+    emit(state.copyWith(showSearchResults: false));
+    try {
+      LatLng newPosition = LatLng(
+        selectedLocation.latLng.latitude,
+        selectedLocation.latLng.longitude,
+      );
+      setCurrentPosition(newPosition);
+      emit(state.copyWith(selectedSearchResult: selectedLocation));
+    } catch (e) {
+      emit(state.copyWith(errorMessage: e.toString()));
+    }
+  }
+
+  void unShowResultsCard() {
+    emit(state.copyWith(showSearchResults: false));
+  }
+
+  Future<void> searchPlace(String place) async {
+    print("i ammmmmmmm INVOKEddddddDDDDDDDDD");
+    emit(state.copyWith(searchRequestState: RequestState.loading));
+    try {
+      List<PlaceModel>? places = await _getLocationUseCase.call(place);
+
+      emit(
+        state.copyWith(
+          searchRequestState: RequestState.success,
+          searchResults: places,
+          showSearchResults: true,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          errorMessage: e.toString(),
+          searchRequestState: RequestState.error,
+        ),
+      );
     }
   }
 
   Future<void> createEvent(EventModel model) async {
-    print("IT'S CALLLLLLED");
     emit(state.copyWith(createEventRequestState: RequestState.loading));
-    print("STATE: ${state.createEventRequestState}");
     try {
       await _createUseCase.call(model);
       emit(state.copyWith(createEventRequestState: RequestState.success));
-      print("STATE: ${state.createEventRequestState}");
     } catch (e) {
       emit(
         state.copyWith(
           createEventRequestState: RequestState.error,
           errorMessage: e.toString(),
         ),
-
       );
-      print("STATE: ${state.createEventRequestState} , ERROR:${state.errorMessage} ");
     }
   }
 
   Future<void> deleteEvent(String id) async {
     emit(state.copyWith(deleteEventRequestState: RequestState.loading));
-    print("STATE: ${state.deleteEventRequestState}");
     try {
       await _deleteUseCase.call(id);
       emit(state.copyWith(deleteEventRequestState: RequestState.success));
-      print("STATE: ${state.deleteEventRequestState}");
     } catch (e) {
       emit(
         state.copyWith(
@@ -148,15 +194,17 @@ class EventFormViewModel extends Cubit<EventFormState> {
           errorMessage: e.toString(),
         ),
       );
-      print("STATE: ${state.deleteEventRequestState} , ERROR:${state.errorMessage} ");
     }
   }
 
   Future<void> updateEvent(EventModel model) async {
     emit(state.copyWith(updateEventRequestState: RequestState.loading));
+    print("STATE: ${state.updateEventRequestState}");
+
     try {
       await _updateUseCase.call(model);
       emit(state.copyWith(updateEventRequestState: RequestState.success));
+      print("STATE: ${state.updateEventRequestState}");
     } catch (e) {
       emit(
         state.copyWith(
@@ -164,8 +212,9 @@ class EventFormViewModel extends Cubit<EventFormState> {
           errorMessage: e.toString(),
         ),
       );
+      print(
+        "STATE: ${state.updateEventRequestState} , ERROR:${state.errorMessage} ",
+      );
     }
   }
-
-
 }

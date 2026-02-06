@@ -1,19 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
 import 'package:evently/Features/Authentication%20Screens/Presentation/Components/text_field_card.dart';
-import 'package:evently/Features/Home%20Screen/domain/Usecase/update_fave.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/data/Data%20source/fave_ds.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/data/Repository%20IMP/fav_repo_imp.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/domain/Usecase/get_fav_events_usecase.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/domain/Usecase/search_usecase.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/persentation/Cubit/fav_tab_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/persentation/Cubit/fav_tab_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../Core/App Colors/main_colors.dart';
-import '../../../../../data/Repository Implementation/repo_impl.dart';
-import '../../../../../data/datasource/home_screen_ds.dart';
 import '../../../../Components/event_card.dart';
 
 class FavTab extends StatefulWidget {
@@ -76,9 +69,9 @@ class _FavTabState extends State<FavTab> {
                             separatorBuilder: (context, index) {
                               return SizedBox(height: 16.h);
                             },
-                            itemCount: (_searchController.text=="") ?state.events.length : viewModel.state.searchResults.length,
+                            itemCount: (_searchController.text.isEmpty) ? state.events.length : viewModel.state.searchResults.length,
                             itemBuilder: (context, index) {
-                              if (_searchController.text==""){
+                              if (_searchController.text.isEmpty){
                                 return EventCard(
                                   event: state.events[index],
                                   updateFav: () {
