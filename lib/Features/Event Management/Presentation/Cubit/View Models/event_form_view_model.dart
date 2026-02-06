@@ -169,7 +169,6 @@ class EventFormViewModel extends Cubit<EventFormState> {
   }
   Future<void> saveEvent(EventModel newEvent,EventModel? existingEvent)async {
     try{
-
       if(existingEvent==null){
         await createEvent(newEvent);
         return;

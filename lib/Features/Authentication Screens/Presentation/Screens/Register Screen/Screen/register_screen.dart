@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/App%20Colors/main_colors.dart';
 import 'package:evently/Core/App%20Widgets/app_widgets.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
-import 'package:evently/Features/Authentication%20Screens/Domain/Usecases/sign%20up%20usecase/signup_usecse.dart';
 import 'package:evently/Features/Authentication%20Screens/Presentation/Screens/Register%20Screen/Cubit/register_view_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +14,6 @@ import '../../../../../../Core/App Routing/routes.dart';
 import '../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../Core/Models/user_model.dart';
 import '../../../../../../Core/assets/const data.dart';
-import '../../../../Data/Repository Implementation/repo_impl.dart';
-import '../../../../Data/data source/auth_ds.dart';
 import '../../../Components/text_field_card.dart';
 import '../Cubit/states.dart';
 
@@ -70,11 +68,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Scaffold(
                     resizeToAvoidBottomInset: false,
                     appBar: AppBar(
-                      leading: Icon(Icons.arrow_back,color: Color(0XFF101127),),
+                      leading: Icon(Icons.arrow_back,color: MainColors.getMainColor(),),
                       title: Text(
                         "register_heading".tr(),
                         style: GoogleFonts.inter(
-                          color: Color(0XFF101127),
+                          color: MainColors.getMainColor(),
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w400,
                         ),
@@ -102,11 +100,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             TextFieldCard(
                               hintText:"name_text".tr(),
                               icon: Icons.person,
-                              color:Color(0XFF7B7B7B),
+                              color:MainColors.getGreyColor(),
                               textController: _nameController,
                               validate:(value) {
                                 if (value == null || value.trim().isEmpty) {
-                                  return "Name is required";
+                                  return "name_required_text".tr();
                                 }
                                 return null;
                               },
@@ -119,26 +117,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               validate:(value) {
                                 final RegExp phoneRegex = RegExp(r'^[0-9]{10,15}$');
                                 if (value == null || value.trim().isEmpty) {
-                                  return "Phone number is required";
+                                  return "phone_required_text".tr();
                                 } else if (!phoneRegex.hasMatch(value.trim())) {
-                                  return "Enter a valid phone number";
+                                  return "valid_phone_text".tr();
                                 }
                                 return null;
-                              }, color:Color(0XFF7B7B7B),
+                              }, color:MainColors.getGreyColor(),
                             ),
                             // Email TextField
                             TextFieldCard(
                               hintText:"email_text".tr(),
                               icon: Icons.mail_rounded,
-                              color:Color(0XFF7B7B7B),
+                              color:MainColors.getGreyColor(),
                               textController: _emailController,
                               validate:(value){
                                 final RegExp emailRegex = RegExp(r'^[\w\.-]+@[\w\.-]+\.(com)$');
                                 if(value==null||value.isEmpty){
-                                  return "Email is required";
+                                  return "email_required_text".tr();
                                 }
                                 else if(!emailRegex.hasMatch(value)){
-                                  return "Email is not valid";
+                                  return "email_not_valid_text".tr();
                                 }
                                 return null;
                               },
@@ -150,13 +148,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textController: _passwordController,
                               validate:(value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Password is required";
+                                  return "password_required_text".tr();
                                 } else if (value.length < 6) {
-                                  return "Password must be at least 6 characters";
+                                  return "password_length_text".tr();
                                 }
                                 return null;
                               },
-                              color:Color(0XFF7B7B7B),
+                              color:MainColors.getGreyColor(),
                               isPass: true,
                               passVisible: state.passVisible,
                               onVisibilityToggle: () {
@@ -167,13 +165,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             TextFieldCard(
                               hintText:"re_password_text".tr(),
                               icon: Icons.lock,
-                              color:Color(0XFF7B7B7B),
+                              color:MainColors.getGreyColor(),
                               textController: _rePasswordController,
                               validate:(value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Confirm your password";
+                                  return "confirm_password_text".tr();
                                 } else if (value != _rePasswordController.text) {
-                                  return "Passwords do not match";
+                                  return "passwords_not_match_text".tr();
                                 }
                                 return null;
                               },
@@ -196,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 16),
                                 decoration: BoxDecoration(
-                                    color: Color(0XFF5669FF),
+                                    color: MainColors.getMainColor(),
                                     borderRadius: BorderRadius.circular(16.r)
                                 ),
                                 child: Text(
@@ -225,14 +223,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     TextSpan(
                                       text: "login_text".tr(),
                                       style: GoogleFonts.inter(
-                                        color: Color(0XFF5669FF),
+                                        color: MainColors.getMainColor(),
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w700,
                                         fontStyle: FontStyle.italic,
                                         height: 1.h,
                                         letterSpacing: 0,
                                         decoration: TextDecoration.underline,
-                                        decorationColor: Color(0XFF5669FF),
+                                        decorationColor: MainColors.getMainColor(),
                                         decorationStyle: TextDecorationStyle.solid,
                                       ),
                                       recognizer: TapGestureRecognizer()
@@ -251,14 +249,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Directionality(
                                   textDirection: ui.TextDirection.ltr,
                                   child: Container(
-                                    width: 75,
-                                    height: 32,
+                                    width: 75.w,
+                                    height: 32.h,
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         width: 2,
-                                        color: Color(0XFF5669FF),
+                                        color: MainColors.getMainColor(),
                                       ),
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(30.r),
                                     ),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -266,18 +264,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         InkWell(
                                           onTap: () {
                                             context.setLocale(Locale('en'));
-                                            setState(() {
-
-                                            });
                                           },
-                                          borderRadius: BorderRadius.circular(100),
+                                          borderRadius: BorderRadius.circular(100.r),
                                           child: Container(
-                                            width: 22,
-                                            height: 22,
+                                            width: 22.w,
+                                            height: 22.h,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               border: Border.all(
-                                                color: Color(0XFF5669FF),
+                                                color:MainColors.getMainColor(),
                                                 width: 3,
                                                 style: (context.locale.toString()=='en') ? BorderStyle.solid : BorderStyle.none,
                                               ),
@@ -293,16 +288,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         InkWell(
                                           onTap: () {
                                             context.setLocale(Locale('ar'));
-                                            setState(() {
-
-                                            });
                                           },
-                                          borderRadius: BorderRadius.circular(100),
+                                          borderRadius: BorderRadius.circular(100.r),
                                           child: Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               border: Border.all(
-                                                color: Color(0XFF5669FF),
+                                                color: MainColors.getMainColor(),
                                                 width: 3,
                                                 style: (context.locale.toString()=='ar') ? BorderStyle.solid : BorderStyle.none,
                                               ),
@@ -311,8 +303,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               child: Image.asset(
                                                 AppImages.eg,
                                                 fit: BoxFit.cover,
-                                                width: 22,
-                                                height: 22,
+                                                width: 22.w,
+                                                height: 22.h,
                                               ),
                                             ),
                                           ),

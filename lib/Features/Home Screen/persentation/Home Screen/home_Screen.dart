@@ -1,6 +1,8 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/App%20Colors/main_colors.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
+import 'package:evently/Core/Provider/themeProvider.dart';
 import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_screen_view_model.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../../../Core/App Routing/routes.dart';
 import '../../../../Core/Models/user_model.dart';
 import '../Tabs/Fav Tab/persentation/Tab/fav_tab.dart';
@@ -17,9 +20,10 @@ import '../Tabs/Profile Tab/persentation/Tab/profile_tab.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  HomeScreenViewModel viewModel=getIt<HomeScreenViewModel>();
+  final HomeScreenViewModel viewModel=getIt<HomeScreenViewModel>();
   @override
   Widget build(BuildContext context) {
+    var themeProvider=Provider.of<ThemeProvider>(context);
     return BlocProvider(
       create: (context) =>viewModel..getCurrUser() ,
       child: BlocBuilder<HomeScreenViewModel,HomeScreenState>(
@@ -47,24 +51,28 @@ class HomeScreen extends StatelessWidget {
                           .read<HomeScreenViewModel>()
                           .setCurrTab(value);
                     },
-                    selectedLabelStyle: GoogleFonts.inter(
-                      color: MainColors.getLightColor(),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w700,
-                      height: 1,
-                      letterSpacing: 0,
-                    ),
-                    type: BottomNavigationBarType.fixed,
-                    unselectedItemColor:MainColors.getMainColor(),
-                    selectedItemColor:MainColors.getLightColor(),
                     iconSize: 24,
-                    showSelectedLabels: true,
-                    showUnselectedLabels: false,
                     items: [
-                      BottomNavigationBarItem(icon: Icon(Icons.home_filled,color: MainColors.getLightColor()),label: "Home"),
-                      BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined,color: MainColors.getLightColor()),label: "Map"),
-                      BottomNavigationBarItem(icon: Icon(Icons.favorite_border,color: MainColors.getLightColor()),label: "Love"),
-                      BottomNavigationBarItem(icon: Icon(Icons.person,color: MainColors.getLightColor()),label: "Profile"),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.home_outlined),
+                        activeIcon: Icon(Icons.home_filled),
+                        label: "home_text".tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.location_on_outlined),
+                        activeIcon: Icon(Icons.location_on),
+                        label: "map_text".tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.favorite_border),
+                        activeIcon: Icon(Icons.favorite),
+                        label: "love_text".tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.person_outline),
+                        activeIcon: Icon(Icons.person),
+                        label: "profile_text".tr(),
+                      ),
                     ]),
                 body: (state.getUserInfoRequestState==RequestState.loading) ? Center( child: CircularProgressIndicator(color: MainColors.getMainColor(),)) : returnTab(state.currentTabIndex,state.currUser!)
             );

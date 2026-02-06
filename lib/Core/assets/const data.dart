@@ -19,6 +19,19 @@ class AppData{
     "Exhibition"
   ];
 
+  static const List<String> eventsDisplay = [
+    "all_text",
+    "book_club_text",
+    "sport_text",
+    "birthday_text",
+    "eating_text",
+    "meeting_text",
+    "workshop_text",
+    "holiday_text",
+    "gaming_text",
+    "exhibition_text"
+  ];
+
 
   static const List<IconData> eventIcon = [
     Icons.assistant_navigation,

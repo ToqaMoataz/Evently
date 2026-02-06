@@ -40,7 +40,7 @@ class EventMapCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 140,
+                  width: 140.w,
                   child: Text(
                     event.title,
                     maxLines: 2,
@@ -55,7 +55,7 @@ class EventMapCard extends StatelessWidget {
                       Icons.location_on_outlined,
                       size: 16,
                       color: isLightMode
-                          ? MainColors.getTDarkColor()
+                          ? MainColors.getDarkColor()
                           : MainColors.getLightColor(),
                     ),
                     SizedBox(width: 4),
@@ -65,7 +65,7 @@ class EventMapCard extends StatelessWidget {
                         event.location,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.bodyMedium(color: (isLightMode) ? MainColors.getTDarkColor() : MainColors.getLightColor())
+                        style: AppTextStyles.bodyMedium(color: (isLightMode) ? MainColors.getDarkColor() : MainColors.getLightColor())
                       ),
                     ),
                   ],

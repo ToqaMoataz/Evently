@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/Core/Provider/themeProvider.dart';
 import 'package:evently/Core/assets/const%20data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 import '../../../../../Core/App Colors/main_colors.dart';
 import '../../../../Authentication Screens/Presentation/Components/text_field_card.dart';
 import '../../Cubit/States/event_form_states.dart';
@@ -45,8 +43,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeProvider>(context);
-    bool isLight = (themeProvider.themeMode == ThemeMode.light);
     return BlocBuilder<EventFormViewModel, EventFormState>(
       builder: (BuildContext context, EventFormState state) {
         return Scaffold(
@@ -92,7 +88,7 @@ class _MapScreenState extends State<MapScreen> {
                       child: Material(
                         elevation: 8,
                         borderRadius: BorderRadius.circular(18.r),
-                        shadowColor: Colors.black.withOpacity(0.15),
+                        shadowColor: MainColors.getGreyColor(),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -104,7 +100,7 @@ class _MapScreenState extends State<MapScreen> {
                             separatorBuilder: (context, index) => Divider(
                               height: 1,
                               thickness: 0.8,
-                              color: Colors.grey.withOpacity(0.25),
+                              color: MainColors.getGreyColor()
                             ),
                             itemBuilder: (context, index) {
                               final item = state.searchResults![index];

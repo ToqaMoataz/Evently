@@ -47,7 +47,7 @@ class AppTextStyles {
       fontSize: 16,
       fontWeight: FontWeight.w400,
       color: themeMode == ThemeMode.light
-          ? MainColors.getTDarkColor()
+          ? MainColors.getDarkColor()
           : MainColors.getLightColor()
     );
   }
@@ -100,7 +100,7 @@ class AppTextStyles {
       fontSize: 16,
       fontWeight: FontWeight.w500,
       color: color ?? (themeMode == ThemeMode.light
-          ? MainColors.getGrayColor()
+          ? MainColors.getGreyColor()
           : MainColors.getLightColor()),
     );
   }

@@ -35,7 +35,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forget Password"),
+        title: Text("forget_password_button".tr()),
       ),
       body: BlocProvider(
         create: (context)=>viewModel,
@@ -52,7 +52,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         children: [
                           Image(image: AssetImage(AppImages.forgetPassPic)),
                           TextFieldCard(
-                            hintText: "Email", icon: Icons.email, textController: _emailController,color:MainColors.getGrayColor(),
+                            hintText: "email_text".tr(), icon: Icons.email, textController: _emailController,color:MainColors.getGreyColor(),
                           ),
                           SizedBox(height: 24.h,),
                           GestureDetector(

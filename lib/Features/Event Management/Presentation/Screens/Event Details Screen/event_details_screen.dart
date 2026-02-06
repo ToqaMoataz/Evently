@@ -63,10 +63,10 @@ class EventDetailsScreen extends StatelessWidget {
                 ),
               ),
             ],
-            title: Text("Event Details"),
+            title: Text("event_details_text".tr()),
           ),
           body: Padding(
-            padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+            padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 8),
             child: SingleChildScrollView(
               child: Column(
                 spacing: 16.h,
@@ -127,7 +127,7 @@ class EventDetailsScreen extends StatelessWidget {
                               style: AppTextStyles.titleMedium(
                                 color:
                                     (themeProvider.themeMode == ThemeMode.light)
-                                        ? MainColors.getTDarkColor()
+                                        ? MainColors.getDarkColor()
                                         : MainColors.getLightColor(),
                               ),
                             ),
@@ -206,7 +206,7 @@ class EventDetailsScreen extends StatelessWidget {
                         style: AppTextStyles.titleMedium(
                           color:
                               (themeProvider.themeMode == ThemeMode.light)
-                                  ? MainColors.getTDarkColor()
+                                  ? MainColors.getDarkColor()
                                   : MainColors.getLightColor(),
                         ),
                       ),
@@ -216,7 +216,7 @@ class EventDetailsScreen extends StatelessWidget {
                         style: AppTextStyles.bodySmall(
                           color:
                           (themeProvider.themeMode == ThemeMode.light)
-                              ? MainColors.getTDarkColor()
+                              ? MainColors.getDarkColor()
                               : MainColors.getLightColor(),
                         ),
                       ),
@@ -237,21 +237,21 @@ class EventDetailsScreen extends StatelessWidget {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title:Text('Delete Event',style: AppTextStyles.titleMedium(color: MainColors.getMainColor()),),
-          content: Text('Are you sure you want to delete this event?',style: AppTextStyles.bodySmall(color: MainColors.getMainColor()),),
+          title:Text( "delete_event_text".tr(),style: AppTextStyles.titleMedium(color: MainColors.getMainColor()),),
+          content: Text("delete_event_message".tr(),style: AppTextStyles.bodySmall(color: MainColors.getMainColor()),),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child:Text('Cancel',style: GoogleFonts.inter(color: MainColors.getMainColor())),
+              child:Text("cancel_text".tr(),style: GoogleFonts.inter(color: MainColors.getMainColor())),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 onDelete();
               },
-              child: Text('Yes, I want',style: GoogleFonts.inter(color: MainColors.getMainColor()),),
+              child: Text("yes_delete_text".tr(),style: GoogleFonts.inter(color: MainColors.getMainColor()),),
             ),
           ],
         );

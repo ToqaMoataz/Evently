@@ -10,7 +10,7 @@ abstract class MainColors {
     return const Color(0XFF5669FF);
   }
 
-  static Color getTDarkColor() {
+  static Color getDarkColor() {
     return const Color(0XFF101127);
   }
 
@@ -22,7 +22,7 @@ abstract class MainColors {
     return const Color(0XFFFF5659);
   }
 
-  static Color getGrayColor() {
+  static Color getGreyColor() {
     return const Color(0XFF7B7B7B);
   }
 }

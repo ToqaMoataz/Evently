@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../App Colors/dark_colors.dart';
 import '../App Colors/light_colors.dart';
@@ -22,11 +23,23 @@ class AppTheming{
           )
         ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: MainColors.getMainColor()
+        backgroundColor: MainColors.getMainColor(),
+        selectedLabelStyle: GoogleFonts.inter(
+          color: MainColors.getLightColor(),
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w700,
+          height: 1,
+          letterSpacing: 0,
+        ),
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor:MainColors.getLightColor(),
+        selectedItemColor:MainColors.getLightColor(),
+        showSelectedLabels: true,
+        showUnselectedLabels: true
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: MainColors.getMainColor()
-      )
+      ),
     );
 
     static final ThemeData darkTheme=ThemeData(
@@ -42,7 +55,19 @@ class AppTheming{
           )
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-         backgroundColor: dark.getAppBarColor()
+         backgroundColor: dark.getAppBarColor(),
+          selectedLabelStyle: GoogleFonts.inter(
+            color: MainColors.getLightColor(),
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w700,
+            height: 1,
+            letterSpacing: 0,
+          ),
+          type: BottomNavigationBarType.fixed,
+          unselectedItemColor:MainColors.getLightColor(),
+          selectedItemColor:MainColors.getLightColor(),
+          showSelectedLabels: true,
+          showUnselectedLabels: true
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: dark.getAppBarColor()

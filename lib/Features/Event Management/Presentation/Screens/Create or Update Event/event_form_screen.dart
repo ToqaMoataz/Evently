@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Core/assets/images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,13 +60,13 @@ class _EventFormScreenState extends State<EventFormScreen> {
     Color color =
         (Theme.of(context).brightness == Brightness.dark)
             ? MainColors.getLightColor()
-            : MainColors.getTDarkColor();
+            : MainColors.getDarkColor();
 
     bool isDark =
         (Theme.of(context).brightness == Brightness.dark) ? true : false;
     return Scaffold(
       appBar: AppBar(
-        title: Text((event == null) ? "Create Event" : "Edit Event"),
+        title: Text((event == null) ? "create_event_text".tr() : "edit_event_text".tr()),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -132,13 +133,13 @@ class _EventFormScreenState extends State<EventFormScreen> {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    AppData.events[i],
+                                    AppData.eventsDisplay[i].tr(),
                                     style: GoogleFonts.inter(
                                       color:
                                           (state.selectedEvent == i)
                                               ? Colors.white
                                               : MainColors.getMainColor(),
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
@@ -153,25 +154,25 @@ class _EventFormScreenState extends State<EventFormScreen> {
                   SizedBox(height: 16.h),
                   // Event Title
                   Text(
-                    "Title",
+                      "title_text".tr(),
                     style: AppTextStyles.titleMedium(color: color)
                   ),
                   TextFormField(
                     controller: titleController,
                     decoration: InputDecoration(
-                      hintText: (event != null) ? event!.title : "Title",
+                      hintText: "title_text".tr(),
                       hintStyle: AppTextStyles.hintTextStyle(themeMode: themeProvider.themeMode),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
-                          color: MainColors.getGrayColor(),
+                          color: MainColors.getGreyColor(),
                           width: 1.5,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
-                          color: MainColors.getGrayColor(),
+                          color: MainColors.getGreyColor(),
                           width: 1,
                         ),
                       ),
@@ -192,7 +193,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       prefixIcon: Icon(
                         Icons.edit_note_outlined,
                         color:
-                            (!isDark) ? MainColors.getGrayColor() : color,
+                            (!isDark) ? MainColors.getGreyColor() : color,
                       ),
                     ),
                   ),
@@ -200,7 +201,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
 
                   // Description
                   Text(
-                    "Description",
+                      "description_text".tr(),
                     style: AppTextStyles.titleMedium(color: color)
                   ),
                   SizedBox(height: 8.h),
@@ -208,22 +209,19 @@ class _EventFormScreenState extends State<EventFormScreen> {
                     controller: descriptionController,
                     maxLines: 4,
                     decoration: InputDecoration(
-                      hintText:
-                          (event != null)
-                              ? event!.description
-                              : "Event Description",
+                      hintText:"event_description_text".tr(),
                       hintStyle: AppTextStyles.hintTextStyle(themeMode: themeProvider.themeMode),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
-                          color: MainColors.getGrayColor(),
+                          color: MainColors.getGreyColor(),
                           width: 1.5,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
-                          color: MainColors.getGrayColor(),
+                          color: MainColors.getGreyColor(),
                           width: 1,
                         ),
                       ),
@@ -255,7 +253,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       ),
                       SizedBox(width: 8.w),
                       Text(
-                        "Event Date",
+                          "event_date_text".tr(),
                         style: AppTextStyles.titleMedium(color: color)
                       ),
                       Spacer(),
@@ -267,10 +265,9 @@ class _EventFormScreenState extends State<EventFormScreen> {
                           }
                         },
                         child: Text(
-                          (event!=null) ? event!.date.toString().substring(0, 10)
-                              : (state.eventDate != null)
+                           (state.eventDate != null)
                               ? state.eventDate.toString().substring(0, 10)
-                              : "Choose Date",
+                              : "choose_date_text".tr(),
                           style: AppTextStyles.titleMedium(color: MainColors.getMainColor())
                         ),
                       ),
@@ -287,7 +284,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       ),
                       SizedBox(width: 8.w),
                       Text(
-                        "Event Time",
+                          "event_time_text".tr(),
                         style: AppTextStyles.titleMedium(color: color)
                       ),
                       const Spacer(),
@@ -300,9 +297,8 @@ class _EventFormScreenState extends State<EventFormScreen> {
                         },
 
                         child: Text(
-                          (event!=null) ? event!.time
-                          : (state.eventTime==null)
-                              ? "Choose Time"
+                           (state.eventTime==null)
+                              ? "choose_time_text".tr()
                               : state.eventTime!,
                           style: AppTextStyles.titleMedium(color: MainColors.getMainColor())
                         ),
@@ -313,7 +309,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
 
                   // Location
                   Text(
-                    "Location",
+                    "location_label_text".tr(),
                     style: AppTextStyles.titleMedium(color:color),
                   ),
                   SizedBox(height: 8.h),
@@ -347,11 +343,10 @@ class _EventFormScreenState extends State<EventFormScreen> {
                           ),
                           SizedBox(width: 12.w),
                           Text(
-                            (event == null)
-                                ? ((state.currentLocation == null)
-                                    ? "Choose Event Location"
+                             ((state.currentLocation == null)
+                                    ? "choose_event_location_text".tr()
                                     : state.currentLocation!)
-                                : event!.location,
+                              ,
                             style: AppTextStyles.titleMedium(color: color)
                           ),
                           Spacer(),
@@ -395,14 +390,14 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text("Incomplete Info"),
-                                content: const Text("Please complete event information"),
+                                title: Text("incomplete_info_title".tr()),
+                                content: Text("complete_event_info_message".tr()),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: const Text("OK"),
+                                    child: Text("ok_text".tr()),
                                   ),
                                 ],
                               );
@@ -412,7 +407,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       },
 
                       child: Text(
-                        (event==null) ? "Add Event" : "Update Event",
+                        (event==null) ? "add_event_text".tr() : "update_event_text".tr(),
                         style: AppTextStyles.buttonTextStyle(),
                       ),
                     ),

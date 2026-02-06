@@ -116,7 +116,7 @@ class ProfileTab extends StatelessWidget {
                     style: GoogleFonts.inter(
                       color:
                           (themeProvider.themeMode == ThemeMode.light)
-                              ? MainColors.getTDarkColor()
+                              ? MainColors.getDarkColor()
                               : MainColors.getLightColor(),
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w700,
@@ -180,7 +180,7 @@ class ProfileTab extends StatelessWidget {
                     style: GoogleFonts.inter(
                       color:
                           (themeProvider.themeMode == ThemeMode.light)
-                              ? MainColors.getTDarkColor()
+                              ? MainColors.getDarkColor()
                               : MainColors.getLightColor(),
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w700,
@@ -247,19 +247,19 @@ class ProfileTab extends StatelessWidget {
                         context: context,
                         builder:
                             (_) => AlertDialog(
-                              title: Text('Confirm Logout',style: AppTextStyles.labelLarge(color: MainColors.getMainColor()),),
-                              content: Text('Do you want to logout?',style: AppTextStyles.bodySmall(color: MainColors.getMainColor())),
+                              title: Text("confirm_logout_title".tr(),style: AppTextStyles.labelLarge(color: MainColors.getMainColor()),),
+                              content: Text("logout_message".tr(),style: AppTextStyles.bodySmall(color: MainColors.getMainColor())),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
-                                  child: Text('No'),
+                                  child: Text("no_text".tr()),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                     viewModel.logout();
                                   },
-                                  child: Text('Yes'),
+                                  child: Text("yes_text".tr()),
                                 ),
                               ],
                             ),
@@ -279,7 +279,7 @@ class ProfileTab extends StatelessWidget {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            "Logout",
+                            "logout_text".tr(),
                             style: GoogleFonts.inter(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w400,

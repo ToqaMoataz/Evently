@@ -73,11 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextFieldCard(
                                   hintText:"email_text".tr(),
                                   icon: Icons.mail_rounded,
-                                  color:MainColors.getGrayColor(),
+                                  color:MainColors.getGreyColor(),
                                   textController: _emailController,
                                   validate:(value){
                                     if(value==null||value.isEmpty){
-                                      return "Email is required";
+                                      return "email_required_text".tr();
                                     }
                                     return null;
                                   },
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextFieldCard(
                                   hintText:"password_text".tr(),
                                   icon: Icons.lock,
-                                  color:MainColors.getGrayColor(),
+                                  color:MainColors.getGreyColor(),
                                   textController: _passwordController,
                                   isPass: true,
                                   passVisible: state.passwordVisible,
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           "forget_password_text".tr(),
                                           style: GoogleFonts.inter(
                                             color: MainColors.getMainColor(),
-                                            fontSize: 16,
+                                            fontSize: 16.sp,
                                             fontWeight: FontWeight.w700,
                                             fontStyle: FontStyle.italic,
                                             decoration: TextDecoration.underline,
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.pushReplacementNamed(context, Routes.registerScreenRouteName); // Replace with your route
+                                      Navigator.pushReplacementNamed(context, Routes.registerScreenRouteName);
                                     },
                                 ),
 
@@ -206,18 +206,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              border: Border.all(color: MainColors.getMainColor(), width: 1),
+                              border: Border.all(color: MainColors.getMainColor()),
                               borderRadius: BorderRadius.circular(16.r),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image(
-                                  image: AssetImage("assets/images/google_icon.png"),
+                                  image: AssetImage(AppImages.googleIcon),
                                   height: 24,
                                   width: 24,
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: 10.w),
                                 Text(
                                   "google_login_text".tr(),
                                   style: AppTextStyles.buttonTextStyle(color:MainColors.getMainColor()),
@@ -231,14 +231,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               Directionality(
                                 textDirection: ui.TextDirection.ltr,
                                 child: Container(
-                                  width: 75,
-                                  height: 32,
+                                  width: 75 .w,
+                                  height: 32.h,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       width: 2,
                                       color: MainColors.getMainColor(),
                                     ),
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(30.r),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -246,14 +246,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       InkWell(
                                         onTap: () {
                                           context.setLocale(Locale('en'));
-                                          setState(() {
-
-                                          });
                                         },
-                                        borderRadius: BorderRadius.circular(100),
+                                        borderRadius: BorderRadius.circular(100.r),
                                         child: Container(
-                                          width: 22,
-                                          height: 22,
+                                          width: 22.w,
+                                          height: 22.h,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             border: Border.all(
@@ -273,11 +270,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       InkWell(
                                         onTap: () {
                                           context.setLocale(Locale('ar'));
-                                          setState(() {
-
-                                          });
                                         },
-                                        borderRadius: BorderRadius.circular(100),
+                                        borderRadius: BorderRadius.circular(100.r),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
@@ -291,8 +285,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             child: Image.asset(
                                               AppImages.eg,
                                               fit: BoxFit.cover,
-                                              width: 22,
-                                              height: 22,
+                                              width: 22.w,
+                                              height: 22.h,
                                             ),
                                           ),
                                         ),
@@ -318,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: (){viewModel.opacityOff();},
                     child: Align(
                       alignment: Alignment.center,
-                      child:(state.opacity==1) ? SizedBox.shrink() : AppWidgets.errorCard(context, state.errorMessage ?? "Something went wrong"),
+                      child:(state.opacity==1) ? SizedBox.shrink() : AppWidgets.errorCard(context, state.errorMessage ?? "something_went_wrong_text".tr()),
                     ),
                   ),
               ],

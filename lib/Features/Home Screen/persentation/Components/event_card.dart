@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Models/event_model.dart';
 import 'package:evently/Core/Provider/themeProvider.dart';
+import 'package:evently/Core/assets/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +41,7 @@ class EventCard extends StatelessWidget {
             children: [
               Positioned.fill(
                   child: Image(
-                    image: AssetImage("assets/images/${event.eventCategory}.png"),
+                    image: AssetImage(AppImages.returnEventImage(event.eventCategory)),
                     fit: BoxFit.cover,
                   ),
               ),
@@ -52,7 +53,7 @@ class EventCard extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          color: (isLightTheme) ? MainColors.getLightColor() : MainColors.getTDarkColor(),
+                          color: (isLightTheme) ? MainColors.getLightColor() : MainColors.getDarkColor(),
                           borderRadius: BorderRadius.circular(8.r)
                       ),
                       child: Column(
@@ -89,7 +90,7 @@ class EventCard extends StatelessWidget {
                       height: 40.h,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
-                          color: (isLightTheme) ? MainColors.getLightColor() : MainColors.getTDarkColor(),
+                          color: (isLightTheme) ? MainColors.getLightColor() : MainColors.getDarkColor(),
                           borderRadius: BorderRadius.circular(8.r)
                       ),
                       child: Row(
@@ -98,7 +99,7 @@ class EventCard extends StatelessWidget {
                           Text(
                             event.title,
                             style: GoogleFonts.inter(
-                                color: (isLightTheme) ? MainColors.getTDarkColor() : MainColors.getLightColor(),
+                                color: (isLightTheme) ? MainColors.getDarkColor() : MainColors.getLightColor(),
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w700,
                                 height: 1,

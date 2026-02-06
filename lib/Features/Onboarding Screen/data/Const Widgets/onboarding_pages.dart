@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -7,54 +8,47 @@ import '../../../../Core/assets/images.dart';
 
 class OnboardingPages {
   static List<PageViewModel> getPages(ThemeProvider themeProvider) {
-
-
     return [
       PageViewModel(
-        title: "Find Events That Inspire You",
-        body:
-        "Dive into a world of events crafted to fit your unique interests."
-            " Whether your into live music, art workshops, professional networking,"
-            " or simply discovering new experiences, we have something for everyone."
-            "Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.",
+        title: "onboarding_title_1".tr(),
+        body: "onboarding_body_1".tr(),
         image: Center(
           child: Image(image: AssetImage(AppImages.onboardingImages[0])),
         ),
         decoration: PageDecoration(
           pageColor: Colors.transparent,
           titleTextStyle: AppTextStyles.titleLarge(),
-          bodyTextStyle: AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode),
+          bodyTextStyle: AppTextStyles.bodyLarge(
+            themeMode: themeProvider.themeMode,
+          ),
         ),
       ),
       PageViewModel(
-        title: "Effortless Event Planning",
-        body:
-        "Take the hassle out of organizing events with our all-in-one planning tools."
-            " From setting up invites and managing RSVPs to scheduling reminders and coordinating details,"
-            " we’ve got you covered."
-            " Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.",
+        title: "onboarding_title_2".tr(),
+        body: "onboarding_body_2".tr(),
         image: Center(
           child: Image(image: AssetImage(AppImages.onboardingImages[1])),
         ),
         decoration: PageDecoration(
           pageColor: Colors.transparent,
-            titleTextStyle: AppTextStyles.titleLarge(),
-            bodyTextStyle: AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode)
+          titleTextStyle: AppTextStyles.titleLarge(),
+          bodyTextStyle: AppTextStyles.bodyLarge(
+            themeMode: themeProvider.themeMode,
+          ),
         ),
       ),
       PageViewModel(
-        title: "Connect with Friends & Share Moments",
-        body:
-        "Make every event memorable by sharing the experience with others."
-            " Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together."
-            " Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.",
+        title: "onboarding_title_3".tr(),
+        body: "onboarding_body_3".tr(),
         image: Center(
           child: Image(image: AssetImage(AppImages.onboardingImages[2])),
         ),
         decoration: PageDecoration(
           pageColor: Colors.transparent,
-            titleTextStyle: AppTextStyles.titleLarge(),
-            bodyTextStyle: AppTextStyles.bodyLarge(themeMode: themeProvider.themeMode)
+          titleTextStyle: AppTextStyles.titleLarge(),
+          bodyTextStyle: AppTextStyles.bodyLarge(
+            themeMode: themeProvider.themeMode,
+          ),
         ),
       ),
     ];

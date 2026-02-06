@@ -86,7 +86,7 @@ class _HomeTabState extends State<HomeTab> {
                                 themeProvider.changeTheme(ThemeMode.light);
                               }
                             },
-                            icon: Icon(Icons.sunny, color: Color(0XFFF2FEFF)),
+                            icon: Icon(Icons.sunny, color: MainColors.getLightColor()),
                           ),
                           SizedBox(width: 3.w),
                           GestureDetector(
@@ -99,7 +99,7 @@ class _HomeTabState extends State<HomeTab> {
                                 borderRadius: BorderRadiusGeometry.circular(
                                   8.r,
                                 ),
-                                color: Color(0XFFF2FEFF),
+                                color: MainColors.getLightColor(),
                               ),
                               child: Text(
                                 (context.locale.toString() == 'en')
@@ -109,7 +109,7 @@ class _HomeTabState extends State<HomeTab> {
                                   color:
                                       (isLightTheme)
                                           ? MainColors.getMainColor()
-                                          : MainColors.getTDarkColor(),
+                                          : MainColors.getDarkColor(),
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w700,
                                   height: 1,
@@ -133,7 +133,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                       SizedBox(width: 3.w),
                       Text(
-                        state.userLocation ?? "location",
+                        state.userLocation ?? "location_label_text".tr(),
                         style: AppTextStyles.titleSmall(
                           weight: FontWeight.w500,
                         ),
@@ -146,7 +146,7 @@ class _HomeTabState extends State<HomeTab> {
                       height: 50.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: AppData.events.length,
+                        itemCount: AppData.eventsDisplay.length,
                         itemBuilder: (context, i) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 10),
@@ -197,7 +197,7 @@ class _HomeTabState extends State<HomeTab> {
                                     ),
                                     SizedBox(width: 8.w),
                                     Text(
-                                      AppData.events[i],
+                                      AppData.eventsDisplay[i].tr(),
                                       style: AppTextStyles.categoryCardTextStyle(
                                         color:
                                             (state.categoryIndex == i)
@@ -223,7 +223,7 @@ class _HomeTabState extends State<HomeTab> {
             (state.getEventsRequestState==RequestState.loading) 
                 ? Center(child: CircularProgressIndicator(color: MainColors.getMainColor(),))
                 : (viewModel.state.events.isEmpty)
-                    ? Center(child: Text("Currently no events"))
+                    ? Center(child: Text("no_events_text".tr()))
                     : Padding(
                       padding: const EdgeInsets.only(
                         top: 16,
