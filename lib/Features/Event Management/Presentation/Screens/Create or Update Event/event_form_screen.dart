@@ -376,7 +376,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                       ),
-                      // Logic is hereee
+                      // Save Event
                       onPressed: () {
                         if (validateForm(state)) {
                           EventModel newEvent = EventModel(
@@ -389,11 +389,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             userId: FirebaseAuth.instance.currentUser!.uid,
                             eventPosition: state.currentPosition!
                           );
-                          if(event==null) {viewModel.createEvent(newEvent);}
-                          else {
-                            newEvent.id=event!.id;
-                            viewModel.updateEvent(newEvent);
-                          }
+                          viewModel.saveEvent(newEvent, event);
                         } else {
                           showDialog(
                             context: context,

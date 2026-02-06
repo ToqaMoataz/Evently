@@ -64,13 +64,15 @@ class EventFormViewModel extends Cubit<EventFormState> {
   void loadEvent(EventModel event) {
     setCurrentPosition(event.eventPosition);
     setIndexWithCategory(event.eventCategory);
+
     emit(
       state.copyWith(
-        eventDate: DateTime.fromMillisecondsSinceEpoch(event.date * 1000),
+        eventDate: DateTime.fromMillisecondsSinceEpoch(event.date),
         eventTime: event.time,
       ),
     );
   }
+
 
   void setIndexWithCategory(String eventCategory) {
     int index = AppData.events.indexOf(eventCategory);
@@ -145,7 +147,6 @@ class EventFormViewModel extends Cubit<EventFormState> {
   }
 
   Future<void> searchPlace(String place) async {
-    print("i ammmmmmmm INVOKEddddddDDDDDDDDD");
     emit(state.copyWith(searchRequestState: RequestState.loading));
     try {
       List<PlaceModel>? places = await _getLocationUseCase.call(place);
@@ -164,6 +165,19 @@ class EventFormViewModel extends Cubit<EventFormState> {
           searchRequestState: RequestState.error,
         ),
       );
+    }
+  }
+  Future<void> saveEvent(EventModel newEvent,EventModel? existingEvent)async {
+    try{
+
+      if(existingEvent==null){
+        await createEvent(newEvent);
+        return;
+      }
+      newEvent.id=existingEvent.id;
+      await updateEvent(newEvent);
+    }catch(e){
+      emit(state.copyWith(errorMessage: e.toString()));
     }
   }
 
