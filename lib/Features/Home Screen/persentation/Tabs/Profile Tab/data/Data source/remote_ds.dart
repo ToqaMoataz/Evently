@@ -42,7 +42,7 @@ class ProfileRemoteDsImp implements ProfileRemoteDs{
   @override
   Future<void> updateUserImage( String imageUrl) async {
     try{
-      String? userId =FirebaseAuth.instance.currentUser?.uid;
+      String? userId =PreferencesHelper.getActiveUser();
       await FirebaseManager
           .usersCollection()
           .doc(userId)

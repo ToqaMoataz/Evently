@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:evently/Core/Firebase/firebase_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
@@ -16,6 +17,8 @@ abstract class EventManagementDS{
 
 @Injectable(as: EventManagementDS)
 class EventManagementDSImp extends EventManagementDS{
+  late Dio dio;
+
   @override
   Future<void> addEvent(EventModel event) async{
     try {
@@ -64,31 +67,36 @@ class EventManagementDSImp extends EventManagementDS{
 
   @override
   Future<List<PlaceModel>?> searchPlace(String query) async {
-    String lang="en";
-    int limit=20;
-    final Uri url = Uri.parse(
-        'https://nominatim.openstreetmap.org/search'
-            '?q=$query'
-            '&format=json'
-            '&limit=$limit'
-            '&accept-language=$lang'
-            '&viewbox=24.7,31.7,36.9,22.0' // Egypt
-            '&bounded=1'
+    String lang = "en";
+    int limit = 20;
+
+    Dio dio = Dio(
+      BaseOptions(
+        baseUrl: "https://nominatim.openstreetmap.org",
+        headers: {
+          "User-Agent": "Evently",
+        },
+      ),
     );
 
+    try {
+      final response = await dio.get(
+        "/search",
+        queryParameters: {
+          "q": query,
+          "format": "json",
+          "limit": limit,
+          "accept-language": lang,
+          "viewbox": "24.7,31.7,36.9,22.0", // Egypt bounds
+          "bounded": 1,
+        },
+      );
 
-    final response = await http.get(
-      url,
-      headers: {
-        'User-Agent': 'Evently',
-      },
-    );
+      final List data = response.data;
 
-    if (response.statusCode == 200) {
-      final List data = json.decode(response.body);
       return data.map((e) => PlaceModel.fromJson(e)).toList();
-    } else {
-      throw Exception('Failed to search places: ${response.statusCode}');
+    } on DioException catch (e) {
+      throw Exception("Failed to search places: ${e.message}");
     }
   }
 }
