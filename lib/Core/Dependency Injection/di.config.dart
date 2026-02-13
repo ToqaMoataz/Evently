@@ -41,7 +41,7 @@ import '../../Features/Event%20Management/Domain/Use%20cases/create_event_usecas
 import '../../Features/Event%20Management/Domain/Use%20cases/delete_event_usecase.dart'
     as _i388;
 import '../../Features/Event%20Management/Domain/Use%20cases/search_place_use_case.dart'
-    as _i673;
+    as _i506;
 import '../../Features/Event%20Management/Domain/Use%20cases/update_event_usecase.dart'
     as _i805;
 import '../../Features/Event%20Management/Presentation/Cubit/View%20Models/event_form_view_model.dart'
@@ -196,8 +196,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i218.GetFavEventsUC(gh<_i183.FavRepo>()),
     );
     gh.factory<_i55.SearchUC>(() => _i55.SearchUC(gh<_i183.FavRepo>()));
-    gh.factory<_i673.SearchPlaceUC>(
-      () => _i673.SearchPlaceUC(repo: gh<_i341.EventManagementRepo>()),
+    gh.factory<_i506.SearchPlaceUC>(
+      () => _i506.SearchPlaceUC(repo: gh<_i341.EventManagementRepo>()),
     );
     gh.factory<_i505.ForgetPassUC>(
       () => _i505.ForgetPassUC(gh<_i420.AuthRepo>()),
@@ -231,7 +231,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i670.GetLocationUC>(),
         gh<_i388.DeleteEventUC>(),
         gh<_i805.UpdateEventUC>(),
-        gh<_i673.SearchPlaceUC>(),
+        gh<_i506.SearchPlaceUC>(),
       ),
     );
     gh.factory<_i428.OnboardingViewModel>(

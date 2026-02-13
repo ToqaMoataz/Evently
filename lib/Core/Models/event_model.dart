@@ -64,4 +64,24 @@ class EventModel {
       },
     };
   }
+
+  DateTime get dateTime {
+    final year = date ~/ 10000;
+    final month = (date % 10000) ~/ 100;
+    final day = date % 100;
+
+    final parts = time.split(RegExp(r'[: ]'));
+    int hour = int.parse(parts[0]);
+    int minute = int.parse(parts[1]);
+    final period = parts.length > 2 ? parts[2].toUpperCase() : '';
+
+    if (period == 'PM' && hour < 12) {
+      hour += 12;
+    } else if (period == 'AM' && hour == 12) {
+      hour = 0;
+    }
+
+    return DateTime(year, month, day, hour, minute);
+  }
+
 }

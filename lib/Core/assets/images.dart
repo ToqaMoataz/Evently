@@ -8,7 +8,7 @@ class AppImages {
   ];
 
   static const String occasions = "assets/images/Categories/Occasions.png";
-  static const String birthday = "assets/images/CategoriesBirthday.png";
+  static const String birthday = "assets/images/Categories/Birthday.png";
   static const String bookClub = "assets/images/Categories/Book Club.png";
   static const String holiday = "assets/images/Categories/Holiday.png";
   static const String gaming = "assets/images/Categories/Gaming.png";

@@ -45,6 +45,7 @@ class AppData{
     Icons.work_outline,
     Icons.beach_access_outlined,
     Icons.sports_esports_outlined,
+    Icons.celebration_outlined,
     Icons.museum_outlined,
   ];
 }

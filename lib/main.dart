@@ -1,19 +1,20 @@
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/Local%20notifications/notifications_manager.dart';
 import 'package:evently/Core/Provider/inital_route_provider.dart';
 import 'package:evently/Core/App Routing/app_router.dart';
-import 'package:evently/Features/Splash%20Screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:evently/Core/App%20Theme/app_theaming.dart';
 import 'package:flutter/material.dart';
-import 'Core/App Colors/main_colors.dart';
 import 'Core/App Routing/routes.dart';
 import 'Core/Dependency Injection/di.dart';
 import 'Core/Provider/themeProvider.dart';
 import 'Core/Shared Prefrences/shared_pref.dart';
 import 'firebase_options.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ void main() async {
   );
   await EasyLocalization.ensureInitialized();
   await PreferencesHelper.init();
+  await NotificationsManager.initNotifications();
   configureDependencies();
 
   runApp(
@@ -62,6 +64,7 @@ class MyApp extends StatelessWidget {
         final initialRouteProvider = context.watch<InitialRouteProvider>();
 
         return MaterialApp(
+          navigatorKey: navigatorKey,
           theme: AppTheming.lightTheme,
           darkTheme: AppTheming.darkTheme,
           themeMode: themeProvider.themeMode,

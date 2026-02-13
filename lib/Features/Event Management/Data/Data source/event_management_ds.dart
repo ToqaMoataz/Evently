@@ -1,37 +1,45 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:evently/Core/Firebase/firebase_manager.dart';
-import 'package:http/http.dart' as http;
+import 'package:evently/Core/Local%20notifications/notifications_manager.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../Core/Models/event_model.dart';
 import '../../../../Core/Models/place_model.dart';
 
-abstract class EventManagementDS{
+abstract class EventManagementDS {
   Future<void> addEvent(EventModel event);
+
   Future<void> updateEvent(EventModel event);
+
   Future<void> deleteEvent(String eventId);
+
+
+
+
   Future<List<PlaceModel>?> searchPlace(String query);
 }
 
 @Injectable(as: EventManagementDS)
-class EventManagementDSImp extends EventManagementDS{
+class EventManagementDSImp extends EventManagementDS {
   late Dio dio;
 
   @override
-  Future<void> addEvent(EventModel event) async{
+  Future<void> addEvent(EventModel event) async {
     try {
       var snapshot = FirebaseManager.eventsCollection().doc();
       event.id = snapshot.id;
       await snapshot.set(event);
-    }on FirebaseException catch (e) {
+      if (event.toBeNotified) {
+        await NotificationsManager.scheduleNotification(event);
+      }
+    } on FirebaseException catch (e) {
+      print("Failed to Create event: ${e.message}");
       throw Exception("Failed to Create event: ${e.message}");
-    }catch (e) {
+
+    } catch (e) {
       rethrow;
     }
   }
-
 
   @override
   Future<void> updateEvent(EventModel event) async {
@@ -39,10 +47,11 @@ class EventManagementDSImp extends EventManagementDS{
       await FirebaseManager.eventsCollection()
           .doc(event.id)
           .update(event.toJson());
+      if (!event.toBeNotified) {
+        await NotificationsManager.cancelNotification(event.id.hashCode);
+      }
     } on FirebaseException catch (e) {
-      throw Exception(
-        e.message ?? 'Failed to edit event. Please try again.',
-      );
+      throw Exception(e.message ?? 'Failed to edit event. Please try again.');
     } catch (e) {
       throw Exception('Unexpected error occurred');
     }
@@ -51,19 +60,13 @@ class EventManagementDSImp extends EventManagementDS{
   @override
   Future<void> deleteEvent(String eventId) async {
     try {
-      await FirebaseManager.eventsCollection()
-          .doc(eventId)
-          .delete();
+      await FirebaseManager.eventsCollection().doc(eventId).delete();
     } on FirebaseException catch (e) {
-      throw Exception(
-        e.message ?? 'Failed to delete event. Please try again.',
-      );
+      throw Exception(e.message ?? 'Failed to delete event. Please try again.');
     } catch (e) {
       throw Exception('Unexpected error occurred');
     }
   }
-
-
 
   @override
   Future<List<PlaceModel>?> searchPlace(String query) async {
@@ -73,9 +76,7 @@ class EventManagementDSImp extends EventManagementDS{
     Dio dio = Dio(
       BaseOptions(
         baseUrl: "https://nominatim.openstreetmap.org",
-        headers: {
-          "User-Agent": "Evently",
-        },
+        headers: {"User-Agent": "Evently"},
       ),
     );
 
@@ -99,4 +100,7 @@ class EventManagementDSImp extends EventManagementDS{
       throw Exception("Failed to search places: ${e.message}");
     }
   }
+
+
+
 }

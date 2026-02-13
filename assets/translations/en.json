@@ -91,6 +91,9 @@
   "passwords_not_match_text": "Passwords do not match",
 
   "forget_password_button": "Forget Password",
+  "onboarding_introduction_title":"Personalize Your Experience",
+  "onboarding_introduction_subtitle": "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
+  "onboarding_button": "Let’s Start",
 
   "onboarding_title_1": "Find Events That Inspire You",
   "onboarding_body_1": "Dive into a world of events crafted to fit your unique interests. Whether your into live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.",

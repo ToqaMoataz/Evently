@@ -106,6 +106,11 @@
 
   "select_location_text": "اضغط على الموقع لتحديده",
 
+  "onboarding_introduction_title": "خصص تجربتك",
+  "onboarding_introduction_subtitle": "اختر النسق واللغة المفضلة لديك لتبدأ تجربة مريحة ومصممة خصيصًا لتناسب أسلوبك.",
+  "onboarding_button": "لنبدأ",
+
+
   "all_text": "الكل",
   "book_club_text": "نادي الكتاب",
   "sport_text": "رياضة",
