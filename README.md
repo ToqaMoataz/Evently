@@ -36,7 +36,7 @@
 - **Event Management:** Create, update, delete, and view events.  
 - **Location Picker:** Search and select event locations on a map.  
 - **Architecture & State Management:** Follows Clean Architecture with MVVM; uses Cubit and Provider for state management.  
-- **Cloud Storage:** Profile images stored via Cloudinary.  
+- **Cloud Storage:** Profile images stored via Cloudinary using Dio.  
 - **Notifications:** Optional event notifications.
 
 ---
@@ -46,7 +46,7 @@
 Evently provides an enhanced location experience through an interactive map screen:
 
 - **Search for Places:** Users can search for any place using the **OpenStreetMap Nominatim API**.  
-- **HTTP API Requests:** Implemented with the Flutter `http` package to retrieve search suggestions.  
+- **API Requests with Dio:** Place search suggestions are retrieved using the powerful **Dio HTTP client**.  
 - **Select Event Location:** The chosen place is saved as the event’s location and displayed on Google Maps with a marker.  
 - **Smooth User Experience:** Search results appear in a dropdown card for easy selection.  
 
@@ -56,10 +56,10 @@ Evently provides an enhanced location experience through an interactive map scre
 
 - Flutter  
 - Firebase (Authentication & Firestore)  
-- Cloudinary (for user images)  
+- Cloudinary (Profile Image Upload using Dio)  
 - Google Maps API  
-- OpenStreetMap Nominatim API (Place Search)  
-- HTTP Package (API Requests)  
+- OpenStreetMap Nominatim API (Place Search using Dio)  
+- Dio Package (Networking & API Requests)  
 - Provider & Cubit (State Management)  
 - MVVM & Clean Architecture  
 - Screen Utils (Responsive UI)  
@@ -75,17 +75,11 @@ Evently provides an enhanced location experience through an interactive map scre
 
 ---
 
-## Screenshots
-
-*(Add your screenshots here for Splash, Home, Event Form, Map Search, etc.)*
-
----
-
 ## Notes
 
 - Evently uses **Clean Architecture** to separate UI, business logic, and data layers.  
 - All state is managed using **Cubit** and **Provider** for reactive UI updates.  
+- Both **Cloudinary uploads** and **OpenStreetMap place search** are implemented using **Dio** for efficient networking.  
 - OpenStreetMap Nominatim API allows location search without needing Google Places API keys.  
 
 ---
-
