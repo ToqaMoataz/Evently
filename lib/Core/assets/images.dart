@@ -7,15 +7,16 @@ class AppImages {
     "assets/images/being-creative3.png",
   ];
 
-  static const String birthday = "assets/images/Birthday.png";
-  static const String bookClub = "assets/images/Book Club.png";
-  static const String holiday = "assets/images/Holiday.png";
-  static const String gaming = "assets/images/Gaming.png";
-  static const String eating = "assets/images/Eating.png";
-  static const String workshop = "assets/images/Workshop.png";
-  static const String meeting = "assets/images/Meeting.png";
-  static const String sport = "assets/images/Sport.png";
-  static const String exhibition = "assets/images/Exhibition.png";
+  static const String occasions = "assets/images/Categories/Occasions.png";
+  static const String birthday = "assets/images/CategoriesBirthday.png";
+  static const String bookClub = "assets/images/Categories/Book Club.png";
+  static const String holiday = "assets/images/Categories/Holiday.png";
+  static const String gaming = "assets/images/Categories/Gaming.png";
+  static const String eating = "assets/images/Categories/Eating.png";
+  static const String workshop = "assets/images/Categories/Workshop.png";
+  static const String meeting = "assets/images/Categories/Meeting.png";
+  static const String sport = "assets/images/Categories/Sport.png";
+  static const String exhibition = "assets/images/Categories/Exhibition.png";
 
   static const String eg = "assets/images/EG.png";
   static const String lr = "assets/images/LR.png";
@@ -58,6 +59,9 @@ class AppImages {
     }
     else if(event==AppData.events[8]){
       return gaming;
+    }
+    else if(event==AppData.events[9]){
+      return occasions;
     }
     return exhibition;
   }

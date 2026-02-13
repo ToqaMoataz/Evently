@@ -16,6 +16,7 @@ class AppData{
     "Workshop",
     "Holiday",
     "Gaming",
+    "Occasions",
     "Exhibition"
   ];
 
@@ -29,6 +30,7 @@ class AppData{
     "workshop_text",
     "holiday_text",
     "gaming_text",
+    "occasions_text",
     "exhibition_text"
   ];
 
