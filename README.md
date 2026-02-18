@@ -10,7 +10,8 @@
 2. [Features](#features)  
 3. [Technologies & Tools](#technologies--tools)  
 4. [Map & Location Features](#map--location-features)  
-5. [Project Links & Resources](#project-links--resources)  
+5. [Notifications & Connectivity](#notifications--connectivity)  
+6. [Project Links & Resources](#project-links--resources)  
 
 ---
 
@@ -33,11 +34,12 @@
 - **Multi-language Support:** Arabic and English.  
 - **Themes:** Dark and light themes.  
 - **Responsive UI:** Adaptive layouts using Screen Utils.  
-- **Event Management:** Create, update, delete, and view events.  
+- **Event Management:** Create, update, delete, and view events (Full CRUD).  
 - **Location Picker:** Search and select event locations on a map.  
+- **Local Notifications:** Schedule and trigger local notifications for upcoming events and reminders.  
+- **Internet Connectivity Handling:** Real-time internet status detection (WiFi / Mobile Data / Offline) with proper UI state handling.  
 - **Architecture & State Management:** Follows Clean Architecture with MVVM; uses Cubit and Provider for state management.  
 - **Cloud Storage:** Profile images stored via Cloudinary using Dio.  
-- **Notifications:** Optional event notifications.
 
 ---
 
@@ -49,6 +51,21 @@ Evently provides an enhanced location experience through an interactive map scre
 - **API Requests with Dio:** Place search suggestions are retrieved using the powerful **Dio HTTP client**.  
 - **Select Event Location:** The chosen place is saved as the event’s location and displayed on Google Maps with a marker.  
 - **Smooth User Experience:** Search results appear in a dropdown card for easy selection.  
+
+---
+
+## Notifications & Connectivity
+
+### 🔔 Local Notifications
+- Event reminders are scheduled locally on the device.  
+- Notifications trigger at the selected event time even if the app is in background.  
+- Integrated with app logic to ensure synchronization with event updates and deletions.
+
+### 🌐 Internet Connection Handling
+- Detects connectivity changes in real time.  
+- Handles offline scenarios gracefully.  
+- Prevents data operations when there is no internet connection.  
+- Improves user experience by managing UI states based on network status.
 
 ---
 
@@ -79,7 +96,5 @@ Evently provides an enhanced location experience through an interactive map scre
 
 - Evently uses **Clean Architecture** to separate UI, business logic, and data layers.  
 - All state is managed using **Cubit** and **Provider** for reactive UI updates.  
-- Both **Cloudinary uploads** and **OpenStreetMap place search** are implemented using **Dio** for efficient networking.  
-- OpenStreetMap Nominatim API allows location search without needing Google Places API keys.  
-
----
+- Both **Cloudinary uploads**, **OpenStreetMap place search**, and connectivity handling are implemented with proper service abstraction.  
+- Local notifications are fully integrated with event CRUD operations.
