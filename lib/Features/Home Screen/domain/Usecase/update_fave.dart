@@ -6,9 +6,9 @@ import 'package:injectable/injectable.dart';
 class UpdateFavUC{
   UpdateFavUC(this.repo);
   HomeScreenRepo repo;
-  Future<void> call(String eventId, bool currentValue)async {
+  Future<void> call(String eventId, bool currentValue,bool isConnected)async {
     try {
-      await repo.toggleFavorite(eventId, currentValue);
+      await repo.toggleFavorite(eventId, currentValue, isConnected:isConnected);
     } on FirebaseException catch (e) {
       rethrow;
     } catch (e) {

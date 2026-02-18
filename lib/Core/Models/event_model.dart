@@ -1,16 +1,31 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hive_flutter/adapters.dart';
 
-class EventModel {
+part 'event_model.g.dart';
+
+@HiveType(typeId: 0)
+class EventModel extends HiveObject {
+  @HiveField(0)
   String id;
+  @HiveField(1)
   String eventCategory;
+  @HiveField(2)
   String title;
+  @HiveField(3)
   String description;
+  @HiveField(4)
   int date;
+  @HiveField(5)
   String time;
+  @HiveField(6)
   String location;
+  @HiveField(7)
   bool isFav;
+  @HiveField(8)
   bool toBeNotified;
+  @HiveField(9)
   String userId;
+  @HiveField(10)
   LatLng eventPosition;
 
   EventModel({

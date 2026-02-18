@@ -4,18 +4,18 @@ import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/data
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/domain/Repository/home_repo.dart';
 import 'package:injectable/injectable.dart';
 @Injectable(as: HomeRepo)
-class HomeRepoImp extends HomeRepo{
-  HomeTabDS ds;
-  HomeRepoImp(this.ds);
+class HomeRepoImp implements HomeRepo {
+  final HomeTabDS remote;
+  final HomeTabDS local;
+
+  HomeRepoImp(@Named("remote") this.remote, @Named("local") this.local,);
 
   @override
-  Stream<QuerySnapshot<EventModel>>? getUserEvents(String category){
-    try{
-      Stream<QuerySnapshot<EventModel>>? events=ds.getUserEvents(category);
-      return events;
-    } catch (e) {
-      rethrow;
+  Future<List<EventModel>> getUserEvents(String category,bool isConnected) async {
+    if (isConnected) {
+      return await remote.getUserEvents(category);
+    } else {
+      return await local.getUserEvents(category);
     }
   }
-
 }

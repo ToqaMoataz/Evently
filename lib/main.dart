@@ -1,17 +1,23 @@
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/App%20Widgets/network_listener.dart';
+import 'package:evently/Core/Caching/Hive/hive_Adapter.dart';
 import 'package:evently/Core/Local%20notifications/notifications_manager.dart';
+import 'package:evently/Core/Models/event_model.dart';
+import 'package:evently/Core/Models/user_model.dart';
 import 'package:evently/Core/Provider/inital_route_provider.dart';
 import 'package:evently/Core/App Routing/app_router.dart';
+import 'package:evently/Core/Provider/network_info_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:evently/Core/App%20Theme/app_theaming.dart';
 import 'package:flutter/material.dart';
 import 'Core/App Routing/routes.dart';
+import 'Core/Caching/Shared Prefrences/shared_pref.dart';
 import 'Core/Dependency Injection/di.dart';
 import 'Core/Provider/themeProvider.dart';
-import 'Core/Shared Prefrences/shared_pref.dart';
 import 'firebase_options.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -25,6 +31,10 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await PreferencesHelper.init();
   await NotificationsManager.initNotifications();
+  await Hive.initFlutter();
+  Hive.registerAdapter(EventModelAdapter());
+  Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(LatLngAdapter());
   configureDependencies();
 
   runApp(
@@ -39,6 +49,9 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (_) => InitialRouteProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => NetworkProvider(),
           ),
         ],
         child: const MyApp(),
@@ -62,7 +75,6 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         final themeProvider = context.watch<ThemeProvider>();
         final initialRouteProvider = context.watch<InitialRouteProvider>();
-
         return MaterialApp(
           navigatorKey: navigatorKey,
           theme: AppTheming.lightTheme,
@@ -73,8 +85,10 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           onGenerateRoute: AppRouter.generateRoute,
+          builder: (context, child) {
+            return NetworkListener(child: child!);
+          },
           initialRoute: (initialRouteProvider.isLoading || initialRouteProvider.initialRoute == null) ? Routes.splashScreenRouteName : initialRouteProvider.initialRoute,
-          // initialRoute:  Routes.homeScreenRouteName,
         );
       },
     );

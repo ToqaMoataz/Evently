@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/App%20Widgets/network_snackbar.dart';
+import 'package:evently/Core/Provider/network_info_provider.dart';
 import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Core/assets/images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +15,7 @@ import '../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../Core/Models/event_model.dart';
 import '../../../../../Core/Provider/themeProvider.dart';
 import '../../Cubit/States/event_form_states.dart';
-import '../../Cubit/View Models/event_form_view_model.dart';
+import '../../Cubit/View Model/event_form_view_model.dart';
 
 class EventFormScreen extends StatefulWidget {
   const EventFormScreen({super.key});
@@ -24,7 +26,7 @@ class EventFormScreen extends StatefulWidget {
 
 class _EventFormScreenState extends State<EventFormScreen> {
   late EventFormViewModel viewModel;
-
+  late NetworkProvider networkProvider;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   EventModel? event;
@@ -33,7 +35,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     viewModel = context.read<EventFormViewModel>();
-
+    networkProvider=Provider.of<NetworkProvider>(context);
     event = ModalRoute.of(context)?.settings.arguments as EventModel?;
     if (event != null) {
       titleController.text = event!.title;
@@ -371,26 +373,20 @@ class _EventFormScreenState extends State<EventFormScreen> {
                             : Icons.notifications_off_outlined,
                         color: MainColors.getMainColor(),
                       ),
-                      SizedBox(height: 8.h),
+                      SizedBox(width: 8.w),
                       Text(
-                        "Notification",
+                        "notification_text".tr(),
                         style: AppTextStyles.titleMedium(color: color),
                       ),
                       Spacer(),
-                      // Switch(
-                      //   value: (event!=null) ? event?.toBeNotified : ,
-                      //   onChanged: (value) {
-                      //     setState(() {
-                      //       event.isNotificationOn = value;
-                      //     });
-                      //
-                      //     if (value) {
-                      //       scheduleNotification(event);
-                      //     } else {
-                      //       _flutterLocalNotificationsPlugin.cancel(event.id.hashCode);
-                      //     }
-                      //   },
-                      // )
+                      Switch(
+                        hoverColor: MainColors.getLightColor(),
+                        activeColor: MainColors.getMainColor(),
+                        value:state.shouldNotify,
+                        onChanged: (bool value) {
+                          viewModel.toggleShouldNotified();
+                        } ,
+                      )
 
 
                     ],
@@ -408,39 +404,44 @@ class _EventFormScreenState extends State<EventFormScreen> {
                       ),
                       // Save Event
                       onPressed: () {
-                        if (validateForm(state)) {
-                          EventModel newEvent = EventModel(
-                            eventCategory: AppData.events[state.selectedEvent],
-                            title: titleController.text.trim(),
-                            description: descriptionController.text.trim(),
-                            date: state.eventDate!.millisecondsSinceEpoch,
-                            time: state.eventTime!,
-                            location: state.currentLocation!,
-                            userId: FirebaseAuth.instance.currentUser!.uid,
-                            eventPosition: state.currentPosition!,
-                          );
-                          viewModel.saveEvent(newEvent, event);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text("incomplete_info_title".tr()),
-                                content: Text(
-                                  "complete_event_info_message".tr(),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("ok_text".tr()),
+                        if(networkProvider.isOnline){
+                          if (validateForm(state)) {
+                            EventModel newEvent = EventModel(
+                              eventCategory: AppData.events[state.selectedEvent],
+                              title: titleController.text.trim(),
+                              description: descriptionController.text.trim(),
+                              date: state.eventDate!.millisecondsSinceEpoch,
+                              time: state.eventTime!,
+                              location: state.currentLocation!,
+                              userId: FirebaseAuth.instance.currentUser!.uid,
+                              eventPosition: state.currentPosition!,
+                            );
+                            viewModel.saveEvent(newEvent, event);
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("incomplete_info_title".tr()),
+                                  content: Text(
+                                    "complete_event_info_message".tr(),
                                   ),
-                                ],
-                              );
-                            },
-                          );
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("ok_text".tr()),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        }else{
+                          NetworkSnackBar.show(context, false);
                         }
+
                       },
 
                       child: Text(
@@ -513,27 +514,16 @@ class _EventFormScreenState extends State<EventFormScreen> {
   }
 
   bool validateForm(EventFormState state) {
-    if (titleController.text.trim().isEmpty) {
-      print("Validation failed: title is empty");
-      return false;
-    }
-    if (descriptionController.text.trim().isEmpty) {
-      print("Validation failed: description is empty");
-      return false;
-    }
-    if (state.eventDate == null) {
-      print("Validation failed: eventDate is null");
-      return false;
-    }
-    if (state.eventTime == null) {
-      print("Validation failed: eventTime is null");
-      return false;
-    }
-    if (state.currentLocation == null) {
-      print("Validation failed: currentLocation is null");
-      return false;
-    }
-    print("Validation passed: all fields are filled");
+    if (titleController.text.trim().isEmpty) return false;
+
+    if (descriptionController.text.trim().isEmpty) return false;
+
+    if (state.eventDate == null) return false;
+
+    if (state.eventTime == null) return false;
+
+    if (state.currentLocation == null) return false;
+
     return true;
   }
 }

@@ -116,6 +116,13 @@
   "holiday_text": "Holiday",
   "gaming_text": "Gaming",
   "occasions_text": "Occasions",
-  "exhibition_text": "Exhibition"
+  "exhibition_text": "Exhibition",
+
+  "back_online": "Back Online",
+  "no_internet": "No Internet Connection",
+
+  "notification_text": "Notification"
+
+
 
 }

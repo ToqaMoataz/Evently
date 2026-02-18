@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
 import 'package:evently/Core/Models/user_model.dart';
-import 'package:evently/Core/Provider/language_setter.dart';
+import 'package:evently/Core/Provider/network_info_provider.dart';
+import 'package:evently/Core/assets/language_setter.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Components/event_card.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Home%20Tab/persentation/Cubit/home_tab_states.dart';
 import 'package:flutter/material.dart';
@@ -24,21 +25,31 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  HomeTabViewModel viewModel = getIt<HomeTabViewModel>();
+  late HomeTabViewModel viewModel;
+  late NetworkProvider networkProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    viewModel = getIt<HomeTabViewModel>();
+    networkProvider = Provider.of<NetworkProvider>(context);
+    viewModel.getEvents(AppData.events[viewModel.state.categoryIndex],networkProvider.isOnline);
+    networkProvider.addListener((){viewModel.getEvents(AppData.events[viewModel.state.categoryIndex],networkProvider.isOnline);});
+  }
+
 
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
-
     return BlocProvider(
       create:
           (context) =>
               viewModel
-                ..getUserLocation()
-                ..getEvents(AppData.events[viewModel.state.categoryIndex]),
+                ..getUserLocation(),
       child: BlocBuilder<HomeTabViewModel, HomeTabState>(
         builder: (context, state) {
           bool isLightTheme = themeProvider.themeMode == ThemeMode.light;
+
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -154,7 +165,7 @@ class _HomeTabState extends State<HomeTab> {
                               onTap: () {
                                 viewModel.setCurrEvent(i);
                                 viewModel.getEvents(
-                                  AppData.events[viewModel.state.categoryIndex],
+                                  AppData.events[viewModel.state.categoryIndex],networkProvider.isOnline
                                 );
                               },
                               child: Container(
@@ -242,6 +253,8 @@ class _HomeTabState extends State<HomeTab> {
                               viewModel.updateFave(
                                 state.events[index].id,
                                 state.events[index].isFav,
+                                networkProvider.isOnline,
+                                AppData.events[viewModel.state.categoryIndex],
                               );
                             },
                           );

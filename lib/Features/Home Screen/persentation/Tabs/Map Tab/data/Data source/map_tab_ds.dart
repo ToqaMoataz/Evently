@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/Core/Caching/Shared%20Prefrences/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,11 +15,11 @@ class MapTabDsImp extends MapTabDs {
   @override
   Stream<QuerySnapshot<EventModel>>? getAllUserEvents() {
     try {
-      final user = FirebaseAuth.instance.currentUser;
+      final user = PreferencesHelper.getActiveUser();
       if (user == null) return Stream.empty();
       Stream<QuerySnapshot<EventModel>>? reference =
           FirebaseManager.eventsCollection()
-              .where("userId", isEqualTo: user.uid)
+              .where("userId", isEqualTo: user)
               .snapshots();
       return reference;
     } catch (e) {

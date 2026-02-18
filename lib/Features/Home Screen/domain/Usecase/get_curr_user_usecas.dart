@@ -9,9 +9,9 @@ class GetCurrUserUC{
   HomeScreenRepo repo;
   GetCurrUserUC(this.repo);
 
-  Future<UserModel?> call() async {
+  Future<UserModel?> call(bool isConnected) async {
     try{
-      UserModel? user= await repo.getCurrUser();
+      UserModel? user= await repo.getCurrUser(isConnected: isConnected);
       return user;
     }on FirebaseAuthException catch (e) {
       rethrow;

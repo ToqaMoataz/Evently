@@ -1,21 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:evently/Core/Models/event_model.dart';
-import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/data/Data%20source/fave_ds.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/Repository/fav_repo.dart';
+import '../Data source/fave_ds.dart';
+
 @Injectable(as: FavRepo)
-class FavRepoImp extends FavRepo{
-  FaveTabDS ds;
-  FavRepoImp(this.ds);
+class FaveTabRepoImp implements FavRepo {
+  final FaveTabDS remote;
+  final FaveTabDS local;
+
+  FaveTabRepoImp(@Named("remote") this.remote, @Named("local") this.local);
+
   @override
-  Stream<QuerySnapshot<EventModel>> getFavEvents() {
-    try {
-      return ds.getFavEvents();
-    } catch (e) {
-      rethrow;
+  Future<List<EventModel>> getFavEvents(bool isConnected) async {
+    if (isConnected) {
+      return await remote.getFavEvents();
+    } else {
+      return await local.getFavEvents();
     }
   }
-
 }

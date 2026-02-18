@@ -10,9 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:evently/Core/assets/images.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../Core/App Routing/routes.dart';
 import '../../../../../../Core/App Text Styles/app_textstyles.dart';
+import '../../../../../../Core/App Widgets/network_snackbar.dart';
 import '../../../../../../Core/Models/user_model.dart';
+import '../../../../../../Core/Provider/network_info_provider.dart';
 import '../../../../../../Core/assets/const data.dart';
 import '../../../Components/text_field_card.dart';
 import '../Cubit/states.dart';
@@ -57,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    var networkProvider = Provider.of<NetworkProvider>(context);
     return BlocProvider(
       create: (context) => viewModel,
       child: BlocConsumer<RegisterViewModel,RegisterState>(
@@ -71,11 +75,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       leading: Icon(Icons.arrow_back,color: MainColors.getMainColor(),),
                       title: Text(
                         "register_heading".tr(),
-                        style: GoogleFonts.inter(
-                          color: MainColors.getMainColor(),
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
                       ),
                       centerTitle: true,
                     ),
@@ -184,12 +183,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //create account button
                             GestureDetector(
                               onTap: (){
-                                if (_formKey.currentState!.validate()) {
-                                  UserModel user=UserModel(name: _nameController.text,
-                                      email: _emailController.text,
-                                      phone: _phoneController.text);
-                                  viewModel.createAcc(user: user, password: _passwordController.text);
+                                if (networkProvider.isOnline) {
+                                  if (_formKey.currentState!.validate()) {
+                                    UserModel user=UserModel(name: _nameController.text,
+                                        email: _emailController.text,
+                                        phone: _phoneController.text);
+                                    viewModel.createAcc(user: user, password: _passwordController.text);
+                                  }
+                                } else {
+                                  NetworkSnackBar.show(context, false);
                                 }
+
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(vertical: 16),

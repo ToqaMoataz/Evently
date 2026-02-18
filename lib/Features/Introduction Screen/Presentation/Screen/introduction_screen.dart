@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/App%20Colors/main_colors.dart';
-import 'package:evently/Core/Provider/language_setter.dart';
+import 'package:evently/Core/assets/language_setter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

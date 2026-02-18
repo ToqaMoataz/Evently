@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
+import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Features/Authentication%20Screens/Presentation/Components/text_field_card.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/persentation/Cubit/fav_tab_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Fav%20Tab/persentation/Cubit/fav_tab_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../../Core/App Colors/main_colors.dart';
+import '../../../../../../../Core/Provider/network_info_provider.dart';
 import '../../../../Components/event_card.dart';
 
 class FavTab extends StatefulWidget {
@@ -18,22 +21,23 @@ class FavTab extends StatefulWidget {
 
 class _FavTabState extends State<FavTab> {
   late TextEditingController _searchController;
-
+  late NetworkProvider networkProvider;
   late FavViewModel viewModel;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    networkProvider=Provider.of<NetworkProvider>(context);
     _searchController = TextEditingController();
     viewModel = getIt<FavViewModel>();
-    viewModel.getFavEvents();
+    viewModel.getFavEvents(networkProvider.isOnline);
     _searchController.addListener(() {
       final text = _searchController.text.trim();
       if (text.isEmpty) {
-        viewModel.getFavEvents();
+        viewModel.getFavEvents(networkProvider.isOnline);
         return;
       }
-      viewModel.searchEvents(text);
+      viewModel.searchEvents(text,networkProvider.isOnline);
     });
   }
 
@@ -45,6 +49,7 @@ class _FavTabState extends State<FavTab> {
 
   @override
   Widget build(BuildContext context) {
+    var networkProvider = Provider.of<NetworkProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -62,7 +67,10 @@ class _FavTabState extends State<FavTab> {
                       textController: _searchController,
                       color: MainColors.getMainColor(),
                     ),
-                    (state.events.isEmpty)
+                    (state.getFavEventsRequestState==RequestState.loading || state.searchEventsRequestState==RequestState.loading)
+                    ?
+                       Center(child: CircularProgressIndicator(color: MainColors.getMainColor(),))
+                    : (state.events.isEmpty)
                         ? Align(alignment:Alignment.center,child: Text("no_events_text".tr()))
                         : Expanded(
                           child: ListView.separated(
@@ -78,6 +86,7 @@ class _FavTabState extends State<FavTab> {
                                     viewModel.updateFave(
                                       viewModel.state.events[index].id,
                                       viewModel.state.events[index].isFav,
+                                      networkProvider.isOnline
                                     );
                                   },
                                 );
@@ -87,7 +96,9 @@ class _FavTabState extends State<FavTab> {
                                 updateFav: () {
                                   viewModel.updateFave(
                                     state.searchResults[index].id,
-                                    state.searchResults[index].isFav
+                                    state.searchResults[index].isFav,
+                                    networkProvider.isOnline
+
                                   );
                                 },
                               );

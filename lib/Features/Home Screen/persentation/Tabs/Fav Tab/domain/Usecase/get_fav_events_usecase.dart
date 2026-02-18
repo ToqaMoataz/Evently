@@ -3,20 +3,16 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../Core/Models/event_model.dart';
 @injectable
-class GetFavEventsUC{
+class GetFavEventsUC {
+  final FavRepo repo;
   GetFavEventsUC(this.repo);
 
-  FavRepo repo;
-
-  Stream<List<EventModel>> call() {
+  Stream<List<EventModel>> call(bool isConnected) async* {
     try {
-      return repo.getFavEvents().map((snapshot) {
-        final events = snapshot.docs.map((e) => e.data()).toList();
-        return events;
-      });
+      final events = await repo.getFavEvents(isConnected);
+      yield events;
     } catch (e) {
       rethrow;
     }
   }
-
 }

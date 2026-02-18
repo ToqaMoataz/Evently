@@ -8,7 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../Core/App Colors/main_colors.dart';
 import '../../../../Authentication Screens/Presentation/Components/text_field_card.dart';
 import '../../Cubit/States/event_form_states.dart';
-import '../../Cubit/View Models/event_form_view_model.dart';
+import '../../Cubit/View Model/event_form_view_model.dart';
+
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});

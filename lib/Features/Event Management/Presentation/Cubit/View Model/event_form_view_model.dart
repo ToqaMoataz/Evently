@@ -57,6 +57,10 @@ class EventFormViewModel extends Cubit<EventFormState> {
     emit(state.copyWith(eventTime: selectedTime));
   }
 
+  void toggleShouldNotified() {
+    emit(state.copyWith(shouldNotify: !state.shouldNotify));
+  }
+
   void selectEventCategory(int index) {
     emit(state.copyWith(selectedEvent: index));
   }
@@ -69,6 +73,7 @@ class EventFormViewModel extends Cubit<EventFormState> {
       state.copyWith(
         eventDate: DateTime.fromMillisecondsSinceEpoch(event.date),
         eventTime: event.time,
+        shouldNotify: event.toBeNotified
       ),
     );
   }

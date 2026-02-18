@@ -1,11 +1,10 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
-import '../../Features/Event Management/Presentation/Screens/Event Details Screen/event_details_screen.dart';
-import '../../main.dart';
+
 import '../Models/event_model.dart';
 
 class NotificationsManager {
@@ -19,9 +18,9 @@ class NotificationsManager {
       final String timeZoneName =
           (await FlutterTimezone.getLocalTimezone()).identifier;
       tz.setLocalLocation(tz.getLocation(timeZoneName));
-      print("Timezone set to: $timeZoneName");
+      print("Timezone: $timeZoneName");
     } catch (e) {
-      print("Timezone initialization failed: $e");
+      print("Timezone error: $e");
     }
 
     const AndroidInitializationSettings androidSettings =

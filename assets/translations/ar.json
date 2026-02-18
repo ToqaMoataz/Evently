@@ -121,6 +121,11 @@
   "holiday_text": "إجازة",
   "gaming_text": "ألعاب",
   "occasions_text": "مناسبات",
-  "exhibition_text": "معرض"
+  "exhibition_text": "معرض",
+
+  "back_online": "متصل بالإنترنت",
+  "no_internet": "لا يوجد اتصال بالإنترنت",
+
+  "notification_text": "الإشعارات"
 
 }

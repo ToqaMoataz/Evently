@@ -1,11 +1,9 @@
-import 'dart:ffi';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently/Core/Firebase/firebase_manager.dart';
-import 'package:evently/Core/Shared%20Prefrences/shared_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../Core/Caching/Shared Prefrences/shared_pref.dart';
 import '../../../../Core/Models/user_model.dart';
 
 abstract class AuthDs{

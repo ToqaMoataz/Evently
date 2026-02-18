@@ -8,12 +8,9 @@ class GetEventsUC {
 
   GetEventsUC(this.repo);
 
-  Stream<List<EventModel>>? call(String category) {
+  Future<List<EventModel>>? call(String category,bool isConnected) {
     try {
-      return repo.getUserEvents(category)?.map((snapshot) {
-        final events = snapshot.docs.map((e) => e.data()).toList();
-        return events;
-      });
+      return repo.getUserEvents(category,isConnected);
     } catch (e) {
       rethrow;
     }

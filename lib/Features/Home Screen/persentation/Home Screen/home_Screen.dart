@@ -9,10 +9,10 @@ import 'package:evently/Features/Home%20Screen/persentation/View%20model/home_sc
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../../../Core/App Routing/routes.dart';
 import '../../../../Core/Models/user_model.dart';
+import '../../../../Core/Provider/network_info_provider.dart';
 import '../Tabs/Fav Tab/persentation/Tab/fav_tab.dart';
 import '../Tabs/Home Tab/persentation/Tab/home_tab.dart';
 import '../Tabs/Map Tab/persentation/Tab/map_tab.dart';
@@ -23,12 +23,11 @@ class HomeScreen extends StatelessWidget {
   final HomeScreenViewModel viewModel=getIt<HomeScreenViewModel>();
   @override
   Widget build(BuildContext context) {
-    var themeProvider=Provider.of<ThemeProvider>(context);
+    var networkProvider = Provider.of<NetworkProvider>(context);
     return BlocProvider(
-      create: (context) =>viewModel..getCurrUser() ,
+      create: (context) =>viewModel..getCurrUser(networkProvider.isOnline) ,
       child: BlocBuilder<HomeScreenViewModel,HomeScreenState>(
           builder: (context, state) {
-
             return Scaffold(
                 floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
                 floatingActionButton: FloatingActionButton(

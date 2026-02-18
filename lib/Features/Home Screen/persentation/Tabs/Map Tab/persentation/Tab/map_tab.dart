@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import '../../../../../../../Core/Provider/network_info_provider.dart';
 import '../Cubit/map_tab_states.dart';
 
 class MapTab extends StatefulWidget {
@@ -28,6 +30,7 @@ class _MapScreenState extends State<MapTab> {
 
   @override
   Widget build(BuildContext context) {
+    var networkProvider = Provider.of<NetworkProvider>(context);
     return BlocProvider(
       create: (context) => viewModel..getEvents()..getInitialPosition(),
       child: BlocBuilder<MapTabViewModel, MapTabState>(

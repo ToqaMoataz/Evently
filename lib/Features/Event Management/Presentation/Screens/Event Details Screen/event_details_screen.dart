@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/App%20Widgets/network_snackbar.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
 import 'package:evently/Core/Models/event_model.dart';
 import 'package:evently/Core/Provider/themeProvider.dart';
 import 'package:evently/Core/assets/const%20data.dart';
 import 'package:evently/Core/assets/images.dart';
 import 'package:evently/Features/Event%20Management/Presentation/Cubit/States/event_form_states.dart';
-import 'package:evently/Features/Event%20Management/Presentation/Cubit/View%20Models/event_form_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +16,8 @@ import 'package:provider/provider.dart';
 import '../../../../../Core/App Colors/main_colors.dart';
 import '../../../../../Core/App Routing/routes.dart';
 import '../../../../../Core/App Text Styles/app_textstyles.dart';
+import '../../../../../Core/Provider/network_info_provider.dart';
+import '../../Cubit/View Model/event_form_view_model.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   EventDetailsScreen({super.key});
@@ -25,6 +27,7 @@ class EventDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
+    var networkProvider=Provider.of<NetworkProvider>(context);
     var event = ModalRoute.of(context)?.settings.arguments as EventModel;
     return BlocProvider(
       create: (context) => viewModel,
@@ -52,10 +55,14 @@ class EventDetailsScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  showDeleteEventDialog(context, () {
-                    viewModel.deleteEvent(event.id);
-                  });
-
+                  if(networkProvider.isOnline){
+                    showDeleteEventDialog(context, () {
+                      viewModel.deleteEvent(event.id);
+                    });
+                  }
+                  else{
+                    NetworkSnackBar.show(context, false);
+                  }
                 },
                 icon: Icon(
                   Icons.delete_outline,
@@ -219,6 +226,33 @@ class EventDetailsScreen extends StatelessWidget {
                               ? MainColors.getDarkColor()
                               : MainColors.getLightColor(),
                         ),
+                      ),
+                      SizedBox(height: 24.h),
+                      Row(
+                        children: [
+                          Icon(
+                            (event.toBeNotified)
+                                ? Icons.notifications_on_outlined
+                                : Icons.notifications_off_outlined,
+                            color: MainColors.getMainColor(),
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            "notification_text".tr(),
+                            style: AppTextStyles.titleMedium(color: (Theme.of(context).brightness == Brightness.dark)
+                                ? MainColors.getLightColor()
+                                : MainColors.getDarkColor()),
+                          ),
+                          Spacer(),
+                          Switch(
+                            hoverColor: MainColors.getLightColor(),
+                            activeColor: MainColors.getMainColor(),
+                            value:event.toBeNotified,
+                            onChanged: null,
+                          )
+
+
+                        ],
                       ),
                     ],
                   ),

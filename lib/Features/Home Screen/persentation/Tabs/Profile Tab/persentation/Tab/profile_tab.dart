@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/Core/App%20Widgets/network_snackbar.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
 import 'package:evently/Core/assets/const%20data.dart';
+import 'package:evently/Core/assets/images.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/data/Const%20Data/const_data.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/persentation/Cubit/profile_states.dart';
 import 'package:evently/Features/Home%20Screen/persentation/Tabs/Profile%20Tab/persentation/Cubit/profile_view_model.dart';
@@ -12,20 +14,19 @@ import 'package:provider/provider.dart';
 import '../../../../../../../Core/App Colors/main_colors.dart';
 import '../../../../../../../Core/App Routing/routes.dart';
 import '../../../../../../../Core/App Text Styles/app_textstyles.dart';
-import '../../../../../../../Core/Provider/language_setter.dart';
+import '../../../../../../../Core/Provider/network_info_provider.dart';
+import '../../../../../../../Core/assets/language_setter.dart';
 import '../../../../../../../Core/Provider/themeProvider.dart';
-
 
 class ProfileTab extends StatelessWidget {
   ProfileTab({super.key});
 
-  final ProfileViewModel viewModel = getIt<ProfileViewModel>();
-
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
+    var networkProvider = Provider.of<NetworkProvider>(context);
     return BlocProvider(
-      create: (context) => viewModel..getCurrUser(),
+      create: (context) => getIt<ProfileViewModel>()..getCurrUser(networkProvider.isOnline),
       child: BlocConsumer<ProfileViewModel, ProfileState>(
         builder: (context, state) {
           if (state.getUserInfoRequestState == RequestState.error) {
@@ -53,9 +54,8 @@ class ProfileTab extends StatelessWidget {
                     //User Image
                     GestureDetector(
                       onDoubleTap: () {
-                        viewModel.uploadUserImage();
+                        context.read<ProfileViewModel>().uploadUserImage(networkProvider.isOnline);
                       },
-                      onTap: () {},
                       child: SizedBox(
                         height: 124.w,
                         width: 124.w,
@@ -66,18 +66,21 @@ class ProfileTab extends StatelessWidget {
                             bottomLeft: Radius.circular(1000.r),
                             bottomRight: Radius.circular(1000.r),
                           ),
-                          child: Image.network(
-                            state.currUser!.imageUrl,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return CircularProgressIndicator(
-                                color: MainColors.getLightColor(),
+                          child: Consumer<NetworkProvider>(
+                            builder: (context, network, _) {
+                              return Image(
+                                key: ValueKey(network.isOnline),
+                                image: NetworkImage(state.currUser!.imageUrl),
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, __, ___) {
+                                  return Image.asset(AppImages.noUserPic,
+                                    fit: BoxFit.cover,
+                                  );
+                                },
                               );
                             },
-                          ),
+                          )
+
                         ),
                       ),
                     ),
@@ -243,27 +246,42 @@ class ProfileTab extends StatelessWidget {
                   Spacer(),
                   GestureDetector(
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder:
-                            (_) => AlertDialog(
-                              title: Text("confirm_logout_title".tr(),style: AppTextStyles.labelLarge(color: MainColors.getMainColor()),),
-                              content: Text("logout_message".tr(),style: AppTextStyles.bodySmall(color: MainColors.getMainColor())),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("no_text".tr()),
+                      if (networkProvider.isOnline) {
+                        showDialog(
+                          context: context,
+                          builder:
+                              (_) => AlertDialog(
+                                title: Text(
+                                  "confirm_logout_title".tr(),
+                                  style: AppTextStyles.labelLarge(
+                                    color: MainColors.getMainColor(),
+                                  ),
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    viewModel.logout();
-                                  },
-                                  child: Text("yes_text".tr()),
+                                content: Text(
+                                  "logout_message".tr(),
+                                  style: AppTextStyles.bodySmall(
+                                    color: MainColors.getMainColor(),
+                                  ),
                                 ),
-                              ],
-                            ),
-                      );
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text("no_text".tr()),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      context.read<ProfileViewModel>().logout();
+                                    },
+                                    child: Text("yes_text".tr()),
+                                  ),
+                                ],
+                              ),
+                        );
+                      }
+                      else{
+                        NetworkSnackBar.show(context, false);
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.all(16),

@@ -14,13 +14,13 @@ class HomeScreenViewModel extends Cubit<HomeScreenState>{
     emit(state.copyWith(currentTabIndex: index));
   }
 
-  Future<void> getCurrUser() async {
+  Future<void> getCurrUser(bool isConnected) async {
     emit(state.copyWith(
       getUserInfoRequestState: RequestState.loading,
     ));
 
     try {
-      final user = await userUseCase.call();
+      final user = await userUseCase.call(isConnected);
 
       if (isClosed) return;
 

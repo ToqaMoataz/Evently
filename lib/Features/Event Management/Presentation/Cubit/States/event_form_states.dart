@@ -24,6 +24,9 @@ class EventFormState extends EventFormStates {
   final PlaceModel? selectedSearchResult;
   final bool showSearchResults;
 
+  // ✅ الجديد
+  final bool shouldNotify;
+
   EventFormState({
     this.createEventRequestState = RequestState.init,
     this.updateEventRequestState = RequestState.init,
@@ -40,6 +43,7 @@ class EventFormState extends EventFormStates {
     this.searchResults,
     this.selectedSearchResult,
     this.showSearchResults = false,
+    this.shouldNotify = true, // ✅ القيمة الابتدائية
   });
 
   EventFormState copyWith({
@@ -58,6 +62,7 @@ class EventFormState extends EventFormStates {
     List<PlaceModel>? searchResults,
     PlaceModel? selectedSearchResult,
     bool? showSearchResults,
+    bool? shouldNotify, // ✅ جديد
   }) {
     return EventFormState(
       createEventRequestState:
@@ -79,9 +84,11 @@ class EventFormState extends EventFormStates {
       searchResults: searchResults ?? this.searchResults,
       selectedSearchResult: selectedSearchResult ?? this.selectedSearchResult,
       showSearchResults: showSearchResults ?? this.showSearchResults,
+      shouldNotify: shouldNotify ?? this.shouldNotify, // ✅
     );
   }
 }
+
 
 class EventFormInitState extends EventFormState {
   EventFormInitState()
@@ -100,5 +107,6 @@ class EventFormInitState extends EventFormState {
     searchResults: null,
     selectedSearchResult: null,
     showSearchResults: false,
+    shouldNotify: true
   );
 }

@@ -35,6 +35,8 @@ class AppImages {
 
   static const String forgetPassPic = "assets/images/forget password.png";
 
+  static const String noUserPic = "assets/images/no image.png";
+
   static String returnEventImage(String event){
     if(event==AppData.events[1]){
       return bookClub;

@@ -14,21 +14,17 @@ class ProfileViewModel extends Cubit<ProfileState> {
 
   ProfileViewModel({required this.uploadUC,required this.getCurrUserUC,required this.logoutUC}):super(ProfileInitState());
 
-  Future<void> getCurrUser() async {
+  Future<void> getCurrUser(bool isConnected) async {
+    if (isClosed) return;
+
     emit(state.copyWith(
       getUserInfoRequestState: RequestState.loading,
     ));
 
     try {
-      final user = await getCurrUserUC.call();
+      final user = await getCurrUserUC.call(isConnected);
+
       if (isClosed) return;
-      if (user == null) {
-        emit(state.copyWith(
-          getUserInfoRequestState: RequestState.error,
-          errorMessage: 'User not found',
-        ));
-        return;
-      }
 
       emit(state.copyWith(
         getUserInfoRequestState: RequestState.success,
@@ -36,6 +32,7 @@ class ProfileViewModel extends Cubit<ProfileState> {
       ));
     } catch (e) {
       if (isClosed) return;
+
       emit(state.copyWith(
         getUserInfoRequestState: RequestState.error,
         errorMessage: e.toString(),
@@ -43,11 +40,11 @@ class ProfileViewModel extends Cubit<ProfileState> {
     }
   }
 
-  Future<void> uploadUserImage()async {
+  Future<void> uploadUserImage(bool isConnected)async {
     emit(state.copyWith(uploadUserImageRequestState: RequestState.loading));
     try{
       await uploadUC.call();
-      await getCurrUser();
+      await getCurrUser(isConnected);
       emit(state.copyWith(uploadUserImageRequestState: RequestState.success));
     }catch(e){
       emit(state.copyWith(uploadUserImageRequestState: RequestState.error,errorMessage: e.toString()));

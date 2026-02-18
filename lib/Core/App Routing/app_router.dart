@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Features/Authentication Screens/Presentation/Screens/Login Screen/Screen/login_screen.dart';
+import '../../Features/Event Management/Presentation/Cubit/View Model/event_form_view_model.dart';
 import 'routes.dart';
 import '../Dependency Injection/di.dart';
 
@@ -15,7 +16,7 @@ import '../../Features/Event Management/Presentation/Screens/Create or Update Ev
 import '../../Features/Event Management/Presentation/Screens/Map Screen/map_screen.dart';
 import '../../Features/Event Management/Presentation/Screens/Event Details Screen/event_details_screen.dart';
 
-import '../../Features/Event Management/Presentation/Cubit/View Models/event_form_view_model.dart';
+
 
 class AppRouter {
   static final EventFormViewModel _viewModel = getIt<EventFormViewModel>();

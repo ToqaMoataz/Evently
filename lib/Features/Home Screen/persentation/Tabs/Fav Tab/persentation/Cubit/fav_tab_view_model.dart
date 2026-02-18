@@ -25,65 +25,67 @@ class FavViewModel extends Cubit<FavTabState> {
 
 
 
-  void getFavEvents() {
+  Future<void> getFavEvents(bool isConnected) async {
     emit(state.copyWith(
       getFavEventsRequestState: RequestState.loading,
     ));
-    _favEventsSub?.cancel();
-    _favEventsSub = favEventsUseCase.call().listen(
-          (events) {
-        if (isClosed) return;
-        emit(state.copyWith(
-          getFavEventsRequestState: RequestState.success,
-          events: events,
-        ));
-      },
-      onError: (e) {
-        if (isClosed) return;
-        emit(state.copyWith(
-          getFavEventsRequestState: RequestState.error,
-          errorMessage: e.toString(),
-        ));
-      },
-    );
+
+    try {
+      final events = await favEventsUseCase.call(isConnected).first;
+      if (isClosed) return;
+
+      emit(state.copyWith(
+        getFavEventsRequestState: RequestState.success,
+        events: events,
+      ));
+
+    } catch (e) {
+      if (isClosed) return;
+      print("Error in getFavEvents: ${e.toString()}");
+      emit(state.copyWith(
+        getFavEventsRequestState: RequestState.error,
+        errorMessage: e.toString(),
+      ));
+    }
   }
+
 
   // ================= SEARCH EVENTS =================
 
-  void searchEvents(String subTitle) {
+  Future<void> searchEvents(String subTitle,bool isConnected) async {
     emit(state.copyWith(
       searchEventsRequestState: RequestState.loading,
     ));
 
-    _searchEventsSub?.cancel();
-    _searchEventsSub = searchUseCase.call(subTitle).listen(
-          (events) {
-        if (isClosed) return;
-        emit(state.copyWith(
-          searchEventsRequestState: RequestState.success,
-          searchResults: events,
-        ));
-      },
-      onError: (e) {
-        if (isClosed) return;
-        emit(state.copyWith(
-          searchEventsRequestState: RequestState.error,
-          errorMessage: e.toString(),
-        ));
-      },
-    );
+    try {
+      final events = await searchUseCase.call(subTitle,isConnected).first;
+      if (isClosed) return;
+
+      emit(state.copyWith(
+        searchEventsRequestState: RequestState.success,
+        searchResults: events,
+      ));
+
+    } catch (e) {
+      if (isClosed) return;
+      print("Error in searchEvents: ${e.toString()}");
+      emit(state.copyWith(
+        searchEventsRequestState: RequestState.error,
+        errorMessage: e.toString(),
+      ));
+    }
   }
 
   // ================= TOGGLE FAVORITE =================
 
-  Future<void> updateFave(String eventId, bool currentValue) async {
+  Future<void> updateFave(String eventId, bool currentValue,bool isConnected) async {
     emit(state.copyWith(
       toggleEventFavRequestState: RequestState.loading,
     ));
 
     try {
-      await updateUseCase.call(eventId, currentValue);
-      getFavEvents();
+      await updateUseCase.call(eventId, currentValue,isConnected);
+      getFavEvents(isConnected);
       if (isClosed) return;
       emit(state.copyWith(
         toggleEventFavRequestState: RequestState.success,

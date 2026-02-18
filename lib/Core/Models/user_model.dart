@@ -1,11 +1,21 @@
 import 'package:evently/Core/Cloudinary/cloudinary_constants.dart';
+import 'package:hive_flutter/adapters.dart';
 
-class UserModel {
+part 'user_model.g.dart';
+
+@HiveType(typeId: 1)
+class UserModel extends HiveObject{
+  @HiveField(0)
   String id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String email;
+  @HiveField(3)
   final String phone;
+  @HiveField(4)
   final String location;
+  @HiveField(5)
   final String imageUrl;
 
   UserModel({

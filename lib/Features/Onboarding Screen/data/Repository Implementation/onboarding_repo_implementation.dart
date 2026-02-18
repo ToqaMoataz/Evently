@@ -1,7 +1,6 @@
 
 import 'package:injectable/injectable.dart';
-
-import '../../../../Core/Shared Prefrences/shared_pref.dart';
+import '../../../../Core/Caching/Shared Prefrences/shared_pref.dart';
 import '../../Domain/Repository/onboarding_repo.dart';
 
 @Injectable(as: OnboardingRepo)

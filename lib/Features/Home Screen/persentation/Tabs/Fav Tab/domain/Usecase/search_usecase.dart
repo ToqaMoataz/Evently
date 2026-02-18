@@ -4,18 +4,19 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../../../Core/Models/event_model.dart';
 @injectable
-class SearchUC{
-  FavRepo repo;
+class SearchUC {
+  final FavRepo repo;
   SearchUC(this.repo);
 
-  Stream<List<EventModel>> call(String subTitle){
+  Stream<List<EventModel>> call(String subTitle, bool isConnected) async* {
     try {
-      return repo.getFavEvents().map((snapshot) {
-        return snapshot.docs
-            .map((doc) => doc.data())
-            .where((event) => event.title.toLowerCase().contains(subTitle.toLowerCase()))
-            .toList();
-      });
+      final events = await repo.getFavEvents(isConnected);
+
+      final filtered = events
+          .where((event) => event.title.toLowerCase().contains(subTitle.toLowerCase()))
+          .toList();
+
+      yield filtered;
     } catch (e) {
       rethrow;
     }

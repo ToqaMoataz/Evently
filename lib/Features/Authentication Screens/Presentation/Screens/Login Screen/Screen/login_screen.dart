@@ -2,12 +2,14 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/Core/Dependency%20Injection/di.dart';
+import 'package:evently/Core/Provider/themeProvider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:evently/Core/assets/images.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../../../Core/App Colors/main_colors.dart';
 import '../../../../../../../Core/App Routing/routes.dart';
@@ -16,6 +18,8 @@ import '../../../../../../../Core/App Widgets/app_widgets.dart';
 
 import '../../../../../../../Core/assets/const data.dart';
 
+import '../../../../../../Core/App Widgets/network_snackbar.dart';
+import '../../../../../../Core/Provider/network_info_provider.dart';
 import '../../../Components/text_field_card.dart';
 import '../Cubit/login view model.dart';
 import '../Cubit/states.dart';
@@ -40,6 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    var networkProvider=Provider.of<NetworkProvider>(context);
+    var themeProvider=Provider.of<ThemeProvider>(context);
     return BlocProvider(
       create: (context)=> viewModel,
       child: BlocConsumer<LoginViewModel,LoginState>(
@@ -125,7 +131,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           //login button
                           GestureDetector(
                             onTap: (){
-                               viewModel.login(_emailController.text, _passwordController.text);
+                              if (networkProvider.isOnline) {
+                                viewModel.login(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
+                              } else {
+                                NetworkSnackBar.show(context, false);
+                              }
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 16),
@@ -147,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextSpan(
                                     text: "no_account_text".tr(),
                                     style: GoogleFonts.inter(
-                                      color: MainColors.getLightColor(),
+                                      color: (themeProvider.themeMode==ThemeMode.light) ? MainColors.getDarkColor() : MainColors.getLightColor(),
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w500,
                                     )
@@ -203,28 +216,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           //Google login
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: MainColors.getMainColor()),
-                              borderRadius: BorderRadius.circular(16.r),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image(
-                                  image: AssetImage(AppImages.googleIcon),
-                                  height: 24,
-                                  width: 24,
-                                ),
-                                SizedBox(width: 10.w),
-                                Text(
-                                  "google_login_text".tr(),
-                                  style: AppTextStyles.buttonTextStyle(color:MainColors.getMainColor()),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   padding: const EdgeInsets.symmetric(vertical: 12),
+                          //   decoration: BoxDecoration(
+                          //     border: Border.all(color: MainColors.getMainColor()),
+                          //     borderRadius: BorderRadius.circular(16.r),
+                          //   ),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Image(
+                          //         image: AssetImage(AppImages.googleIcon),
+                          //         height: 24,
+                          //         width: 24,
+                          //       ),
+                          //       SizedBox(width: 10.w),
+                          //       Text(
+                          //         "google_login_text".tr(),
+                          //         style: AppTextStyles.buttonTextStyle(color:MainColors.getMainColor()),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
