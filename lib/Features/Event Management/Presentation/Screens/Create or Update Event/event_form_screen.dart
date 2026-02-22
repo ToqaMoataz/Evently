@@ -54,9 +54,9 @@ class _EventFormScreenState extends State<EventFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeProvider>(context);
+    var themeProvider = (context).watch<ThemeProvider>();
     Color color =
-        (Theme.of(context).brightness == Brightness.dark)
+        (themeProvider.themeMode == ThemeMode.dark)
             ? MainColors.getLightColor()
             : MainColors.getDarkColor();
 
@@ -163,9 +163,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                     controller: titleController,
                     decoration: InputDecoration(
                       hintText: "title_text".tr(),
-                      hintStyle: AppTextStyles.hintTextStyle(
-                        themeMode: themeProvider.themeMode,
-                      ),
+                      hintStyle: AppTextStyles.hintTextStyle(color: MainColors.getLightColor()),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),
                         borderSide: BorderSide(
@@ -214,7 +212,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                     decoration: InputDecoration(
                       hintText: "event_description_text".tr(),
                       hintStyle: AppTextStyles.hintTextStyle(
-                        themeMode: themeProvider.themeMode,
+                          color: MainColors.getLightColor()
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18.r),

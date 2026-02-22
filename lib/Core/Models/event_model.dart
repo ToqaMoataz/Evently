@@ -81,9 +81,8 @@ class EventModel extends HiveObject {
   }
 
   DateTime get dateTime {
-    final year = date ~/ 10000;
-    final month = (date % 10000) ~/ 100;
-    final day = date % 100;
+
+    DateTime baseDate = DateTime.fromMillisecondsSinceEpoch(date);
 
     final parts = time.split(RegExp(r'[: ]'));
     int hour = int.parse(parts[0]);
@@ -95,8 +94,7 @@ class EventModel extends HiveObject {
     } else if (period == 'AM' && hour == 12) {
       hour = 0;
     }
-
-    return DateTime(year, month, day, hour, minute);
+    return DateTime(baseDate.year, baseDate.month, baseDate.day, hour, minute);
   }
 
 }

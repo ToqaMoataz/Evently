@@ -95,13 +95,11 @@ class AppTextStyles {
     );
   }
 
-  static TextStyle hintTextStyle({Color? color, required ThemeMode themeMode}) {
+  static TextStyle hintTextStyle({Color? color}) {
     return GoogleFonts.inter(
       fontSize: 16,
       fontWeight: FontWeight.w500,
-      color: color ?? (themeMode == ThemeMode.light
-          ? MainColors.getGreyColor()
-          : MainColors.getLightColor()),
+      color: color
     );
   }
 

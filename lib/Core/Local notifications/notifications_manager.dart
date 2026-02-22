@@ -58,14 +58,7 @@ class NotificationsManager {
   }
 
   static void _onTap(NotificationResponse response) {
-    // final eventId = response.payload;
-    // if (eventId != null) {
-    //   navigatorKey.currentState?.push(
-    //     MaterialPageRoute(
-    //       builder: (_) => EventDetailsScreen(),
-    //     ),
-    //   );
-    // }
+
   }
 
   static NotificationDetails getNotificationDetails() {
@@ -76,6 +69,7 @@ class NotificationsManager {
         channelDescription: 'Notifications for your events',
         importance: Importance.max,
         priority: Priority.high,
+        playSound: true,
       ),
       iOS: DarwinNotificationDetails(),
     );
@@ -108,6 +102,7 @@ class NotificationsManager {
         payload: event.id,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       );
+      print("Notification scheduled successfully for: $scheduledDate");
     } catch (e) {
       print("Notification scheduling failed: $e");
     }

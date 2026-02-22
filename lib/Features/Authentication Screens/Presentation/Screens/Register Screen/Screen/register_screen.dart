@@ -16,6 +16,7 @@ import '../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../Core/App Widgets/network_snackbar.dart';
 import '../../../../../../Core/Models/user_model.dart';
 import '../../../../../../Core/Provider/network_info_provider.dart';
+import '../../../../../../Core/Provider/themeProvider.dart';
 import '../../../../../../Core/assets/const data.dart';
 import '../../../Components/text_field_card.dart';
 import '../Cubit/states.dart';
@@ -60,7 +61,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    var networkProvider = Provider.of<NetworkProvider>(context);
+    var networkProvider = (context).watch<NetworkProvider>();
+    var themeProvider = (context).watch<ThemeProvider>();
     return BlocProvider(
       create: (context) => viewModel,
       child: BlocConsumer<RegisterViewModel,RegisterState>(
@@ -99,7 +101,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             TextFieldCard(
                               hintText:"name_text".tr(),
                               icon: Icons.person,
-                              color:MainColors.getGreyColor(),
                               textController: _nameController,
                               validate:(value) {
                                 if (value == null || value.trim().isEmpty) {
@@ -121,13 +122,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   return "valid_phone_text".tr();
                                 }
                                 return null;
-                              }, color:MainColors.getGreyColor(),
+                              },
                             ),
                             // Email TextField
                             TextFieldCard(
                               hintText:"email_text".tr(),
                               icon: Icons.mail_rounded,
-                              color:MainColors.getGreyColor(),
                               textController: _emailController,
                               validate:(value){
                                 final RegExp emailRegex = RegExp(r'^[\w\.-]+@[\w\.-]+\.(com)$');
@@ -153,7 +153,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                                 return null;
                               },
-                              color:MainColors.getGreyColor(),
                               isPass: true,
                               passVisible: state.passVisible,
                               onVisibilityToggle: () {
@@ -164,12 +163,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             TextFieldCard(
                               hintText:"re_password_text".tr(),
                               icon: Icons.lock,
-                              color:MainColors.getGreyColor(),
                               textController: _rePasswordController,
                               validate:(value) {
                                 if (value == null || value.isEmpty) {
                                   return "confirm_password_text".tr();
-                                } else if (value != _rePasswordController.text) {
+                                } else if (value != _passwordController.text) {
                                   return "passwords_not_match_text".tr();
                                 }
                                 return null;
@@ -217,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     TextSpan(
                                         text: "already_have_account_text".tr(),
                                         style: GoogleFonts.inter(
-                                          color: Colors.black,
+                                          color: (themeProvider.themeMode==ThemeMode.light) ? MainColors.getDarkColor() : MainColors.getLightColor(),
                                           fontSize: 16.sp,
                                           fontWeight: FontWeight.w500,
                                           height: 1.h,

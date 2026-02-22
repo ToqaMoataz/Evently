@@ -79,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextFieldCard(
                                   hintText:"email_text".tr(),
                                   icon: Icons.mail_rounded,
-                                  color:MainColors.getGreyColor(),
                                   textController: _emailController,
                                   validate:(value){
                                     if(value==null||value.isEmpty){
@@ -95,7 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 TextFieldCard(
                                   hintText:"password_text".tr(),
                                   icon: Icons.lock,
-                                  color:MainColors.getGreyColor(),
                                   textController: _passwordController,
                                   isPass: true,
                                   passVisible: state.passwordVisible,
