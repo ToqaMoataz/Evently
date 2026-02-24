@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               icon: Icons.mail_rounded,
                               textController: _emailController,
                               validate:(value){
-                                final RegExp emailRegex = RegExp(r'^[\w\.-]+@[\w\.-]+\.(com)$');
+                                final RegExp emailRegex = RegExp(r'^[\w\.-]+@[a-z]+\.(com)$');
                                 if(value==null||value.isEmpty){
                                   return "email_required_text".tr();
                                 }

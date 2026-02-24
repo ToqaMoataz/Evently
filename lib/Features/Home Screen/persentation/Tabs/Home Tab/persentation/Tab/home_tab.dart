@@ -72,20 +72,24 @@ class _HomeTabState extends State<HomeTab> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "welcome_back_text".tr(),
-                            style: AppTextStyles.titleSmall(
-                              weight: FontWeight.w400,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "welcome_back_text".tr(),
+                              style: AppTextStyles.titleSmall(
+                                weight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                          Text(
-                            widget.user.name,
-                            style: AppTextStyles.userNameTextStyle(),
-                          ),
-                        ],
+                            Text(
+                              widget.user.name,
+                              style: AppTextStyles.userNameTextStyle(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         children: [

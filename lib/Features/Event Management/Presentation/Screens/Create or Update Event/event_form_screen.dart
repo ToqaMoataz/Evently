@@ -80,11 +80,9 @@ class _EventFormScreenState extends State<EventFormScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16.r),
                     child: Image.asset(
-                      (event == null)
-                          ? AppImages.returnEventImage(
+                      AppImages.returnEventImage(
                             AppData.events[state.selectedEvent],
-                          )
-                          : AppImages.returnEventImage(event!.eventCategory),
+                          ),
                       height: 200.h,
                       fit: BoxFit.cover,
                     ),
