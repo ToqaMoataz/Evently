@@ -88,7 +88,8 @@ Evently provides an enhanced location experience through an interactive map scre
 
 - [Firebase Project](https://console.firebase.google.com/project/evently-2d1c7/overview)  
 - [Figma Design](https://www.figma.com/design/YmDiRILnGg2sAoVcll7ZEb/Event-Planning-App?node-id=0-1&t=liNf2Ms2NyM6dMtu-1)  
-- [Google Maps Flutter Plugin](https://pub.dev/packages/google_maps_flutter)  
+- [Google Maps Flutter Plugin](https://pub.dev/packages/google_maps_flutter)
+- [App Demo](https://drive.google.com/drive/folders/191LZYIb3dSYHuMD22Qbrvn9TvjnyDFcj?usp=drive_link)
 
 ---
 
