@@ -234,7 +234,7 @@ class _HomeTabState extends State<HomeTab> {
             (state.getEventsRequestState==RequestState.loading) 
                 ? Center(child: CircularProgressIndicator(color: MainColors.getMainColor(),))
                 : (viewModel.state.events.isEmpty)
-                    ? Center(child: Text("no_events_text".tr()))
+                    ? Center(child: Text("no_events_text".tr(),style: AppTextStyles.errorTextStyle(),))
                     : Padding(
                       padding: const EdgeInsets.only(
                         top: 16,

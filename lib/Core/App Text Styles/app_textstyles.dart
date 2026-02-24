@@ -120,5 +120,15 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle errorTextStyle() {
+    return GoogleFonts.inter(
+      fontSize: 24.sp,
+      fontWeight: FontWeight.w600,
+      color: MainColors.getMainColor(),
+      letterSpacing: 0,
+      height: 1
+    );
+  }
+
 
 }

@@ -413,6 +413,7 @@ class _EventFormScreenState extends State<EventFormScreen> {
                               location: state.currentLocation!,
                               userId: FirebaseAuth.instance.currentUser!.uid,
                               eventPosition: state.currentPosition!,
+                              toBeNotified: state.shouldNotify,
                             );
                             viewModel.saveEvent(newEvent, event);
                           } else {

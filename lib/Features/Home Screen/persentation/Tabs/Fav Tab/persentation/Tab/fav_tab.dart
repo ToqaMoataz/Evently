@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../../Core/App Colors/main_colors.dart';
+import '../../../../../../../Core/App Text Styles/app_textstyles.dart';
 import '../../../../../../../Core/Provider/network_info_provider.dart';
 import '../../../../Components/event_card.dart';
 
@@ -71,7 +72,7 @@ class _FavTabState extends State<FavTab> {
                     ?
                        Center(child: CircularProgressIndicator(color: MainColors.getMainColor(),))
                     : (state.events.isEmpty)
-                        ? Align(alignment:Alignment.center,child: Text("no_events_text".tr()))
+                        ? Align(alignment:Alignment.center,child: Text("no_events_text".tr(),style: AppTextStyles.errorTextStyle(),))
                         : Expanded(
                           child: ListView.separated(
                             separatorBuilder: (context, index) {

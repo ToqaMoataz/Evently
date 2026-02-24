@@ -29,11 +29,12 @@ class EventManagementDSImp extends EventManagementDS {
       var snapshot = FirebaseManager.eventsCollection().doc();
       event.id = snapshot.id;
       await snapshot.set(event);
-      if (event.toBeNotified) {
-        await NotificationsManager.scheduleNotification(event);
+      await NotificationsManager.scheduleNotification(event);
+      if(!event.toBeNotified){
+        await NotificationsManager.cancelNotification(event.id.hashCode.abs());
       }
+
     } on FirebaseException catch (e) {
-      print("Failed to Create event: ${e.message}");
       throw Exception("Failed to Create event: ${e.message}");
 
     } catch (e) {

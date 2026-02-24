@@ -1,4 +1,5 @@
 
+import 'package:evently/Core/App%20Text%20Styles/app_textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,11 +36,11 @@ class AppWidgets {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
-        height:MediaQuery.of(context).size.height/8,
+        height:MediaQuery.of(context).size.height/7,
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-            color: (provider.themeMode==ThemeMode.light) ? Color(0XFFF2FEFF) : Color(0XFF101127),
+            color: (provider.themeMode==ThemeMode.light) ? MainColors.getLightColor() : MainColors.getDarkColor(),
             borderRadius: BorderRadius.circular(20.r),
             border: Border.all(
               color: MainColors.getMainColor(),
@@ -48,14 +49,7 @@ class AppWidgets {
         ),
         child: Text(
           errorMessage,
-          style: GoogleFonts.inter(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w700,
-            height: 1.4,
-            letterSpacing: -0.3,
-            color: MainColors.getMainColor()
-          )
-          ,
+          style: AppTextStyles.errorTextStyle()
         )
       ),
     );
